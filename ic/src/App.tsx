@@ -50,7 +50,7 @@ function App() {
           </span>
         </a>
       </div>
-      <h1 style={{ paddingLeft: 36 }}>React + EVM RPC + Rust</h1>
+      <h1 style={{ paddingLeft: 36 }}>React+ Tailwind + EVM RPC + Rust</h1>
       <div className="card" style={{ opacity: loading ? 0.5 : 1 }}>
         <button onClick={fetchBlock}>Get latest block</button>
         {!!block && (
