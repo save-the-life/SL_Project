@@ -3,11 +3,13 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import environment from 'vite-plugin-environment';
 import dotenv from 'dotenv';
+import path from 'path';
 
 dotenv.config();
 
 export default defineConfig({
   root: 'src',
+  publicDir: path.resolve(__dirname, 'public'), // public 디렉토리 경로 지정
   build: {
     outDir: '../dist',
     emptyOutDir: true,
@@ -32,6 +34,11 @@ export default defineConfig({
     environment('all', { prefix: 'CANISTER_' }),
     environment('all', { prefix: 'DFX_' }),
   ],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
   test: {
     environment: 'jsdom',
     setupFiles: 'setupTests.ts',
