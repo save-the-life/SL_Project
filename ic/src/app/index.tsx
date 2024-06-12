@@ -5,18 +5,53 @@ import HomePage from '../pages/HomePage';
 import Images from '../pages/Images';
 import Wallet from '../pages/Wallet';
 import Profile from '../pages/Profile';
+import SelectHospital from '../pages/SelectHospital';
 
 const App: React.FC = () => {
   return (
     <Router>
-      <MainLayout>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/images" element={<Images />} />
-          <Route path="/wallet" element={<Wallet />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
-      </MainLayout>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout showBottomNav={true}>
+              <HomePage />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/images"
+          element={
+            <MainLayout showBottomNav={true}>
+              <Images />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/wallet"
+          element={
+            <MainLayout showBottomNav={true}>
+              <Wallet />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <MainLayout showBottomNav={true}>
+              <Profile />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/select-hospital"
+          element={
+            <MainLayout showBottomNav={false}>
+              <SelectHospital />
+            </MainLayout>
+          }
+        />
+      </Routes>
     </Router>
   );
 };

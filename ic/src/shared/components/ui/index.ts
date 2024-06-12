@@ -16,3 +16,17 @@ export {
   CarouselPrevious,
   CarouselNext,
 } from './carousel';
+
+export { Input } from './input';
+
+export {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandShortcut,
+  CommandSeparator,
+} from './command';

@@ -15,7 +15,7 @@ const RecentDiagnosis: React.FC = () => {
       </div>
 
       <div className="mt-2 space-y-4">
-        <Card className="rounded-3xl flex flex-row items-center gap-2 p-4 justify-between">
+        <Card className="rounded-3xl flex flex-row items-center gap-2 p-4 justify-between py-6">
           <div className="flex flex-col gap-2 md:gap-4 flex-1 min-w-0">
             <div className="flex flex-row gap-2 md:gap-4 items-center min-w-0">
               <img
@@ -51,7 +51,7 @@ const RecentDiagnosis: React.FC = () => {
           </div>
           <IoChevronForwardOutline className="w-8 h-8" />
         </Card>
-        <Card className="rounded-3xl flex flex-row items-center gap-2 p-4 justify-between">
+        <Card className="rounded-3xl flex flex-row items-center gap-2 p-4 justify-between py-6">
           <div className="flex flex-col gap-2 md:gap-4 flex-1 min-w-0">
             <div className="flex flex-row gap-2 md:gap-4 items-center min-w-0">
               <img
