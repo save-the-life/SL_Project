@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import rustLogo from './assets/rust.svg';
 import reactLogo from './assets/react.svg';
 import ethLogo from './assets/eth.svg';
 import { backend } from './declarations/backend';
 import { Block } from './declarations/backend/backend.did';
+import { useNavigate } from 'react-router-dom';
 
 // JSON viewer component
 import { JsonView, allExpanded, defaultStyles } from 'react-json-view-lite';
@@ -14,6 +15,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [block, setBlock] = useState<Block | undefined>();
   const [error, setError] = useState<string | undefined>();
+  const navigate = useNavigate();
 
   const fetchBlock = async () => {
     try {
@@ -67,6 +69,7 @@ function App() {
         )}
         {!!loading && !block && !error && <div className="loader" />}
       </div>
+      <button onClick={() => navigate('/auth')}>Go to Metamask Connect</button>
       <p className="read-the-docs">
         Click on the React, Ethereum, and Rust logos to learn more
       </p>
