@@ -6,6 +6,7 @@ import Images from '../pages/Images';
 import Wallet from '../pages/Wallet';
 import Profile from '../pages/Profile';
 import SelectHospital from '../pages/SelectHospital';
+import ImageList from '../pages/ImageList';
 
 const App: React.FC = () => {
   return (
@@ -48,6 +49,14 @@ const App: React.FC = () => {
           element={
             <MainLayout showBottomNav={false}>
               <SelectHospital />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/image-list"
+          element={
+            <MainLayout showBottomNav={false}>
+              <ImageList />
             </MainLayout>
           }
         />

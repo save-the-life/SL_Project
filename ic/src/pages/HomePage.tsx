@@ -14,7 +14,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6">
       <TokenBalance />
 
       <div className="p-4 pt-0">

@@ -11,18 +11,23 @@ interface Hospital {
 
 interface HospitalListProps {
   hospitals: Hospital[];
+  onClick: () => void;
 }
 
-const HospitalList: React.FC<HospitalListProps> = ({ hospitals }) => {
+const HospitalList: React.FC<HospitalListProps> = ({ hospitals, onClick }) => {
   return (
     <div className="space-y-4">
       {hospitals.map((hospital, index) => (
-        <Card key={index} className="flex items-center p-4 rounded-3xl py-8">
-          <Card className=" rounded-2xl">
+        <Card
+          key={index}
+          className="flex items-center p-4 rounded-3xl py-8"
+          onClick={onClick}
+        >
+          <Card className="rounded-2xl">
             <img
               src={hospital.logo}
               alt={hospital.name}
-              className="w-12 h-12 p-2 "
+              className="w-12 h-12 p-2"
             />
           </Card>
           <div className="ml-4 flex-1">
