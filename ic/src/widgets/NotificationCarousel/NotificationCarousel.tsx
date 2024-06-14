@@ -1,5 +1,4 @@
 import React from 'react';
-import { AiOutlineNotification } from 'react-icons/ai';
 import {
   Card,
   Carousel,
@@ -9,11 +8,16 @@ import {
 } from '@/shared/components/ui';
 import Imgs from '@/shared/assets/images';
 import Typography from '@/shared/components/typography';
+import Autoplay from 'embla-carousel-autoplay';
 
 const NotificationCarousel: React.FC = () => {
   const [api, setApi] = React.useState<CarouselApi>();
   const [current, setCurrent] = React.useState(0);
   const [count, setCount] = React.useState(0);
+
+  const plugin = React.useRef(
+    Autoplay({ delay: 2000, stopOnInteraction: true }),
+  );
 
   React.useEffect(() => {
     if (!api) return;
@@ -27,7 +31,11 @@ const NotificationCarousel: React.FC = () => {
   }, [api]);
 
   return (
-    <Carousel setApi={setApi} opts={{ align: 'start', loop: true }}>
+    <Carousel
+      setApi={setApi}
+      opts={{ align: 'start', loop: true }}
+      plugins={[plugin.current]}
+    >
       <CarouselContent>
         <CarouselItem>
           <Card className="rounded-3xl">

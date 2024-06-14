@@ -12,6 +12,8 @@ import {
 } from '@/shared/components/ui';
 import Typography from '@/shared/components/typography';
 import SearchBar from '@/widgets/SearchBar';
+import { SiHiveBlockchain } from 'react-icons/si';
+import { GiHospitalCross } from 'react-icons/gi';
 
 const images = [
   {
@@ -53,7 +55,7 @@ const Images: React.FC = () => {
       <div className="flex gap-2 my-4">
         <div className="inline-block">
           <Select>
-            <SelectTrigger className="w-[140px] rounded-full">
+            <SelectTrigger className="w-[120px] rounded-full ">
               <SelectValue placeholder="Image Type" />
             </SelectTrigger>
             <SelectContent>
@@ -65,7 +67,7 @@ const Images: React.FC = () => {
         </div>
         <div className="inline-block">
           <Select>
-            <SelectTrigger className="w-[160px] rounded-full">
+            <SelectTrigger className="w-[140px] rounded-full">
               <SelectValue placeholder="Upload Status" />
             </SelectTrigger>
             <SelectContent>
@@ -114,10 +116,21 @@ const Images: React.FC = () => {
               </div>
               <IoChevronForwardOutline className="w-6 h-6" />
             </div>
-            <Button className="w-full mt-4 rounded-full h-14">
-              {image.uploaded
-                ? 'Request Secondary Opinion'
-                : 'Upload Medical Imaging'}
+            <Button
+              variant={image.uploaded ? 'outline' : 'default'}
+              className="w-full mt-4 rounded-full h-14"
+            >
+              {image.uploaded ? (
+                <div className="flex flex-row items-center gap-2">
+                  <GiHospitalCross className="w-6 h-6" />
+                  Request AI Secondary Opinion
+                </div>
+              ) : (
+                <div className="flex flex-row items-center gap-2">
+                  <SiHiveBlockchain className="w-6 h-6" />
+                  Upload Medical Imaging
+                </div>
+              )}
             </Button>
           </Card>
         ))}
