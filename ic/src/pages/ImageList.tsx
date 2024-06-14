@@ -41,14 +41,16 @@ const periodOptions: { [key: string]: number } = {
 
 const ImageList: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedType, setSelectedType] = useState<string>('all');
-  const [selectedPeriod, setSelectedPeriod] = useState<string>('all');
+  const [selectedType, setSelectedType] = useState<string>('');
+  const [selectedPeriod, setSelectedPeriod] = useState<string>('');
   const [selectedImages, setSelectedImages] = useState<Set<number>>(new Set());
 
   const filteredImages = useMemo(() => {
     return images.filter((image) => {
-      const isTypeMatch = selectedType === 'all' || image.type === selectedType;
+      const isTypeMatch =
+        !selectedType || selectedType === 'all' || image.type === selectedType;
       const isPeriodMatch =
+        !selectedPeriod ||
         selectedPeriod === 'all' ||
         isWithinInterval(new Date(image.DateTimeOfExamination), {
           start: sub(new Date(), { days: periodOptions[selectedPeriod] }),
@@ -74,8 +76,8 @@ const ImageList: React.FC = () => {
       <PageHeader title="Choose images" />
       <div className="flex items-center gap-2 my-4">
         <Select
+          value={selectedType}
           onValueChange={(value) => setSelectedType(value)}
-          defaultValue="all"
         >
           <SelectTrigger className="w-[140px] rounded-full">
             <SelectValue placeholder="Image Type" />
@@ -87,8 +89,8 @@ const ImageList: React.FC = () => {
           </SelectContent>
         </Select>
         <Select
+          value={selectedPeriod}
           onValueChange={(value) => setSelectedPeriod(value)}
-          defaultValue="all"
         >
           <SelectTrigger className="w-[160px] rounded-full">
             <SelectValue placeholder="Select period" />
@@ -105,7 +107,7 @@ const ImageList: React.FC = () => {
       </div>
       <div className="space-y-4">
         {filteredImages.map((image, index) => (
-          <Card key={index} className="flex items-center p-4 rounded-3xl">
+          <Card key={index} className="flex items-center p-4 rounded-3xl h-24">
             <img
               src={image.imageUrl}
               alt={image.type}
@@ -125,14 +127,11 @@ const ImageList: React.FC = () => {
         ))}
       </div>
       <Button
-        className="w-full rounded-full mt-6"
+        className="w-full rounded-full mt-6 h-14"
         disabled={selectedImages.size === 0}
-        asChild
       >
-        <a href="/">
-          <HiDownload className="mr-2" />
-          Download Selected Images ({selectedImages.size})
-        </a>
+        <HiDownload className="mr-2" />
+        Download Selected Images ({selectedImages.size})
       </Button>
     </div>
   );

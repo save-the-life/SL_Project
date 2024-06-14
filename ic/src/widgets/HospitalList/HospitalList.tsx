@@ -20,7 +20,7 @@ const HospitalList: React.FC<HospitalListProps> = ({ hospitals, onClick }) => {
       {hospitals.map((hospital, index) => (
         <Card
           key={index}
-          className="flex items-center p-4 rounded-3xl py-8"
+          className="flex items-center p-4 rounded-3xl h-24"
           onClick={onClick}
         >
           <Card className="rounded-2xl">
@@ -31,7 +31,7 @@ const HospitalList: React.FC<HospitalListProps> = ({ hospitals, onClick }) => {
             />
           </Card>
           <div className="ml-4 flex-1">
-            <Typography.H4>{hospital.name}</Typography.H4>
+            <Typography.Large>{hospital.name}</Typography.Large>
             <Typography.Muted>{hospital.address}</Typography.Muted>
           </div>
           <IoChevronForwardOutline className="w-6 h-6" />

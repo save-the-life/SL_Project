@@ -11,7 +11,7 @@ const ReceiveMedicalImagesButton: React.FC<ReceiveMedicalImagesButtonProps> = ({
 }) => {
   return (
     <Button
-      className="text-white w-full mt-4 flex items-center justify-center rounded-3xl py-6"
+      className="text-white w-full mt-4 flex items-center justify-center rounded-full h-14"
       onClick={onClick}
     >
       <HiDownload className="mr-2 w-5 h-5" />
