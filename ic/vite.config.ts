@@ -29,8 +29,11 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    environment('all', { prefix: 'CANISTER_' }),
-    environment('all', { prefix: 'DFX_' }),
+    environment({
+      CANISTER_ID_BACKEND: process.env.CANISTER_ID_BACKEND,
+      CANISTER_ID_FRONTEND: process.env.CANISTER_ID_FRONTEND,
+      CANISTER_ID_EVM_RPC: process.env.CANISTER_ID_EVM_RPC,
+    }),
   ],
   test: {
     environment: 'jsdom',
