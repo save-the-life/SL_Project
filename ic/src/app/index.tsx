@@ -9,6 +9,17 @@ import SelectHospital from '../pages/SelectHospital';
 import ImageList from '../pages/ImageList';
 
 const App: React.FC = () => {
+  React.useEffect(() => {
+    const preventContextMenu = (e: { preventDefault: () => void }) => {
+      e.preventDefault();
+    };
+
+    document.addEventListener('contextmenu', preventContextMenu);
+
+    return () => {
+      document.removeEventListener('contextmenu', preventContextMenu);
+    };
+  }, []);
   return (
     <Router>
       <Routes>
