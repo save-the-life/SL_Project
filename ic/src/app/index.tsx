@@ -7,6 +7,7 @@ import Wallet from '../pages/Wallet';
 import Profile from '../pages/Profile';
 import SelectHospital from '../pages/SelectHospital';
 import ImageList from '../pages/ImageList';
+import DetailPage from '../pages/DetailPage';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       document.removeEventListener('contextmenu', preventContextMenu);
     };
   }, []);
+
   return (
     <Router>
       <Routes>
@@ -68,6 +70,14 @@ const App: React.FC = () => {
           element={
             <MainLayout showBottomNav={false}>
               <ImageList />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/detail/:id"
+          element={
+            <MainLayout showBottomNav={false}>
+              <DetailPage />
             </MainLayout>
           }
         />

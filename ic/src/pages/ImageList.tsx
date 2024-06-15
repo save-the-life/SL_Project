@@ -23,10 +23,10 @@ const images = [
       'https://images.unsplash.com/photo-1631651363531-fd29aec4cb5c?q=80&w=2876&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
   {
-    type: 'CT',
+    type: 'X-Ray',
     DateTimeOfExamination: 'April 15, 2024 10:00',
     imageUrl:
-      'https://images.unsplash.com/photo-1616012481039-5de1dcb42934?q=80&w=2835&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1522849696084-818b29dfe210?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ];
 

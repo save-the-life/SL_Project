@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import {
   Card,
@@ -17,6 +18,7 @@ import { GiHospitalCross } from 'react-icons/gi';
 
 const images = [
   {
+    id: 1,
     type: 'Chest X-Ray',
     date: 'May 15, 2024',
     hospital: 'A Hospital',
@@ -26,15 +28,17 @@ const images = [
     secondaryOpinion: false,
   },
   {
-    type: 'Chest X-Ray',
+    id: 2,
+    type: 'Tooth X-Ray',
     date: 'May 15, 2024',
     hospital: 'A Hospital',
     imageUrl:
-      'https://images.unsplash.com/photo-1631651363531-fd29aec4cb5c?q=80&w=2876&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1522849696084-818b29dfe210?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     uploaded: true,
     secondaryOpinion: false,
   },
   {
+    id: 3,
     type: 'Chest X-Ray',
     date: 'May 15, 2024',
     hospital: 'A Hospital',
@@ -46,6 +50,12 @@ const images = [
 ];
 
 const Images: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleCardClick = (id: number) => {
+    navigate(`/detail/${id}`);
+  };
+
   return (
     <div className="p-4 space-y-6">
       <header className="flex items-center justify-center">
@@ -79,15 +89,15 @@ const Images: React.FC = () => {
         </div>
       </div>
       <div className="space-y-4">
-        {images.map((image, index) => (
-          <Card key={index} className="p-4 rounded-3xl">
+        {images.map((image) => (
+          <Card key={image.id} className="p-4 rounded-3xl">
             <div className="flex flex-row items-center justify-between border-b pb-4">
               <div className="flex-1">
                 <div className="flex items-center">
                   <img
                     src={image.imageUrl}
                     alt="Image"
-                    className="w-16 h-16 rounded-lg"
+                    className="w-16 h-16 rounded-2xl"
                   />
                   <div className="ml-4 flex-1">
                     <div className="flex flex-col gap-1">
@@ -114,7 +124,10 @@ const Images: React.FC = () => {
                   </Badge>
                 </div>
               </div>
-              <IoChevronForwardOutline className="w-6 h-6" />
+              <IoChevronForwardOutline
+                className="w-6 h-6 cursor-pointer"
+                onClick={() => handleCardClick(image.id)}
+              />
             </div>
             <Button
               variant={image.uploaded ? 'outline' : 'default'}
@@ -122,12 +135,12 @@ const Images: React.FC = () => {
             >
               {image.uploaded ? (
                 <div className="flex flex-row items-center gap-2">
-                  <GiHospitalCross className="w-6 h-6" />
+                  <GiHospitalCross className="w-5 h-5" />
                   Request AI Secondary Opinion
                 </div>
               ) : (
                 <div className="flex flex-row items-center gap-2">
-                  <SiHiveBlockchain className="w-6 h-6" />
+                  <SiHiveBlockchain className="w-5 h-5" />
                   Upload Medical Imaging
                 </div>
               )}
