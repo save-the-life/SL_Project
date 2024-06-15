@@ -1,8 +1,19 @@
 import TypographyType from './typographyType';
 
-export function TypographyMuted({ children, className }: TypographyType) {
+interface TypographyTypeMuted extends TypographyType {
+  onClick?: () => void;
+}
+
+export function TypographyMuted({
+  children,
+  className,
+  onClick,
+}: TypographyTypeMuted) {
   return (
-    <p className={`text-sm text-muted-foreground ${className || ''}`}>
+    <p
+      className={`text-sm text-muted-foreground ${className || ''}`}
+      onClick={onClick}
+    >
       {children}
     </p>
   );

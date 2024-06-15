@@ -2,6 +2,7 @@ import React from 'react';
 import { IoChevronForwardOutline } from 'react-icons/io5';
 import { Card } from '@/shared/components/ui';
 import Typography from '@/shared/components/typography';
+import { useNavigate } from 'react-router-dom';
 
 const diagnoses = [
   {
@@ -20,16 +21,25 @@ const diagnoses = [
     diagnosisCompany: 'Company B',
     predictedDiagnosis: 'Brain Tumor',
     imageUrl:
-      'https://images.unsplash.com/photo-1648025487829-b3a0b78e6e7c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      'https://images.unsplash.com/photo-1648025487829-b3a0b78e6e7c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D',
   },
 ];
 
 const RecentDiagnosis: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleViewAllClick = () => {
+    navigate('/images', { state: { fromHome: true } });
+  };
+
   return (
     <div className="mt-6">
       <div className="flex justify-between items-center">
         <Typography.H3>Recent Diagnosis</Typography.H3>
-        <Typography.Muted className="flex items-center">
+        <Typography.Muted
+          className="flex items-center cursor-pointer"
+          onClick={handleViewAllClick}
+        >
           View All <IoChevronForwardOutline />
         </Typography.Muted>
       </div>

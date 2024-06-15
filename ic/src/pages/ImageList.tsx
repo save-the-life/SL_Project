@@ -126,13 +126,15 @@ const ImageList: React.FC = () => {
           </Card>
         ))}
       </div>
-      <Button
-        className="w-full rounded-full mt-6 h-14"
-        disabled={selectedImages.size === 0}
-      >
-        <HiDownload className="mr-2" />
-        Download Selected Images ({selectedImages.size})
-      </Button>
+      <a href="/">
+        <Button
+          className="w-full rounded-full mt-6 h-14"
+          disabled={selectedImages.size === 0}
+        >
+          <HiDownload className="mr-2" />
+          Download Selected Images ({selectedImages.size})
+        </Button>
+      </a>
     </div>
   );
 };

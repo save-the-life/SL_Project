@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
@@ -16,8 +16,18 @@ const CustomBottomNavigationAction = styled(BottomNavigationAction)(
 );
 
 export default function LabelBottomNavigation() {
-  const [value, setValue] = React.useState('/');
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const [value, setValue] = React.useState(location.pathname);
+
+  React.useEffect(() => {
+    if (location.pathname === '/images' && location.state?.fromHome) {
+      setValue('/images');
+    } else {
+      setValue(location.pathname);
+    }
+  }, [location]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
