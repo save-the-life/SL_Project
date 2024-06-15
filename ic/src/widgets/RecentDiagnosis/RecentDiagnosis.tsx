@@ -15,13 +15,13 @@ const diagnoses = [
       'https://images.unsplash.com/photo-1616012480717-fd9867059ca0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D',
   },
   {
-    type: 'Brain CT',
+    type: 'Teeth X-ray',
     date: 'April 15, 2024',
     hospital: 'B Hospital',
     diagnosisCompany: 'Company B',
-    predictedDiagnosis: 'Brain Tumor',
+    predictedDiagnosis: 'Cavity',
     imageUrl:
-      'https://images.unsplash.com/photo-1648025487829-b3a0b78e6e7c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDV8fHxlbnwwfHx8fHw%3D',
+      'https://images.unsplash.com/photo-1522849696084-818b29dfe210?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ];
 

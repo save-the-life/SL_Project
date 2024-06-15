@@ -6,6 +6,7 @@ import Typography from '@/shared/components/typography';
 import PageHeader from '@/widgets/PageHeader';
 import { GiHospitalCross } from 'react-icons/gi';
 import { SiHiveBlockchain } from 'react-icons/si';
+import Images from '@/shared/assets/images';
 
 const images = [
   {
@@ -22,25 +23,23 @@ const images = [
   },
   {
     id: 2,
-    type: 'Tooth X-Ray',
+    type: 'Teeth X-Ray',
     date: 'April 15, 2024',
     hospital: 'B Hospital',
     patientName: 'Nick Jo',
     DateTimeOfExamination: 'April 15, 2024',
     diagnosisReports: [
       {
-        aiName: 'Vuno AI',
+        aiName: 'Diagnosys AI',
         report:
           'The scan shows no evidence of acute hemorrhage, mass effect, or midline shift. No abnormalities are observed in the parenchymal structures....',
-        logoUrl:
-          'https://image.rocketpunch.com/company/4377/vuno_logo_1519719316.png?s=400x400&t=inside',
+        logoUrl: Images.DiagnosysAILogo,
       },
       {
-        aiName: 'Lunit AI',
+        aiName: 'MediScan AI',
         report:
           'The scan shows no evidence of acute hemorrhage, mass effect, or midline shift. No abnormalities are observed in the parenchymal structures....',
-        logoUrl:
-          'https://image.wanted.co.kr/optimize?src=https%3A%2F%2Fs3.ap-northeast-2.amazonaws.com%2Fkreditjob-public%2Frecruitment%2Ftemp%2Frecruitment-o3e0vya1ud.webp&w=1200&q=90',
+        logoUrl: Images.MediScanAILogo,
       },
     ],
     imageUrl:

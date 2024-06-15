@@ -29,23 +29,13 @@ const images = [
   },
   {
     id: 2,
-    type: 'Tooth X-Ray',
+    type: 'Teeth X-Ray',
     date: 'May 15, 2024',
     hospital: 'A Hospital',
     imageUrl:
       'https://images.unsplash.com/photo-1522849696084-818b29dfe210?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     uploaded: true,
     secondaryOpinion: false,
-  },
-  {
-    id: 3,
-    type: 'Chest X-Ray',
-    date: 'May 15, 2024',
-    hospital: 'A Hospital',
-    imageUrl:
-      'https://images.unsplash.com/photo-1631651363531-fd29aec4cb5c?q=80&w=2876&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    uploaded: true,
-    secondaryOpinion: true,
   },
 ];
 
@@ -99,7 +89,7 @@ const Images: React.FC = () => {
                     alt="Image"
                     className="w-16 h-16 rounded-2xl"
                   />
-                  <div className="ml-4 flex-1">
+                  <div className="ml-3 flex-1">
                     <div className="flex flex-col gap-1">
                       <div className="flex flex-row gap-2 items-center">
                         <Typography.H4>{image.type}</Typography.H4>
