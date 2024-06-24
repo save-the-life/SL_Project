@@ -81,3 +81,5 @@ export { Label } from './label';
 export { Popover, PopoverTrigger, PopoverContent } from './popover';
 
 export { Skeleton } from './skeleton';
+
+export { Avatar, AvatarImage, AvatarFallback } from './avatar';
