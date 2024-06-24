@@ -7,6 +7,9 @@ import Wallet from '../pages/Wallet';
 import Profile from '../pages/Profile';
 import SelectHospital from '../pages/SelectHospital';
 import ImageList from '../pages/ImageList';
+import SendToken from '../pages/SendToken';
+import EnterAmount from '../pages/EnterAmount';
+import SendConfirmation from '../pages/SendConfirmation';
 import DetailPage from '../pages/DetailPage';
 
 const App: React.FC = () => {
@@ -70,6 +73,30 @@ const App: React.FC = () => {
           element={
             <MainLayout showBottomNav={false}>
               <ImageList />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/send-token"
+          element={
+            <MainLayout showBottomNav={false}>
+              <SendToken />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/enter-amount"
+          element={
+            <MainLayout showBottomNav={false}>
+              <EnterAmount />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/send-confirmation"
+          element={
+            <MainLayout showBottomNav={false}>
+              <SendConfirmation />
             </MainLayout>
           }
         />

@@ -5,13 +5,16 @@ import Typography from '@/shared/components/typography';
 
 interface PageHeaderProps {
   title: string;
+  className?: string;
 }
 
-const PageHeader: React.FC<PageHeaderProps> = ({ title }) => {
+const PageHeader: React.FC<PageHeaderProps> = ({ title, className }) => {
   const navigate = useNavigate();
 
   return (
-    <header className="flex items-center space-x-4 justify-between">
+    <header
+      className={`flex items-center space-x-4 justify-between ${className}`}
+    >
       <button onClick={() => navigate(-1)}>
         <IoChevronBackOutline className="w-6 h-6" />
       </button>
