@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const diagnoses = [
   {
+    id: 1,
     type: 'Chest X-ray',
     date: 'May 15, 2024',
     hospital: 'A Hospital',
@@ -15,6 +16,7 @@ const diagnoses = [
       'https://images.unsplash.com/photo-1616012480717-fd9867059ca0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D',
   },
   {
+    id: 2,
     type: 'Teeth X-ray',
     date: 'April 15, 2024',
     hospital: 'B Hospital',
@@ -30,6 +32,10 @@ const RecentDiagnosis: React.FC = () => {
 
   const handleViewAllClick = () => {
     navigate('/images', { state: { fromHome: true } });
+  };
+
+  const handleCardClick = (id: number) => {
+    navigate(`/detail/${id}`);
   };
 
   return (
@@ -49,6 +55,7 @@ const RecentDiagnosis: React.FC = () => {
           <Card
             key={index}
             className="rounded-3xl flex flex-row items-center gap-2 p-4 justify-between"
+            onClick={() => handleCardClick(diagnosis.id)}
           >
             <div className="flex flex-col gap-3 md:gap-4 flex-1 min-w-0">
               <div className="flex flex-row gap-3 md:gap-4 items-center min-w-0">
