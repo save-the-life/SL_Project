@@ -10,10 +10,8 @@ const SendConfirmation: React.FC = () => {
   const { address, amount } = location.state;
 
   const handleSend = () => {
-    // Send token logic
-    navigate('/success'); // or navigate to another appropriate page
+    navigate('/transfer-completed', { state: { address, amount } });
   };
-
   return (
     <div className="p-4 space-y-6 h-full">
       <PageHeader title="Send Token" />
@@ -34,7 +32,7 @@ const SendConfirmation: React.FC = () => {
         <div className="mt-8 flex justify-between px-4 gap-4">
           <Button
             variant="outline"
-            className=" h-14 w-1/3 rounded-full"
+            className=" h-14 w-/3 rounded-full"
             onClick={() => navigate(-1)}
           >
             Cancel

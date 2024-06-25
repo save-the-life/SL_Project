@@ -131,7 +131,7 @@ const Images: React.FC = () => {
               ) : (
                 <div className="flex flex-row items-center gap-2">
                   <SiHiveBlockchain className="w-5 h-5" />
-                  Upload Medical Imaging
+                  Register on Blockchain
                 </div>
               )}
             </Button>

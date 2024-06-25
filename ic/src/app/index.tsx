@@ -7,10 +7,12 @@ import Wallet from '../pages/Wallet';
 import Profile from '../pages/Profile';
 import SelectHospital from '../pages/SelectHospital';
 import ImageList from '../pages/ImageList';
+import DetailPage from '../pages/DetailPage';
 import SendToken from '../pages/SendToken';
 import EnterAmount from '../pages/EnterAmount';
 import SendConfirmation from '../pages/SendConfirmation';
-import DetailPage from '../pages/DetailPage';
+import TransferCompleted from '../pages/TransferCompleted';
+import ReferralManagement from '../pages/ReferralManagement';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -77,6 +79,14 @@ const App: React.FC = () => {
           }
         />
         <Route
+          path="/detail/:id"
+          element={
+            <MainLayout showBottomNav={false}>
+              <DetailPage />
+            </MainLayout>
+          }
+        />
+        <Route
           path="/send-token"
           element={
             <MainLayout showBottomNav={false}>
@@ -101,10 +111,18 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/detail/:id"
+          path="/transfer-complete"
           element={
             <MainLayout showBottomNav={false}>
-              <DetailPage />
+              <TransferCompleted />
+            </MainLayout>
+          }
+        />
+        <Route
+          path="/referral-management"
+          element={
+            <MainLayout showBottomNav={false}>
+              <ReferralManagement />
             </MainLayout>
           }
         />
