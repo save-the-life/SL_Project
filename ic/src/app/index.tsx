@@ -18,7 +18,6 @@ import InstallPrompt from './components/InstallPrompt';
 import StepCounter from '@/pages/StepCounter';
 import TonTest from '@/pages/TonTest';
 import DiceEvent from '@/pages/DiceEvent';
-import Dice from '@/pages/Dice';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -38,14 +37,6 @@ const App: React.FC = () => {
       <div>
         {/* <InstallPrompt /> */}
         <Routes>
-          <Route
-            path="/dice-test"
-            element={
-              <MainLayout showBottomNav={false}>
-                <Dice />
-              </MainLayout>
-            }
-          />
           <Route
             path="/"
             element={

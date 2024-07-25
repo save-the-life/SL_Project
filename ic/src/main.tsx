@@ -4,6 +4,7 @@ import App from './app';
 import './index.scss';
 import { registerSW } from 'virtual:pwa-register';
 import WebApp from '@twa-dev/sdk';
+import 'pretendard/dist/web/static/pretendard.css';
 
 const updateSW = registerSW({
   onNeedRefresh() {},
