@@ -1,0 +1,104 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.scene {
+  width: 90px; /* 크기 조정 */
+  height: 90px; /* 크기 조정 */
+  perspective: 800px; /* 크기에 맞춰 조정 */
+  margin: auto;
+  margin-top: 50px;
+}
+
+.cube {
+  width: 60px; /* 크기 조정 */
+  height: 60px; /* 크기 조정 */
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(-30deg) rotateY(30deg);
+}
+
+.cube__face {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 10px; /* 둥근 모서리 조정 */
+  background-color: #ff0000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.cube__face img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px; /* 둥근 모서리 조정 */
+}
+
+.cube__face--front {
+  transform: rotateY(0deg) translateZ(30px); /* translateZ 값 조정 */
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+.cube__face--back {
+  transform: rotateY(180deg) translateZ(30px); /* translateZ 값 조정 */
+  background: linear-gradient(
+    to top left,
+    rgba(0, 0, 0, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+.cube__face--right {
+  transform: rotateY(90deg) translateZ(30px); /* translateZ 값 조정 */
+  background: linear-gradient(
+    to bottom left,
+    rgba(0, 0, 0, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+.cube__face--left {
+  transform: rotateY(-90deg) translateZ(30px); /* translateZ 값 조정 */
+  background: linear-gradient(
+    to top right,
+    rgba(0, 0, 0, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+.cube__face--top {
+  transform: rotateX(90deg) translateZ(30px); /* translateZ 값 조정 */
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.3),
+    rgba(0, 0, 0, 0.3)
+  );
+}
+.cube__face--bottom {
+  transform: rotateX(-90deg) translateZ(30px); /* translateZ 값 조정 */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.3),
+    rgba(255, 255, 255, 0.3)
+  );
+}
+
+button {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+div {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 20px;
+}

@@ -1,23 +1,24 @@
 // src/app/App.tsx
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import MainLayout from "./layout/MainLayout";
-import HomePage from "../pages/HomePage";
-import Images from "../pages/Images";
-import Wallet from "../pages/Wallet";
-import Profile from "../pages/Profile";
-import SelectHospital from "../pages/SelectHospital";
-import ImageList from "../pages/ImageList";
-import DetailPage from "../pages/DetailPage";
-import SendToken from "../pages/SendToken";
-import EnterAmount from "../pages/EnterAmount";
-import SendConfirmation from "../pages/SendConfirmation";
-import TransferCompleted from "../pages/TransferCompleted";
-import ReferralManagement from "../pages/ReferralManagement";
-import InstallPrompt from "./components/InstallPrompt";
-import StepCounter from "@/pages/StepCounter";
-import TonTest from "@/pages/TonTest";
-import DiceEvent from "@/pages/DiceEvent";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLayout from './layout/MainLayout';
+import HomePage from '../pages/HomePage';
+import Images from '../pages/Images';
+import Wallet from '../pages/Wallet';
+import Profile from '../pages/Profile';
+import SelectHospital from '../pages/SelectHospital';
+import ImageList from '../pages/ImageList';
+import DetailPage from '../pages/DetailPage';
+import SendToken from '../pages/SendToken';
+import EnterAmount from '../pages/EnterAmount';
+import SendConfirmation from '../pages/SendConfirmation';
+import TransferCompleted from '../pages/TransferCompleted';
+import ReferralManagement from '../pages/ReferralManagement';
+import InstallPrompt from './components/InstallPrompt';
+import StepCounter from '@/pages/StepCounter';
+import TonTest from '@/pages/TonTest';
+import DiceEvent from '@/pages/DiceEvent';
+import Dice from '@/pages/Dice';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -25,10 +26,10 @@ const App: React.FC = () => {
       e.preventDefault();
     };
 
-    document.addEventListener("contextmenu", preventContextMenu);
+    document.addEventListener('contextmenu', preventContextMenu);
 
     return () => {
-      document.removeEventListener("contextmenu", preventContextMenu);
+      document.removeEventListener('contextmenu', preventContextMenu);
     };
   }, []);
 
@@ -37,6 +38,14 @@ const App: React.FC = () => {
       <div>
         {/* <InstallPrompt /> */}
         <Routes>
+          <Route
+            path="/dice-test"
+            element={
+              <MainLayout showBottomNav={false}>
+                <Dice />
+              </MainLayout>
+            }
+          />
           <Route
             path="/"
             element={

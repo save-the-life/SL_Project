@@ -1,0 +1,54 @@
+.star-tile {
+  background: #8b5cf6;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+.airplane-tile {
+  background: #22c55e;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+.dice-tile {
+  background: #fde047;
+  background-size: cover;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+.game-tile {
+  background: url(@/shared/assets/images/bg-gametile.png) center;
+  box-shadow: inset 2px 2px 4px rgba(255, 255, 255, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+    inset 2px 2px 6px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+.start-tile {
+  background: #240066;
+  box-shadow: inset 2px 2px 4px rgba(102, 75, 151, 0.15),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.15),
+    inset 2px 2px 6px rgba(102, 75, 151, 0.4),
+    inset -2px -2px 6px rgba(0, 0, 0, 0.4);
+  border-radius: 2px;
+}
+
+.dice-container .react-dice-complete__die-item {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.dice-container .react-dice-complete__die-item div {
+  transform: rotateX(15deg) rotateY(15deg);
+}
