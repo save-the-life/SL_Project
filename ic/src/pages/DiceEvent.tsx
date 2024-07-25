@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import './DiceEvent.css';
 import Dice from '@/widgets/Dice'; // 주사위 컴포넌트를 가져옵니다.
 import Images from '@/shared/assets/images';
+import GaugeComponent from 'react-gauge-component';
 
 const DiceEvent: React.FC = () => {
   const diceRef = useRef<any>(null);
@@ -25,7 +26,7 @@ const DiceEvent: React.FC = () => {
           }
           return isIncreasing ? prev + 0.5 : prev - 0.5;
         });
-      }, 35);
+      }, 33);
     } else if (interval) {
       clearInterval(interval);
     }
@@ -163,17 +164,30 @@ const DiceEvent: React.FC = () => {
           <StarTile count={30} />
         </div>
         <div className="col-span-4 row-span-4 flex flex-col items-center justify-evenly bg-center rotate-background">
-          <div className="w-full flex justify-center mb-4">
-            <div className="relative w-40 md:w-52 h-4 md:h-6 bg-gray-300 rounded-full gauge-bar">
-              <div
-                className="absolute top-0 left-0 h-full bg-red-500 rounded-full transition-all duration-100"
-                style={{ width: `${(gaugeValue / 6) * 100}%` }}
-              ></div>
-              <div className="line-2"></div>
-              <div className="line-3"></div>
-              <div className="line-4"></div>
-              <div className="line-5"></div>
-            </div>
+          <div className="w-full flex justify-center mb-4 ">
+            <GaugeComponent
+              className=" z-10  w-64 -top-4 absolute md:w-96 md:top-2 max-h-24"
+              type="semicircle"
+              value={(gaugeValue / 6) * 6}
+              maxValue={6}
+              arc={{
+                colorArray: ['#ffffff', '#FF2121'],
+                padding: 0.02,
+                subArcs: [
+                  { limit: 1 },
+                  { limit: 2 },
+                  { limit: 3 },
+                  { limit: 4 },
+                  { limit: 5 },
+                  { limit: 6 },
+                ],
+              }}
+              pointer={{ type: 'blob', animationDelay: 10 }}
+              labels={{
+                valueLabel: { hide: true },
+                tickLabels: { hideMinMax: true, ticks: [] },
+              }}
+            />
           </div>
           <div className="relative w-[120px] h-[120px] bg-[#F59E0B] rounded-full md:w-44 md:h-44">
             <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
