@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './DiceEvent.css';
 import Dice from '@/widgets/Dice'; // 주사위 컴포넌트를 가져옵니다.
 import Images from '@/shared/assets/images';
@@ -7,6 +7,53 @@ const DiceEvent: React.FC = () => {
   const diceRef = useRef<any>(null);
   const [diceValue, setDiceValue] = useState<number>(1);
   const [position, setPosition] = useState<number>(0);
+  const [isHolding, setIsHolding] = useState<boolean>(false);
+  const [gaugeValue, setGaugeValue] = useState<number>(0.5);
+  const [isIncreasing, setIsIncreasing] = useState<boolean>(true);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+    if (isHolding) {
+      interval = setInterval(() => {
+        setGaugeValue((prev) => {
+          if (prev >= 6) {
+            setIsIncreasing(false);
+            return prev - 0.5;
+          } else if (prev <= 1) {
+            setIsIncreasing(true);
+            return prev + 0.5;
+          }
+          return isIncreasing ? prev + 0.5 : prev - 0.5;
+        });
+      }, 35);
+    } else if (interval) {
+      clearInterval(interval);
+    }
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isHolding, isIncreasing]);
+
+  const handleMouseDown = (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.TouchEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault(); // 기본 동작 방지
+    setIsHolding(true);
+  };
+
+  const handleMouseUp = (
+    event:
+      | React.MouseEvent<HTMLButtonElement>
+      | React.TouchEvent<HTMLButtonElement>,
+  ) => {
+    event.preventDefault(); // 기본 동작 방지
+    setIsHolding(false);
+    rollDice();
+  };
 
   const rollDice = () => {
     diceRef.current?.roll();
@@ -18,15 +65,7 @@ const DiceEvent: React.FC = () => {
   };
 
   const movePiece = (steps: number) => {
-    let currentPosition = position;
-    const moveInterval = setInterval(() => {
-      currentPosition = (currentPosition + 1) % 20;
-      setPosition(currentPosition);
-      steps--;
-      if (steps === 0) {
-        clearInterval(moveInterval);
-      }
-    }, 300);
+    setPosition((prevPosition) => (prevPosition + steps) % 20);
   };
 
   const getTileStyle = (tileNumber: number) => {
@@ -104,17 +143,16 @@ const DiceEvent: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-[#0D1226]">
+      <div className="w-full flex justify-center mb-4"></div>
       <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base ">
         <div className={getTileStyle(10)}>11</div>
         <div className={getTileStyle(4)}>
           <StarTile count={100} />
         </div>
         <div className={getTileStyle(8)}>
-          {' '}
           <AirplaneTile text="Go Game" />
         </div>
         <div className={getTileStyle(7)}>
-          {' '}
           <DiceTile count={1} />
         </div>
         <div className={getTileStyle(6)}>
@@ -122,47 +160,51 @@ const DiceEvent: React.FC = () => {
         </div>
         <div className={getTileStyle(5)}>6</div>
         <div className={getTileStyle(11)}>
-          {' '}
           <StarTile count={30} />
         </div>
-        <div className="col-span-4 row-span-4 flex flex-col items-center justify-center bg-center rotate-background">
+        <div className="col-span-4 row-span-4 flex flex-col items-center justify-evenly bg-center rotate-background">
+          <div className="w-full flex justify-center mb-4">
+            <div className="relative w-40 md:w-52 h-4 md:h-6 bg-gray-300 rounded-full gauge-bar">
+              <div
+                className="absolute top-0 left-0 h-full bg-red-500 rounded-full transition-all duration-100"
+                style={{ width: `${(gaugeValue / 6) * 100}%` }}
+              ></div>
+              <div className="line-2"></div>
+              <div className="line-3"></div>
+              <div className="line-4"></div>
+              <div className="line-5"></div>
+            </div>
+          </div>
           <div className="relative w-[120px] h-[120px] bg-[#F59E0B] rounded-full md:w-44 md:h-44">
+            <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
+            <div className="flex flex-col w-full h-full items-center justify-center dice-container">
+              <Dice ref={diceRef} onRollComplete={handleRollComplete} />
+            </div>
             <p className="absolute text-white text-sm font-semibold drop-shadow bottom-6 right-5 z-30 md:bottom-11 md:right-9">
               x 10
             </p>
-            <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
-            <div className="flex flex-col w-full h-full items-center justify-center dice-container ">
-              <Dice ref={diceRef} onRollComplete={handleRollComplete} />
-            </div>
-
             <button
-              onClick={rollDice}
-              className="bg-white rounded-full h-10 w-24 self-center absolute -bottom-5 left-2 md:w-40 md:h-14 border border-[#E5E5E5] text-sm md:text-lg font-medium "
+              onMouseDown={handleMouseDown}
+              onMouseUp={handleMouseUp}
+              onTouchStart={handleMouseDown}
+              onTouchEnd={handleMouseUp}
+              className="bg-white rounded-full h-10 w-24 self-center absolute -bottom-5 left-2 md:w-40 md:h-14 border border-[#E5E5E5] text-sm md:text-lg font-medium"
             >
               Roll Dice
             </button>
           </div>
+          <div> &nbsp;</div>
         </div>
         <div className={getTileStyle(4)}>
-          {' '}
-          <div className="flex flex-col gap-1">
-            <img
-              src={Images.Star}
-              alt="star"
-              className=" h-6 w-6 md:h-10 md:w-10"
-            />
-            <p>x 50</p>
-          </div>
+          <StarTile count={30} />
         </div>
         <div className={getTileStyle(12)}>
-          {' '}
           <DiceTile count={1} />
         </div>
         <div className={getTileStyle(3)}>
           <DiceTile count={1} />
         </div>
         <div className={getTileStyle(13)}>
-          {' '}
           <AirplaneTile text="Go Home" />
         </div>
         <div className={getTileStyle(2)}>
@@ -172,25 +214,16 @@ const DiceEvent: React.FC = () => {
           <StarTile count={50} />
         </div>
         <div className={getTileStyle(1)}>
-          <div className="flex flex-col gap-1 items-center">
-            <img
-              src={Images.Star}
-              alt="star"
-              className=" h-6 w-6 md:h-10 md:w-10"
-            />
-            <p>x 30</p>
-          </div>
+          <StarTile count={30} />
         </div>
         <div className={getTileStyle(15)}>16</div>
         <div className={getTileStyle(16)}>
           <StarTile count={50} />
         </div>
         <div className={getTileStyle(17)}>
-          {' '}
           <DiceTile count={2} />
         </div>
         <div className={getTileStyle(18)}>
-          {' '}
           <AirplaneTile text="Anywhere" />
         </div>
         <div className={getTileStyle(19)}>
