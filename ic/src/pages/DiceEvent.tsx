@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import './DiceEvent.css';
 import Dice from '@/widgets/Dice'; // 주사위 컴포넌트를 가져옵니다.
 import Images from '@/shared/assets/images';
@@ -107,6 +108,29 @@ const DiceEvent: React.FC = () => {
     }
   };
 
+  const calculateTilePosition = (tileNumber: number) => {
+    let x = 140;
+    let y = 118;
+    const deltaX = 56;
+    const deltaY = 58;
+
+    if (tileNumber >= 0 && tileNumber <= 5) {
+      y -= deltaY * tileNumber;
+    } else if (tileNumber >= 6 && tileNumber <= 10) {
+      x -= deltaX * (tileNumber - 5);
+      y -= deltaY * 5;
+    } else if (tileNumber >= 11 && tileNumber <= 15) {
+      x -= deltaX * 5;
+      y -= deltaY * (15 - tileNumber);
+    } else if (tileNumber >= 16 && tileNumber <= 19) {
+      x -= deltaX * (20 - tileNumber);
+    }
+
+    return { x, y };
+  };
+
+  const { x, y } = calculateTilePosition(position);
+
   interface StarTileProps {
     count: number;
   }
@@ -146,21 +170,25 @@ const DiceEvent: React.FC = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-[#0D1226]">
       <div className="w-full flex justify-center mb-4"></div>
       <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base ">
-        <div className={getTileStyle(10)}>11</div>
-        <div className={getTileStyle(4)}>
+        <div id="0" className={getTileStyle(10)}>
+          11
+        </div>
+        <div id="4" className={getTileStyle(4)}>
           <StarTile count={100} />
         </div>
-        <div className={getTileStyle(8)}>
+        <div id="8" className={getTileStyle(8)}>
           <AirplaneTile text="Go Game" />
         </div>
-        <div className={getTileStyle(7)}>
+        <div id="7" className={getTileStyle(7)}>
           <DiceTile count={1} />
         </div>
-        <div className={getTileStyle(6)}>
+        <div id="6" className={getTileStyle(6)}>
           <StarTile count={30} />
         </div>
-        <div className={getTileStyle(5)}>6</div>
-        <div className={getTileStyle(11)}>
+        <div id="5" className={getTileStyle(5)}>
+          6
+        </div>
+        <div id="11" className={getTileStyle(11)}>
           <StarTile count={30} />
         </div>
         <div className="col-span-4 row-span-4 flex flex-col items-center justify-evenly bg-center rotate-background">
@@ -213,49 +241,58 @@ const DiceEvent: React.FC = () => {
           </div>
           <div> &nbsp;</div>
         </div>
-        <div className={getTileStyle(4)}>
+        <div id="4" className={getTileStyle(4)}>
           <StarTile count={30} />
         </div>
-        <div className={getTileStyle(12)}>
+        <div id="12" className={getTileStyle(12)}>
           <DiceTile count={1} />
         </div>
-        <div className={getTileStyle(3)}>
+        <div id="3" className={getTileStyle(3)}>
           <DiceTile count={1} />
         </div>
-        <div className={getTileStyle(13)}>
+        <div id="13" className={getTileStyle(13)}>
           <AirplaneTile text="Go Home" />
         </div>
-        <div className={getTileStyle(2)}>
+        <div id="2" className={getTileStyle(2)}>
           <AirplaneTile text="Go Spin" />
         </div>
-        <div className={getTileStyle(14)}>
+        <div id="14" className={getTileStyle(14)}>
           <StarTile count={50} />
         </div>
-        <div className={getTileStyle(1)}>
+        <div id="1" className={getTileStyle(1)}>
           <StarTile count={30} />
         </div>
-        <div className={getTileStyle(15)}>16</div>
-        <div className={getTileStyle(16)}>
+        <div id="15" className={getTileStyle(15)}>
+          16
+        </div>
+        <div id="16" className={getTileStyle(16)}>
           <StarTile count={50} />
         </div>
-        <div className={getTileStyle(17)}>
+        <div id="17" className={getTileStyle(17)}>
           <DiceTile count={2} />
         </div>
-        <div className={getTileStyle(18)}>
+        <div id="18" className={getTileStyle(18)}>
           <AirplaneTile text="Anywhere" />
         </div>
-        <div className={getTileStyle(19)}>
+        <div id="19" className={getTileStyle(19)}>
           <StarTile count={50} />
         </div>
-        <div className={getTileStyle(0)}>Home</div>
+        <div id="0" className={getTileStyle(0)}>
+          Home
+        </div>
       </div>
       <div className="text-white mt-4">
         Current Position: {position} <br />
         Dice Value: {diceValue}
       </div>
-      <div>
-        <img src={Images.Lv1} alt="Level1" className="w-10 h-10" />
-      </div>
+      <motion.div
+        className="absolute"
+        initial={{ x: 140, y: 118 }}
+        animate={{ x, y }}
+        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+      >
+        <img src={Images.Lv1} alt="Level1" className="w-12 h-12" />
+      </motion.div>
     </div>
   );
 };
