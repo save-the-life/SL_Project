@@ -13,6 +13,7 @@ const DiceEvent: React.FC = () => {
   const [gaugeValue, setGaugeValue] = useState<number>(0.5);
   const [isIncreasing, setIsIncreasing] = useState<boolean>(true);
   const [moving, setMoving] = useState<boolean>(false);
+  const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -45,6 +46,7 @@ const DiceEvent: React.FC = () => {
       | React.TouchEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault(); // 기본 동작 방지
+    if (buttonDisabled) return; // 버튼이 비활성화 상태인 경우 동작하지 않음
     setIsHolding(true);
   };
 
@@ -54,11 +56,13 @@ const DiceEvent: React.FC = () => {
       | React.TouchEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault(); // 기본 동작 방지
+    if (buttonDisabled) return; // 버튼이 비활성화 상태인 경우 동작하지 않음
     setIsHolding(false);
     rollDice();
   };
 
   const rollDice = () => {
+    setButtonDisabled(true); // 버튼 비활성화
     diceRef.current?.roll();
   };
 
@@ -75,11 +79,12 @@ const DiceEvent: React.FC = () => {
       currentPosition = (currentPosition + 1) % 20;
       setPosition(currentPosition);
       if (steps > 1) {
+        steps--;
         setTimeout(moveStep, 300); // 0.3초마다 한 칸 이동
       } else {
         setMoving(false);
+        setButtonDisabled(false); // 버튼 활성화
       }
-      steps--;
     };
     moveStep();
   };
@@ -248,7 +253,10 @@ const DiceEvent: React.FC = () => {
               onMouseUp={handleMouseUp}
               onTouchStart={handleMouseDown}
               onTouchEnd={handleMouseUp}
-              className="bg-white rounded-full h-10 w-24 self-center absolute -bottom-5 left-2 md:w-40 md:h-14 border border-[#E5E5E5] text-sm md:text-lg font-medium"
+              className={`bg-white rounded-full h-10 w-24 self-center absolute -bottom-5 left-2 md:w-40 md:h-14 border border-[#E5E5E5] text-sm md:text-lg font-medium ${
+                buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
+              disabled={buttonDisabled}
             >
               Roll Dice
             </button>
