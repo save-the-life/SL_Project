@@ -25,6 +25,7 @@ import Lv13to14 from './characterlv13to14.png';
 import Lv15to16 from './characterlv15to16.png';
 import Lv17to18 from './characterlv17to18.png';
 import Lv19to20 from './characterlv19to20.png';
+import SLSymbol from './sl_symbol.png';
 
 const Images = {
   HorizontalLogo,
@@ -54,6 +55,7 @@ const Images = {
   Lv15to16,
   Lv17to18,
   Lv19to20,
+  SLSymbol,
 };
 
 export default Images;

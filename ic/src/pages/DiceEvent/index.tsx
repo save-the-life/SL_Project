@@ -12,6 +12,7 @@ import {
 import UserLevel from '@/entities/User/components/UserLevel';
 import '@/features/DiceEvent/DiceEvent.css';
 import Dice from '@/widgets/Dice';
+import Images from '@/shared/assets/images';
 
 const DiceEventPage: React.FC = () => {
   const [position, setPosition] = useState<number>(0);
@@ -112,12 +113,22 @@ const DiceEventPage: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center h-screen bg-[#0D1226]">
-      <div className="w-full flex justify-center mb-4 mt-8">
+      <div className="w-full flex justify-center mb-4 mt-8 gap-4">
         <UserLevel
           userLv={userLv}
           charactorImageSrc={charactorImageSrc}
           mainColorClassName={mainColorClassName}
         />
+        <div className="flex flex-col items-center justify-center w-48 h-36 md:w-40 md:h-44 relative prize-box overflow-visible z-10 gap-2">
+          <div className="absolute h-7 w-20 rounded-full border border-black bg-white flex items-center justify-center text-xs -top-4 z-20 font-medium box-border left-14 inset-2 ">
+            Week 2
+          </div>
+          <img src={Images.SLSymbol} alt="token logo" className=" h-14 mt-2" />
+          <div className="flex flex-col items-center">
+            <p className=" font-semibold text-base">SL Coin</p>
+            <p className=" text-xs font-normal">(Approx. $8,000)</p>
+          </div>
+        </div>
       </div>
       <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base ">
         <div id="10" className={getTileStyle(10)}>
@@ -142,7 +153,7 @@ const DiceEventPage: React.FC = () => {
           <StarTile count={30} />
         </div>
         <div className="col-span-4 row-span-4 flex flex-col items-center justify-evenly bg-center rotate-background">
-          <div className="w-full flex justify-center mb-4 ">
+          <div className="w-full flex justify-center mb-4">
             <Gauge gaugeValue={gaugeValue} />
           </div>
           <div className="relative w-[120px] h-[120px] bg-[#F59E0B] rounded-full md:w-44 md:h-44">
