@@ -14,6 +14,28 @@ const DiceEvent: React.FC = () => {
   const [isIncreasing, setIsIncreasing] = useState<boolean>(true);
   const [moving, setMoving] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
+  const [initialX, setInitialX] = useState<number>(140);
+  const [initialY, setInitialY] = useState<number>(118);
+  const [delta, setDelta] = useState<number>(56);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setInitialX(250);
+        setInitialY(228);
+        setDelta(100);
+      } else {
+        setInitialX(140);
+        setInitialY(118);
+        setDelta(56);
+      }
+    };
+
+    handleResize(); // 초기 설정
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -129,9 +151,8 @@ const DiceEvent: React.FC = () => {
   };
 
   const calculateTilePosition = (tileNumber: number) => {
-    let x = 140;
-    let y = 118;
-    const delta = 56;
+    let x = initialX;
+    let y = initialY;
 
     if (tileNumber >= 0 && tileNumber <= 5) {
       y -= delta * tileNumber;
@@ -309,14 +330,18 @@ const DiceEvent: React.FC = () => {
       </div>
       <motion.div
         className="absolute"
-        initial={{ x: 140, y: 118 }}
+        initial={{ x: initialX, y: initialY }}
         animate={{ x, y }}
         transition={{
           x: { type: 'spring', stiffness: 300, damping: 25 },
           y: { type: 'spring', stiffness: 300, damping: 15 },
         }}
       >
-        <img src={Images.Lv20} alt="Level20" className="w-12 h-12" />
+        <img
+          src={Images.Lv20}
+          alt="Level20"
+          className="w-12 h-12  md:w-20 md:h-20"
+        />
       </motion.div>
     </div>
   );
