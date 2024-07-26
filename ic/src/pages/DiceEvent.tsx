@@ -90,20 +90,21 @@ const DiceEvent: React.FC = () => {
     const startStyle =
       baseStyle +
       ' ' +
-      'start-tile text-white text-sm md:text-base  font-jalnan';
+      'start-tile text-white text-sm md:text-base font-jalnan';
     const airplaneStyle = baseStyle + ' ' + 'airplane-tile';
     const gameStyle = baseStyle + ' ' + 'game-tile';
     const starStyle = baseStyle + ' ' + 'star-tile';
-    const diceStyle = baseStyle + ' ' + 'dice-tile ';
+    const diceStyle = baseStyle + ' ' + 'dice-tile';
+    const activeStyle = 'active-tile'; // 캐릭터가 위치한 타일의 추가 스타일
 
     switch (tileNumber) {
       case 0:
-        return startStyle;
+        return `${startStyle} ${position === tileNumber ? activeStyle : ''}`;
       case 2:
       case 8:
       case 13:
       case 18:
-        return airplaneStyle;
+        return `${airplaneStyle} ${position === tileNumber ? activeStyle : ''}`;
       case 1:
       case 4:
       case 6:
@@ -112,32 +113,28 @@ const DiceEvent: React.FC = () => {
       case 14:
       case 16:
       case 19:
-        return starStyle;
+        return `${starStyle} ${position === tileNumber ? activeStyle : ''}`;
       case 5:
       case 10:
       case 15:
-        return gameStyle;
+        return `${gameStyle} ${position === tileNumber ? activeStyle : ''}`;
       default:
-        return diceStyle;
+        return `${diceStyle} ${position === tileNumber ? activeStyle : ''}`;
     }
   };
 
   const calculateTilePosition = (tileNumber: number) => {
     let x = 140;
-
     let y = 118;
-
     const delta = 56;
 
     if (tileNumber >= 0 && tileNumber <= 5) {
       y -= delta * tileNumber;
     } else if (tileNumber >= 6 && tileNumber <= 10) {
       x -= delta * (tileNumber - 5);
-
       y -= delta * 5;
     } else if (tileNumber >= 11 && tileNumber <= 15) {
       x -= delta * 5;
-
       y -= delta * (15 - tileNumber);
     } else if (tileNumber >= 16 && tileNumber <= 19) {
       x -= delta * (20 - tileNumber);
@@ -187,10 +184,10 @@ const DiceEvent: React.FC = () => {
     <div className="flex flex-col items-center justify-center h-screen bg-[#0D1226]">
       <div className="w-full flex justify-center mb-4"></div>
       <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base ">
-        <div id="0" className={getTileStyle(10)}>
+        <div id="10" className={getTileStyle(10)}>
           11
         </div>
-        <div id="4" className={getTileStyle(4)}>
+        <div id="9" className={getTileStyle(9)}>
           <StarTile count={100} />
         </div>
         <div id="8" className={getTileStyle(8)}>
@@ -306,9 +303,12 @@ const DiceEvent: React.FC = () => {
         className="absolute"
         initial={{ x: 140, y: 118 }}
         animate={{ x, y }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        transition={{
+          x: { type: 'spring', stiffness: 300, damping: 25 },
+          y: { type: 'spring', stiffness: 300, damping: 15 },
+        }}
       >
-        <img src={Images.Lv1} alt="Level1" className="w-12 h-12" />
+        <img src={Images.Lv20} alt="Level20" className="w-12 h-12" />
       </motion.div>
     </div>
   );
