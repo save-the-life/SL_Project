@@ -7,11 +7,12 @@ import GaugeComponent from 'react-gauge-component';
 
 const DiceEvent: React.FC = () => {
   const diceRef = useRef<any>(null);
-  const [diceValue, setDiceValue] = useState<number>(1);
+  const [diceValue, setDiceValue] = useState<number>(0);
   const [position, setPosition] = useState<number>(0);
   const [isHolding, setIsHolding] = useState<boolean>(false);
   const [gaugeValue, setGaugeValue] = useState<number>(0.5);
   const [isIncreasing, setIsIncreasing] = useState<boolean>(true);
+  const [moving, setMoving] = useState<boolean>(false);
 
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
@@ -67,7 +68,20 @@ const DiceEvent: React.FC = () => {
   };
 
   const movePiece = (steps: number) => {
-    setPosition((prevPosition) => (prevPosition + steps) % 20);
+    if (moving) return;
+    setMoving(true);
+    let currentPosition = position;
+    const moveStep = () => {
+      currentPosition = (currentPosition + 1) % 20;
+      setPosition(currentPosition);
+      if (steps > 1) {
+        setTimeout(moveStep, 300); // 0.3초마다 한 칸 이동
+      } else {
+        setMoving(false);
+      }
+      steps--;
+    };
+    moveStep();
   };
 
   const getTileStyle = (tileNumber: number) => {
@@ -110,20 +124,23 @@ const DiceEvent: React.FC = () => {
 
   const calculateTilePosition = (tileNumber: number) => {
     let x = 140;
+
     let y = 118;
-    const deltaX = 56;
-    const deltaY = 58;
+
+    const delta = 56;
 
     if (tileNumber >= 0 && tileNumber <= 5) {
-      y -= deltaY * tileNumber;
+      y -= delta * tileNumber;
     } else if (tileNumber >= 6 && tileNumber <= 10) {
-      x -= deltaX * (tileNumber - 5);
-      y -= deltaY * 5;
+      x -= delta * (tileNumber - 5);
+
+      y -= delta * 5;
     } else if (tileNumber >= 11 && tileNumber <= 15) {
-      x -= deltaX * 5;
-      y -= deltaY * (15 - tileNumber);
+      x -= delta * 5;
+
+      y -= delta * (15 - tileNumber);
     } else if (tileNumber >= 16 && tileNumber <= 19) {
-      x -= deltaX * (20 - tileNumber);
+      x -= delta * (20 - tileNumber);
     }
 
     return { x, y };
