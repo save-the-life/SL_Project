@@ -15,18 +15,68 @@ const DiceEvent: React.FC = () => {
   const [moving, setMoving] = useState<boolean>(false);
   const [buttonDisabled, setButtonDisabled] = useState<boolean>(false);
   const [initialX, setInitialX] = useState<number>(140);
-  const [initialY, setInitialY] = useState<number>(118);
+  const [initialY, setInitialY] = useState<number>(474);
   const [delta, setDelta] = useState<number>(56);
+  const [userLv, setUserLv] = useState<number>(20);
+  const [mainColorClassName, setMainColorClassName] = useState<string>('');
+  const [charactorImageSrc, setCharactorImageSrc] = useState<string>('');
+
+  const getMainColorForUserLv = () => {
+    if (userLv >= 1 && userLv <= 4) {
+      return 'lv1to4-box';
+    } else if (userLv >= 5 && userLv <= 8) {
+      return 'lv5to8-box';
+    } else if (userLv >= 9 && userLv <= 12) {
+      return 'lv9to12-box';
+    } else if (userLv >= 13 && userLv <= 16) {
+      return 'lv13to16-box';
+    } else if (userLv >= 17 && userLv <= 20) {
+      return 'lv17to20-box';
+    } else {
+      return '';
+    }
+  };
+
+  const getCharactorForUserLv = () => {
+    if (userLv >= 1 && userLv <= 2) {
+      return Images.Lv1to2;
+    } else if (userLv >= 3 && userLv <= 4) {
+      return Images.Lv3to4;
+    } else if (userLv >= 5 && userLv <= 6) {
+      return Images.Lv5to6;
+    } else if (userLv >= 7 && userLv <= 8) {
+      return Images.Lv7to8;
+    } else if (userLv >= 9 && userLv <= 10) {
+      return Images.Lv9to10;
+    } else if (userLv >= 11 && userLv <= 12) {
+      return Images.Lv11to12;
+    } else if (userLv >= 13 && userLv <= 14) {
+      return Images.Lv13to14;
+    } else if (userLv >= 15 && userLv <= 16) {
+      return Images.Lv15to16;
+    } else if (userLv >= 17 && userLv <= 18) {
+      return Images.Lv17to18;
+    } else if (userLv >= 19 && userLv <= 20) {
+      return Images.Lv19to20;
+    } else {
+      return '';
+    }
+  };
+
+  useEffect(() => {
+    setMainColorClassName(getMainColorForUserLv());
+    setCharactorImageSrc(getCharactorForUserLv());
+  }, [userLv]);
 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setInitialX(250);
-        setInitialY(228);
+        setInitialY(730);
         setDelta(100);
       } else {
         setInitialX(140);
-        setInitialY(118);
+        setInitialY(474);
         setDelta(56);
       }
     };
@@ -47,7 +97,7 @@ const DiceEvent: React.FC = () => {
             return prev - 0.25;
           } else if (prev <= 0) {
             setIsIncreasing(true);
-            return prev + 0.5;
+            return prev + 0.25;
           }
           return isIncreasing ? prev + 0.25 : prev - 0.25;
         });
@@ -207,8 +257,83 @@ const DiceEvent: React.FC = () => {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-[#0D1226]">
-      <div className="w-full flex justify-center mb-4"></div>
+    <div className="flex flex-col items-center h-screen bg-[#0D1226]">
+      <div className="w-full flex justify-center mb-4 mt-8">
+        <div
+          className={`flex flex-col items-center justify-center w-32 h-36 md:w-40 md:h-44  lv-box ${mainColorClassName}`}
+        >
+          <img src={charactorImageSrc} className="w-24 h-24 md:w-32 md:h-32" />
+          <div className="flex flex-row items-center w-full px-4 gap-2">
+            <p className="font-semibold text-[8px] md:text-xs">Lv.{userLv}</p>
+            <div className="flex flex-row border border-[#F59E0B] rounded-full w-full h-2 gap-[1px]">
+              <div
+                className={`bg-[#DD2726] w-[5%] rounded-l-full ${
+                  userLv < 1 ? 'hidden' : ''
+                }`}
+              ></div>
+              <div
+                className={`bg-[#DD2726] w-[5%] ${userLv < 2 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#DD2726] w-[5%] ${userLv < 3 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#DD2726] w-[5%] ${userLv < 4 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#F59E0B] w-[5%] ${userLv < 5 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#F59E0B] w-[5%] ${userLv < 6 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#F59E0B] w-[5%] ${userLv < 7 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#F59E0B] w-[5%] ${userLv < 8 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#FACC15] w-[5%] ${userLv < 9 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#FACC15] w-[5%] ${userLv < 10 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#FACC15] w-[5%] ${userLv < 11 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#FACC15] w-[5%] ${userLv < 12 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#22C55E] w-[5%] ${userLv < 13 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#22C55E] w-[5%] ${userLv < 14 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#22C55E] w-[5%] ${userLv < 15 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#22C55E] w-[5%] ${userLv < 16 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#0147E5] w-[5%] ${userLv < 17 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#0147E5] w-[5%] ${userLv < 18 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#0147E5] w-[5%] ${userLv < 19 ? 'hidden' : ''}`}
+              ></div>
+              <div
+                className={`bg-[#0147E5] w-[5%] rounded-r-full ${
+                  userLv < 20 ? 'hidden' : ''
+                }`}
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base ">
         <div id="10" className={getTileStyle(10)}>
           11
@@ -338,8 +463,8 @@ const DiceEvent: React.FC = () => {
         }}
       >
         <img
-          src={Images.Lv20}
-          alt="Level20"
+          src={charactorImageSrc}
+          alt="userLv20"
           className="w-12 h-12  md:w-20 md:h-20"
         />
       </motion.div>
