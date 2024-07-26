@@ -19,14 +19,14 @@ const DiceEvent: React.FC = () => {
         setGaugeValue((prev) => {
           if (prev >= 6) {
             setIsIncreasing(false);
-            return prev - 0.5;
-          } else if (prev <= 1) {
+            return prev - 0.25;
+          } else if (prev <= 0) {
             setIsIncreasing(true);
             return prev + 0.5;
           }
-          return isIncreasing ? prev + 0.5 : prev - 0.5;
+          return isIncreasing ? prev + 0.25 : prev - 0.25;
         });
-      }, 33);
+      }, 21);
     } else if (interval) {
       clearInterval(interval);
     }
@@ -71,7 +71,7 @@ const DiceEvent: React.FC = () => {
 
   const getTileStyle = (tileNumber: number) => {
     const baseStyle =
-      'flex items-center justify-center w-[52px] h-[52px] md:w-24 md:h-24 text-center font-semibold text-xs md:text-sm ';
+      'flex items-center justify-center w-[52px] h-[52px] md:w-24 md:h-24 text-center font-semibold text-xs md:text-sm z-0 ';
     const startStyle =
       baseStyle +
       ' ' +
@@ -118,7 +118,7 @@ const DiceEvent: React.FC = () => {
   }
 
   const StarTile: React.FC<StarTileProps> = ({ count }) => (
-    <div className="flex flex-col gap-1 items-center">
+    <div className="flex flex-col gap-1 items-center ">
       <img src={Images.Star} alt="star" className="h-6 w-6 md:h-10 md:w-10" />
       <p>x {count}</p>
     </div>
@@ -166,7 +166,7 @@ const DiceEvent: React.FC = () => {
         <div className="col-span-4 row-span-4 flex flex-col items-center justify-evenly bg-center rotate-background">
           <div className="w-full flex justify-center mb-4 ">
             <GaugeComponent
-              className=" z-10  w-64 -top-4 absolute md:w-96 md:top-2 max-h-24"
+              className=" z-0  w-64 -top-4 absolute md:w-96 md:top-2 max-h-24"
               type="semicircle"
               value={(gaugeValue / 6) * 6}
               maxValue={6}
@@ -182,7 +182,11 @@ const DiceEvent: React.FC = () => {
                   { limit: 6 },
                 ],
               }}
-              pointer={{ type: 'blob', animationDelay: 10 }}
+              pointer={{
+                type: 'blob',
+                animationDelay: 0,
+                animationDuration: 0,
+              }}
               labels={{
                 valueLabel: { hide: true },
                 tickLabels: { hideMinMax: true, ticks: [] },
@@ -248,6 +252,9 @@ const DiceEvent: React.FC = () => {
       <div className="text-white mt-4">
         Current Position: {position} <br />
         Dice Value: {diceValue}
+      </div>
+      <div>
+        <img src={Images.Lv1} alt="Level1" className="w-10 h-10" />
       </div>
     </div>
   );

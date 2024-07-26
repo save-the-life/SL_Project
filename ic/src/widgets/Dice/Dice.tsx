@@ -46,7 +46,8 @@ const Dice = forwardRef(({ onRollComplete }: DiceProps, ref) => {
           rotateX: (rotation.rotateX + randomX + 360) % 360,
           rotateY: (rotation.rotateY + randomY + 360) % 360,
         }); // 최종 회전 값 업데이트
-        const front = newFaceOrder[0];
+        const front = newFaceOrder[4];
+
         setFrontFace(front); // 앞면 상태값 업데이트
         if (onRollComplete) {
           onRollComplete(front); // 콜백 함수 호출

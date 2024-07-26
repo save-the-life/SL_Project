@@ -15,6 +15,8 @@ import Dice6 from './6.png';
 import Airplane from './airplane.png';
 import Dice from './dice.png';
 import Star from './star.png';
+import Lv1 from './characterlv1.png';
+import Lv20 from './characterlv20.png';
 
 const Images = {
   HorizontalLogo,
@@ -34,6 +36,8 @@ const Images = {
   Airplane,
   Dice,
   Star,
+  Lv1,
+  Lv20,
 };
 
 export default Images;
