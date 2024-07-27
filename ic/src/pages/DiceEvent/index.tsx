@@ -268,7 +268,7 @@ const DiceEventPage: React.FC = () => {
             <div className="flex flex-col w-full h-full items-center justify-center dice-container">
               <Dice ref={diceRef} onRollComplete={handleRollComplete} />
             </div>
-            <p className="absolute text-white text-sm font-semibold drop-shadow bottom-6 right-5 z-30 md:bottom-11 md:right-9">
+            <p className="absolute text-white text-sm font-semibold drop-shadow bottom-6 right-5 z-20 md:bottom-11 md:right-9">
               x 10
             </p>
             <button
