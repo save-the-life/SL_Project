@@ -15,13 +15,14 @@ import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 
 const DiceEventPage: React.FC = () => {
-  const initialCharacterType: 'dog' | 'cat' = 'cat'; // 초기 캐릭터 유형을 설정
+  const initialCharacterType: 'dog' | 'cat' = 'dog'; // 초기 캐릭터 유형을 설정
   const [position, setPosition] = useState<number>(0);
+  const [moving, setMoving] = useState<boolean>(false); // 이동 상태 추가
   const {
     diceRef,
     diceValue,
     rollDice,
-    handleRollComplete,
+    handleRollComplete: originalHandleRollComplete,
     buttonDisabled,
     setButtonDisabled,
   } = useDice(position, setPosition);
@@ -77,6 +78,45 @@ const DiceEventPage: React.FC = () => {
     if (buttonDisabled) return;
     setIsHolding(false);
     rollDice();
+  };
+
+  const movePiece = (steps: number) => {
+    if (moving) return; // 이미 이동 중인 경우 동작하지 않음
+    setMoving(true); // 이동 상태 설정
+
+    let currentPosition = position;
+    const moveStep = () => {
+      currentPosition = (currentPosition + 1) % 20;
+      setPosition(currentPosition);
+      if (steps > 1) {
+        steps--;
+        setTimeout(moveStep, 300); // 0.3초마다 한 칸 이동
+      } else {
+        // 비행기 칸에 도착했을 때 특별한 행동 추가
+        switch (currentPosition) {
+          case 2:
+            setPosition(15);
+            break;
+          case 8:
+            setPosition(5);
+            break;
+          case 13:
+            setPosition(0);
+            break;
+          // 18번 타일은 나중에 처리
+          default:
+            break;
+        }
+        setMoving(false); // 이동 상태 해제
+        setButtonDisabled(false); // 버튼 활성화
+      }
+    };
+    moveStep();
+  };
+
+  const handleRollComplete = (value: number) => {
+    originalHandleRollComplete(value);
+    movePiece(value);
   };
 
   const getTileStyle = (tileNumber: number) => {
