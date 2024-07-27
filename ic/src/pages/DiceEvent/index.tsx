@@ -15,7 +15,7 @@ import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 
 const DiceEventPage: React.FC = () => {
-  const initialCharacterType: 'dog' | 'cat' = 'dog'; // 초기 캐릭터 유형을 설정
+  const initialCharacterType: 'dog' | 'cat' = 'cat'; // 초기 캐릭터 유형을 설정
   const [position, setPosition] = useState<number>(0);
   const {
     diceRef,
