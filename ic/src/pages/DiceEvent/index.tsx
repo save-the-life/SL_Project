@@ -378,7 +378,11 @@ const DiceEventPage: React.FC = () => {
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-20">
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-75"></div>
           <div className="text-white text-lg z-30 flex flex-col items-center justify-center mb-14">
-            <img src={Images.Airplane} alt="airplane" className="h-24" />
+            <img
+              src={Images.Airplane}
+              alt="airplane"
+              className="h-20 md:h-24"
+            />
             Select a tile to move
           </div>
         </div>
