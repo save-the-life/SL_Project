@@ -7,7 +7,7 @@ const UserLevel: React.FC<{
   mainColorClassName: string;
 }> = ({ userLv, charactorImageSrc, mainColorClassName }) => (
   <div
-    className={`flex flex-col items-center justify-center w-32 h-36 md:w-40 md:h-44 lv-box ${mainColorClassName}`}
+    className={`flex flex-col items-center justify-center w-32 h-36 md:w-48 md:h-44 lv-box ${mainColorClassName}`}
   >
     <img src={charactorImageSrc} className="w-24 h-24 md:w-32 md:h-32" />
     <div className="flex flex-row items-center w-full px-4 gap-2">

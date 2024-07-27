@@ -29,6 +29,15 @@ const Board: React.FC<BoardProps> = ({
         y: { type: 'spring', stiffness: 300, damping: 15 },
       }}
     >
+      <div
+        className="absolute w-full h-full rounded-full bottom-0 left-1/2 transform -translate-x-1/2"
+        style={{
+          width: '70%',
+          height: '10%',
+          backgroundColor: 'rgba(0, 0, 0, 0.3)',
+          borderRadius: '50%',
+        }}
+      ></div>
       <img
         src={charactorImageSrc}
         alt="userLv20"

@@ -126,8 +126,8 @@ const DiceEventPage: React.FC = () => {
           charactorImageSrc={charactorImageSrc}
           mainColorClassName={mainColorClassName}
         />
-        <div className="flex flex-col items-center justify-center w-48 h-36 md:w-40 md:h-44 relative prize-box overflow-visible z-10 gap-2">
-          <div className="absolute h-7 w-20 rounded-full border border-black bg-white flex items-center justify-center text-xs -top-4 z-20 font-medium box-border left-14 inset-2 ">
+        <div className="flex flex-col items-center justify-center w-48 h-36 md:w-96 md:h-44 relative prize-box overflow-visible z-10 gap-2">
+          <div className="absolute h-7 w-20 rounded-full border border-black bg-white flex items-center justify-center text-xs -top-4 z-20 font-medium box-border left-14 md:left-36 inset-2 ">
             Week 2
           </div>
           <img src={Images.SLSymbol} alt="token logo" className=" h-14 mt-2" />
