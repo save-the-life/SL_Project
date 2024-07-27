@@ -15,6 +15,7 @@ import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 
 const DiceEventPage: React.FC = () => {
+  const initialCharacterType: 'dog' | 'cat' = 'dog'; // 초기 캐릭터 유형을 설정
   const [position, setPosition] = useState<number>(0);
   const {
     diceRef,
@@ -25,8 +26,14 @@ const DiceEventPage: React.FC = () => {
     setButtonDisabled,
   } = useDice(position, setPosition);
   const { gaugeValue, isHolding, setIsHolding } = useGauge();
-  const { userLv, setUserLv, mainColorClassName, charactorImageSrc } =
-    useUserLevel();
+  const {
+    userLv,
+    setUserLv,
+    mainColorClassName,
+    charactorImageSrc,
+    characterType,
+    setCharacterType,
+  } = useUserLevel(initialCharacterType);
 
   const [initialX, setInitialX] = useState<number>(140);
   const [initialY, setInitialY] = useState<number>(474);
