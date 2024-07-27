@@ -18,6 +18,7 @@ const DiceEventPage: React.FC = () => {
   const initialCharacterType: 'dog' | 'cat' = 'dog'; // 초기 캐릭터 유형을 설정
   const [position, setPosition] = useState<number>(0);
   const [moving, setMoving] = useState<boolean>(false); // 이동 상태 추가
+  const [selectingTile, setSelectingTile] = useState<boolean>(false); // 타일 선택 상태 추가
   const {
     diceRef,
     diceValue,
@@ -96,22 +97,45 @@ const DiceEventPage: React.FC = () => {
         switch (currentPosition) {
           case 2:
             setPosition(15);
+            setTimeout(() => {
+              setMoving(false);
+              setButtonDisabled(false);
+            }, 300);
             break;
           case 8:
             setPosition(5);
+            setTimeout(() => {
+              setMoving(false);
+              setButtonDisabled(false);
+            }, 300);
             break;
           case 13:
             setPosition(0);
+            setTimeout(() => {
+              setMoving(false);
+              setButtonDisabled(false);
+            }, 300);
             break;
-          // 18번 타일은 나중에 처리
+          case 18:
+            setSelectingTile(true); // 타일 선택 상태로 변경
+            setMoving(false); // 이동 상태 해제
+            break;
           default:
+            setMoving(false); // 이동 상태 해제
+            setButtonDisabled(false); // 버튼 활성화
             break;
         }
-        setMoving(false); // 이동 상태 해제
-        setButtonDisabled(false); // 버튼 활성화
       }
     };
     moveStep();
+  };
+
+  const handleTileClick = (tileNumber: number) => {
+    if (!selectingTile || tileNumber === 18) return;
+    setPosition(tileNumber);
+    setSelectingTile(false); // 타일 선택 상태 해제
+    setMoving(false); // 이동 상태 해제
+    setButtonDisabled(false); // 버튼 활성화
   };
 
   const handleRollComplete = (value: number) => {
@@ -121,25 +145,27 @@ const DiceEventPage: React.FC = () => {
 
   const getTileStyle = (tileNumber: number) => {
     const baseStyle =
-      'flex items-center justify-center w-[52px] h-[52px] md:w-24 md:h-24 text-center font-semibold text-xs md:text-sm z-0 ';
-    const startStyle =
-      baseStyle +
-      ' ' +
-      'start-tile text-white text-sm md:text-base font-jalnan';
-    const airplaneStyle = baseStyle + ' ' + 'airplane-tile';
-    const gameStyle = baseStyle + ' ' + 'game-tile';
-    const starStyle = baseStyle + ' ' + 'star-tile';
-    const diceStyle = baseStyle + ' ' + 'dice-tile';
+      'flex items-center justify-center w-[52px] h-[52px] md:w-24 md:h-24 text-center font-semibold text-xs md:text-sm cursor-pointer';
+    const startStyle = `${baseStyle} start-tile text-white text-sm md:text-base font-jalnan`;
+    const airplaneStyle = `${baseStyle} airplane-tile`;
+    const gameStyle = `${baseStyle} game-tile`;
+    const starStyle = `${baseStyle} star-tile`;
+    const diceStyle = `${baseStyle} dice-tile`;
     const activeStyle = 'active-tile';
 
+    let zIndex = selectingTile ? 'z-30' : 'z-10';
     switch (tileNumber) {
       case 0:
-        return `${startStyle} ${position === tileNumber ? activeStyle : ''}`;
+        return `${startStyle} ${
+          position === tileNumber ? activeStyle : ''
+        } ${zIndex}`;
       case 2:
       case 8:
       case 13:
       case 18:
-        return `${airplaneStyle} ${position === tileNumber ? activeStyle : ''}`;
+        return `${airplaneStyle} ${
+          position === tileNumber ? activeStyle : ''
+        } ${zIndex}`;
       case 1:
       case 4:
       case 6:
@@ -148,18 +174,24 @@ const DiceEventPage: React.FC = () => {
       case 14:
       case 16:
       case 19:
-        return `${starStyle} ${position === tileNumber ? activeStyle : ''}`;
+        return `${starStyle} ${
+          position === tileNumber ? activeStyle : ''
+        } ${zIndex}`;
       case 5:
       case 10:
       case 15:
-        return `${gameStyle} ${position === tileNumber ? activeStyle : ''}`;
+        return `${gameStyle} ${
+          position === tileNumber ? activeStyle : ''
+        } ${zIndex}`;
       default:
-        return `${diceStyle} ${position === tileNumber ? activeStyle : ''}`;
+        return `${diceStyle} ${
+          position === tileNumber ? activeStyle : ''
+        } ${zIndex}`;
     }
   };
 
   return (
-    <div className="flex flex-col items-center h-screen bg-[#0D1226]">
+    <div className="flex flex-col items-center h-screen bg-[#0D1226] relative">
       <div className="w-full flex justify-center mb-4 mt-8 gap-4">
         <UserLevel
           userLv={userLv}
@@ -177,26 +209,54 @@ const DiceEventPage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base ">
-        <div id="10" className={getTileStyle(10)}>
+      <div className="grid grid-cols-6 grid-rows-6 gap-1 text-xs md:text-base">
+        <div
+          id="10"
+          className={getTileStyle(10)}
+          onClick={() => handleTileClick(10)}
+        >
           11
         </div>
-        <div id="9" className={getTileStyle(9)}>
+        <div
+          id="9"
+          className={getTileStyle(9)}
+          onClick={() => handleTileClick(9)}
+        >
           <StarTile count={100} />
         </div>
-        <div id="8" className={getTileStyle(8)}>
+        <div
+          id="8"
+          className={getTileStyle(8)}
+          onClick={() => handleTileClick(8)}
+        >
           <AirplaneTile text="Go Game" />
         </div>
-        <div id="7" className={getTileStyle(7)}>
+        <div
+          id="7"
+          className={getTileStyle(7)}
+          onClick={() => handleTileClick(7)}
+        >
           <DiceTile count={1} />
         </div>
-        <div id="6" className={getTileStyle(6)}>
+        <div
+          id="6"
+          className={getTileStyle(6)}
+          onClick={() => handleTileClick(6)}
+        >
           <StarTile count={30} />
         </div>
-        <div id="5" className={getTileStyle(5)}>
+        <div
+          id="5"
+          className={getTileStyle(5)}
+          onClick={() => handleTileClick(5)}
+        >
           6
         </div>
-        <div id="11" className={getTileStyle(11)}>
+        <div
+          id="11"
+          className={getTileStyle(11)}
+          onClick={() => handleTileClick(11)}
+        >
           <StarTile count={30} />
         </div>
         <div className="col-span-4 row-span-4 flex flex-col items-center justify-evenly bg-center rotate-background">
@@ -226,47 +286,105 @@ const DiceEventPage: React.FC = () => {
           </div>
           <div> &nbsp;</div>
         </div>
-        <div id="4" className={getTileStyle(4)}>
+        <div
+          id="4"
+          className={getTileStyle(4)}
+          onClick={() => handleTileClick(4)}
+        >
           <StarTile count={30} />
         </div>
-        <div id="12" className={getTileStyle(12)}>
+        <div
+          id="12"
+          className={getTileStyle(12)}
+          onClick={() => handleTileClick(12)}
+        >
           <DiceTile count={1} />
         </div>
-        <div id="3" className={getTileStyle(3)}>
+        <div
+          id="3"
+          className={getTileStyle(3)}
+          onClick={() => handleTileClick(3)}
+        >
           <DiceTile count={1} />
         </div>
-        <div id="13" className={getTileStyle(13)}>
+        <div
+          id="13"
+          className={getTileStyle(13)}
+          onClick={() => handleTileClick(13)}
+        >
           <AirplaneTile text="Go Home" />
         </div>
-        <div id="2" className={getTileStyle(2)}>
+        <div
+          id="2"
+          className={getTileStyle(2)}
+          onClick={() => handleTileClick(2)}
+        >
           <AirplaneTile text="Go Spin" />
         </div>
-        <div id="14" className={getTileStyle(14)}>
+        <div
+          id="14"
+          className={getTileStyle(14)}
+          onClick={() => handleTileClick(14)}
+        >
           <StarTile count={50} />
         </div>
-        <div id="1" className={getTileStyle(1)}>
+        <div
+          id="1"
+          className={getTileStyle(1)}
+          onClick={() => handleTileClick(1)}
+        >
           <StarTile count={30} />
         </div>
-        <div id="15" className={getTileStyle(15)}>
+        <div
+          id="15"
+          className={getTileStyle(15)}
+          onClick={() => handleTileClick(15)}
+        >
           16
         </div>
-        <div id="16" className={getTileStyle(16)}>
+        <div
+          id="16"
+          className={getTileStyle(16)}
+          onClick={() => handleTileClick(16)}
+        >
           <StarTile count={50} />
         </div>
-        <div id="17" className={getTileStyle(17)}>
+        <div
+          id="17"
+          className={getTileStyle(17)}
+          onClick={() => handleTileClick(17)}
+        >
           <DiceTile count={2} />
         </div>
         <div id="18" className={getTileStyle(18)}>
           <AirplaneTile text="Anywhere" />
         </div>
-        <div id="19" className={getTileStyle(19)}>
+        <div
+          id="19"
+          className={getTileStyle(19)}
+          onClick={() => handleTileClick(19)}
+        >
           <StarTile count={50} />
         </div>
-        <div id="0" className={getTileStyle(0)}>
+        <div
+          id="0"
+          className={getTileStyle(0)}
+          onClick={() => handleTileClick(0)}
+        >
           Home
         </div>
       </div>
-      <div className="text-white mt-4">
+      {selectingTile && (
+        <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-20">
+          <div className="absolute top-0 left-0 w-full h-full bg-black opacity-75"></div>
+          <div className="text-white text-lg z-30 flex flex-col items-center justify-center mb-14">
+            <img src={Images.Airplane} alt="airplane" className="h-24" />
+            Select a tile to move
+          </div>
+        </div>
+      )}
+
+      <div className="text-white mt-4 z-30">
         Current Position: {position} <br />
         Dice Value: {diceValue}
       </div>

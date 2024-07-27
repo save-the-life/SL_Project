@@ -21,7 +21,7 @@ const Board: React.FC<BoardProps> = ({
 
   return (
     <motion.div
-      className="absolute"
+      className={`absolute z-40`} // selectingTile 상태에 따라 z-index 조정
       initial={{ x: initialX, y: initialY }}
       animate={{ x, y }}
       transition={{
