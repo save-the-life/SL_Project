@@ -23,7 +23,7 @@ import {
 } from '@/features/DiceEvent/components/diceEventHandlers';
 
 const DiceEventPage: React.FC = () => {
-  const initialCharacterType: 'dog' | 'cat' = 'dog';
+  const initialCharacterType: 'dog' | 'cat' = 'cat';
   const [position, setPosition] = useState<number>(0);
   const [moving, setMoving] = useState<boolean>(false);
   const [selectingTile, setSelectingTile] = useState<boolean>(false);
@@ -31,6 +31,12 @@ const DiceEventPage: React.FC = () => {
   const [starPoints, setStarPoints] = useState<number>(0);
   const [showDiceValue, setShowDiceValue] = useState<boolean>(false);
   const [rolledValue, setRolledValue] = useState<number>(0);
+  const [reward, setReward] = useState<{
+    type: string;
+    value: number;
+    top: string;
+    left: string;
+  } | null>(null);
 
   const {
     diceRef,
@@ -73,6 +79,15 @@ const DiceEventPage: React.FC = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  const showReward = (type: string, value: number) => {
+    const randomTop = `${Math.random() * 80 + 10}%`;
+    const randomLeft = `${Math.random() * 80 + 10}%`;
+    setReward({ type, value, top: randomTop, left: randomLeft });
+    setTimeout(() => {
+      setReward(null);
+    }, 1000);
+  };
+
   const handleRollComplete = (value: number) => {
     setRolledValue(value);
     setShowDiceValue(true);
@@ -89,6 +104,7 @@ const DiceEventPage: React.FC = () => {
       setSelectingTile,
       setStarPoints,
       setDiceCount,
+      showReward,
     );
   };
 
@@ -171,8 +187,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -192,8 +212,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="100"
@@ -213,8 +237,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -234,8 +262,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -255,8 +287,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="30"
@@ -276,8 +312,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -297,8 +337,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="30"
@@ -328,6 +372,39 @@ const DiceEventPage: React.FC = () => {
                 </motion.div>
               )}
             </AnimatePresence>
+            <AnimatePresence>
+              {reward && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  transition={{ duration: 1 }}
+                  className="absolute flex items-center justify-center w-16 h-16 bg-white rounded-full text-black text-sm font-bold"
+                  style={{
+                    top: reward.top,
+                    left: reward.left,
+                    zIndex: 50,
+                  }}
+                >
+                  {reward.type === 'star' && (
+                    <div className="flex flex-col items-center">
+                      <img src={Images.Star} alt="star" className="h-8" />
+                      <span className="mt-1 ">+{reward.value}</span>
+                    </div>
+                  )}
+                  {reward.type === 'dice' && (
+                    <div className="flex flex-col items-center">
+                      <img src={Images.Dice} alt="dice" className="h-8" />
+                      <span className="mt-1">+{reward.value}</span>
+                    </div>
+                  )}
+                  {reward.type === 'airplane' && (
+                    <img src={Images.Airplane} alt="airplane" className="h-8" />
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
             <div className="flex flex-col w-full h-full items-center justify-center dice-container">
               <Dice ref={diceRef} onRollComplete={handleRollComplete} />
@@ -386,8 +463,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="30"
@@ -407,8 +488,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -428,8 +513,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -449,8 +538,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -470,8 +563,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -491,8 +588,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="50"
@@ -512,8 +613,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="30"
@@ -533,8 +638,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -554,8 +663,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="50"
@@ -575,8 +688,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="0"
@@ -599,8 +716,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="50"
@@ -620,8 +741,12 @@ const DiceEventPage: React.FC = () => {
               setMoving,
               setButtonDisabled,
               (tileNumber) =>
-                applyReward(tileNumber, setStarPoints, setDiceCount),
-              setStarPoints,
+                applyReward(
+                  tileNumber,
+                  setStarPoints,
+                  setDiceCount,
+                  showReward,
+                ),
             )
           }
           data-star="200"
@@ -644,13 +769,13 @@ const DiceEventPage: React.FC = () => {
         </div>
       )}
 
-      <div className="text-white mt-4 z-30">
-        Current Position: {position} <br />
-        Dice Value: {diceValue}
-      </div>
-      <div className="text-white mt-2 z-30">
-        Star Points: {starPoints} <br />
-        Dice Count: {diceCount}
+      <div className="flex flex-col text-white mt-8 z-30">
+        <div className="flex flex-row items-center gap-2">
+          <img src={Images.Star} alt="star" className=" h-4" /> : {starPoints}
+        </div>
+        <div className="flex flex-row items-center gap-2">
+          <img src={Images.Dice} alt="dice" className=" h-4" />: {diceCount}
+        </div>
       </div>
       <Board
         position={position}
