@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Board,
   Gauge,
@@ -20,6 +21,8 @@ const DiceEventPage: React.FC = () => {
   const [moving, setMoving] = useState<boolean>(false); // 이동 상태 추가
   const [selectingTile, setSelectingTile] = useState<boolean>(false); // 타일 선택 상태 추가
   const [diceCount, setDiceCount] = useState<number>(10); // 주사위 갯수 추가
+  const [showDiceValue, setShowDiceValue] = useState<boolean>(false); // 주사위 값 표시 상태 추가
+  const [rolledValue, setRolledValue] = useState<number>(0); // 굴린 주사위 값 추가
 
   const {
     diceRef,
@@ -142,6 +145,11 @@ const DiceEventPage: React.FC = () => {
   };
 
   const handleRollComplete = (value: number) => {
+    setRolledValue(value); // 주사위 값 설정
+    setShowDiceValue(true); // 주사위 값 표시
+    setTimeout(() => {
+      setShowDiceValue(false); // 1초 후 주사위 값 숨기기
+    }, 1000);
     originalHandleRollComplete(value);
     movePiece(value);
   };
@@ -267,6 +275,23 @@ const DiceEventPage: React.FC = () => {
             <Gauge gaugeValue={gaugeValue} />
           </div>
           <div className="relative w-[120px] h-[120px] bg-[#F59E0B] rounded-full md:w-44 md:h-44">
+            <AnimatePresence>
+              {showDiceValue && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0 }}
+                  transition={{ duration: 1 }}
+                  className="absolute flex items-center justify-center w-24 h-24 bg-white rounded-full text-black text-4xl font-bold -top-4 left-3 md:left-10"
+                  style={{
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 50,
+                  }}
+                >
+                  {rolledValue}
+                </motion.div>
+              )}
+            </AnimatePresence>
             <div className="bg-[#FACC15] rounded-full w-[110px] h-[110px] object-center absolute left-[5px] top-[5px] md:left-2 md:top-2 md:w-40 md:h-40"></div>
             <div className="flex flex-col w-full h-full items-center justify-center dice-container">
               <Dice ref={diceRef} onRollComplete={handleRollComplete} />
