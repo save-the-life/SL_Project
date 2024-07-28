@@ -79,6 +79,9 @@ export const movePiece = (
         case 8:
           setTimeout(() => {
             setPosition(5);
+            if (5 < 8) {
+              setStarPoints((prev) => prev + 200);
+            }
             applyReward(5, setStarPoints, setDiceCount);
             setMoving(false);
             setButtonDisabled(false);
@@ -104,4 +107,25 @@ export const movePiece = (
     }
   };
   moveStep();
+};
+
+export const handleTileClick = (
+  tileNumber: number,
+  selectingTile: boolean,
+  setPosition: Dispatch<SetStateAction<number>>,
+  setSelectingTile: Dispatch<SetStateAction<boolean>>,
+  setMoving: Dispatch<SetStateAction<boolean>>,
+  setButtonDisabled: Dispatch<SetStateAction<boolean>>,
+  applyReward: (tileNumber: number) => void,
+  setStarPoints: Dispatch<SetStateAction<number>>,
+) => {
+  if (!selectingTile || tileNumber === 18) return;
+  setPosition(tileNumber);
+  setSelectingTile(false);
+  setMoving(false);
+  setButtonDisabled(false);
+  if (tileNumber !== 19) {
+    setStarPoints((prev) => prev + 200);
+  }
+  applyReward(tileNumber);
 };

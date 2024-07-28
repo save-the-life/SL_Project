@@ -15,11 +15,12 @@ import '@/features/DiceEvent/DiceEvent.css';
 import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 import {
-  applyReward,
   handleMouseDown,
   handleMouseUp,
   movePiece,
-} from './diceEventHandlers';
+  handleTileClick,
+  applyReward,
+} from '@/features/DiceEvent/components/diceEventHandlers';
 
 const DiceEventPage: React.FC = () => {
   const initialCharacterType: 'dog' | 'cat' = 'dog';
@@ -71,15 +72,6 @@ const DiceEventPage: React.FC = () => {
 
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const handleTileClick = (tileNumber: number) => {
-    if (!selectingTile || tileNumber === 18) return;
-    setPosition(tileNumber);
-    setSelectingTile(false);
-    setMoving(false);
-    setButtonDisabled(false);
-    applyReward(tileNumber, setStarPoints, setDiceCount);
-  };
 
   const handleRollComplete = (value: number) => {
     setRolledValue(value);
@@ -170,7 +162,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="10"
           className={getTileStyle(10)}
-          onClick={() => handleTileClick(10)}
+          onClick={() =>
+            handleTileClick(
+              10,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="0"
         >
@@ -179,7 +183,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="9"
           className={getTileStyle(9)}
-          onClick={() => handleTileClick(9)}
+          onClick={() =>
+            handleTileClick(
+              9,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="100"
           data-dice="0"
         >
@@ -188,7 +204,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="8"
           className={getTileStyle(8)}
-          onClick={() => handleTileClick(8)}
+          onClick={() =>
+            handleTileClick(
+              8,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="0"
         >
@@ -197,7 +225,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="7"
           className={getTileStyle(7)}
-          onClick={() => handleTileClick(7)}
+          onClick={() =>
+            handleTileClick(
+              7,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="1"
         >
@@ -206,7 +246,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="6"
           className={getTileStyle(6)}
-          onClick={() => handleTileClick(6)}
+          onClick={() =>
+            handleTileClick(
+              6,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="30"
           data-dice="0"
         >
@@ -215,7 +267,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="5"
           className={getTileStyle(5)}
-          onClick={() => handleTileClick(5)}
+          onClick={() =>
+            handleTileClick(
+              5,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="0"
         >
@@ -224,7 +288,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="11"
           className={getTileStyle(11)}
-          onClick={() => handleTileClick(11)}
+          onClick={() =>
+            handleTileClick(
+              11,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="30"
           data-dice="0"
         >
@@ -260,12 +336,12 @@ const DiceEventPage: React.FC = () => {
               x {diceCount}
             </p>
             <button
-              onMouseDown={(e) =>
-                handleMouseDown(e, buttonDisabled, diceCount, setIsHolding)
+              onMouseDown={(event) =>
+                handleMouseDown(event, buttonDisabled, diceCount, setIsHolding)
               }
-              onMouseUp={(e) =>
+              onMouseUp={(event) =>
                 handleMouseUp(
-                  e,
+                  event,
                   buttonDisabled,
                   diceCount,
                   setIsHolding,
@@ -273,12 +349,12 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                 )
               }
-              onTouchStart={(e) =>
-                handleMouseDown(e, buttonDisabled, diceCount, setIsHolding)
+              onTouchStart={(event) =>
+                handleMouseDown(event, buttonDisabled, diceCount, setIsHolding)
               }
-              onTouchEnd={(e) =>
+              onTouchEnd={(event) =>
                 handleMouseUp(
-                  e,
+                  event,
                   buttonDisabled,
                   diceCount,
                   setIsHolding,
@@ -301,7 +377,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="4"
           className={getTileStyle(4)}
-          onClick={() => handleTileClick(4)}
+          onClick={() =>
+            handleTileClick(
+              4,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="30"
           data-dice="0"
         >
@@ -310,7 +398,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="12"
           className={getTileStyle(12)}
-          onClick={() => handleTileClick(12)}
+          onClick={() =>
+            handleTileClick(
+              12,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="1"
         >
@@ -319,7 +419,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="3"
           className={getTileStyle(3)}
-          onClick={() => handleTileClick(3)}
+          onClick={() =>
+            handleTileClick(
+              3,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="1"
         >
@@ -328,7 +440,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="13"
           className={getTileStyle(13)}
-          onClick={() => handleTileClick(13)}
+          onClick={() =>
+            handleTileClick(
+              13,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="0"
         >
@@ -337,7 +461,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="2"
           className={getTileStyle(2)}
-          onClick={() => handleTileClick(2)}
+          onClick={() =>
+            handleTileClick(
+              2,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="0"
         >
@@ -346,7 +482,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="14"
           className={getTileStyle(14)}
-          onClick={() => handleTileClick(14)}
+          onClick={() =>
+            handleTileClick(
+              14,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="50"
           data-dice="0"
         >
@@ -355,7 +503,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="1"
           className={getTileStyle(1)}
-          onClick={() => handleTileClick(1)}
+          onClick={() =>
+            handleTileClick(
+              1,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="30"
           data-dice="0"
         >
@@ -364,7 +524,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="15"
           className={getTileStyle(15)}
-          onClick={() => handleTileClick(15)}
+          onClick={() =>
+            handleTileClick(
+              15,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="0"
         >
@@ -373,7 +545,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="16"
           className={getTileStyle(16)}
-          onClick={() => handleTileClick(16)}
+          onClick={() =>
+            handleTileClick(
+              16,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="50"
           data-dice="0"
         >
@@ -382,7 +566,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="17"
           className={getTileStyle(17)}
-          onClick={() => handleTileClick(17)}
+          onClick={() =>
+            handleTileClick(
+              17,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="0"
           data-dice="2"
         >
@@ -394,7 +590,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="19"
           className={getTileStyle(19)}
-          onClick={() => handleTileClick(19)}
+          onClick={() =>
+            handleTileClick(
+              19,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="50"
           data-dice="0"
         >
@@ -403,7 +611,19 @@ const DiceEventPage: React.FC = () => {
         <div
           id="0"
           className={getTileStyle(0)}
-          onClick={() => handleTileClick(0)}
+          onClick={() =>
+            handleTileClick(
+              0,
+              selectingTile,
+              setPosition,
+              setSelectingTile,
+              setMoving,
+              setButtonDisabled,
+              (tileNumber) =>
+                applyReward(tileNumber, setStarPoints, setDiceCount),
+              setStarPoints,
+            )
+          }
           data-star="200"
           data-dice="0"
         >
