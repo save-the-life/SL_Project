@@ -19,6 +19,8 @@ const DiceEventPage: React.FC = () => {
   const [position, setPosition] = useState<number>(0);
   const [moving, setMoving] = useState<boolean>(false); // 이동 상태 추가
   const [selectingTile, setSelectingTile] = useState<boolean>(false); // 타일 선택 상태 추가
+  const [diceCount, setDiceCount] = useState<number>(10); // 주사위 갯수 추가
+
   const {
     diceRef,
     diceValue,
@@ -66,7 +68,7 @@ const DiceEventPage: React.FC = () => {
       | React.TouchEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    if (buttonDisabled) return;
+    if (buttonDisabled || diceCount < 1) return; // 주사위 갯수가 1보다 작을 때는 동작하지 않음
     setIsHolding(true);
   };
 
@@ -76,9 +78,10 @@ const DiceEventPage: React.FC = () => {
       | React.TouchEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    if (buttonDisabled) return;
+    if (buttonDisabled || diceCount < 1) return; // 주사위 갯수가 1보다 작을 때는 동작하지 않음
     setIsHolding(false);
     rollDice();
+    setDiceCount((prevCount) => prevCount - 1); // 주사위 갯수 줄이기
   };
 
   const movePiece = (steps: number) => {
@@ -269,7 +272,7 @@ const DiceEventPage: React.FC = () => {
               <Dice ref={diceRef} onRollComplete={handleRollComplete} />
             </div>
             <p className="absolute text-white text-sm font-semibold drop-shadow bottom-6 right-5 z-20 md:bottom-11 md:right-9">
-              x 10
+              x {diceCount}
             </p>
             <button
               onMouseDown={handleMouseDown}
@@ -277,9 +280,11 @@ const DiceEventPage: React.FC = () => {
               onTouchStart={handleMouseDown}
               onTouchEnd={handleMouseUp}
               className={`bg-white rounded-full h-10 w-24 self-center absolute -bottom-5 left-2 md:w-40 md:h-14 border border-[#E5E5E5] text-sm md:text-lg font-medium ${
-                buttonDisabled ? 'opacity-50 cursor-not-allowed' : ''
+                buttonDisabled || diceCount < 1
+                  ? 'opacity-50 cursor-not-allowed'
+                  : ''
               }`}
-              disabled={buttonDisabled}
+              disabled={buttonDisabled || diceCount < 1}
             >
               Roll Dice
             </button>
