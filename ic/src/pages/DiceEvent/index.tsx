@@ -16,13 +16,14 @@ import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 
 const DiceEventPage: React.FC = () => {
-  const initialCharacterType: 'dog' | 'cat' = 'dog'; // 초기 캐릭터 유형을 설정
+  const initialCharacterType: 'dog' | 'cat' = 'dog';
   const [position, setPosition] = useState<number>(0);
-  const [moving, setMoving] = useState<boolean>(false); // 이동 상태 추가
-  const [selectingTile, setSelectingTile] = useState<boolean>(false); // 타일 선택 상태 추가
-  const [diceCount, setDiceCount] = useState<number>(10); // 주사위 갯수 추가
-  const [showDiceValue, setShowDiceValue] = useState<boolean>(false); // 주사위 값 표시 상태 추가
-  const [rolledValue, setRolledValue] = useState<number>(0); // 굴린 주사위 값 추가
+  const [moving, setMoving] = useState<boolean>(false);
+  const [selectingTile, setSelectingTile] = useState<boolean>(false);
+  const [diceCount, setDiceCount] = useState<number>(10);
+  const [starPoints, setStarPoints] = useState<number>(0);
+  const [showDiceValue, setShowDiceValue] = useState<boolean>(false);
+  const [rolledValue, setRolledValue] = useState<number>(0);
 
   const {
     diceRef,
@@ -71,7 +72,7 @@ const DiceEventPage: React.FC = () => {
       | React.TouchEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    if (buttonDisabled || diceCount < 1) return; // 주사위 갯수가 1보다 작을 때는 동작하지 않음
+    if (buttonDisabled || diceCount < 1) return;
     setIsHolding(true);
   };
 
@@ -81,54 +82,64 @@ const DiceEventPage: React.FC = () => {
       | React.TouchEvent<HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    if (buttonDisabled || diceCount < 1) return; // 주사위 갯수가 1보다 작을 때는 동작하지 않음
+    if (buttonDisabled || diceCount < 1) return;
     setIsHolding(false);
     rollDice();
-    setDiceCount((prevCount) => prevCount - 1); // 주사위 갯수 줄이기
+    setDiceCount((prevCount) => prevCount - 1);
   };
 
   const movePiece = (steps: number) => {
-    if (moving) return; // 이미 이동 중인 경우 동작하지 않음
-    setMoving(true); // 이동 상태 설정
+    if (moving) return;
+    setMoving(true);
 
     let currentPosition = position;
     const moveStep = () => {
       currentPosition = (currentPosition + 1) % 20;
       setPosition(currentPosition);
+
+      // 홈을 지날 때 보상 적용
+      if (currentPosition === 0) {
+        setStarPoints((prev) => prev + 200);
+      }
+
       if (steps > 1) {
         steps--;
-        setTimeout(moveStep, 300); // 0.3초마다 한 칸 이동
+        setTimeout(moveStep, 300);
       } else {
-        // 비행기 칸에 도착했을 때 특별한 행동 추가
+        applyReward(currentPosition);
+
         switch (currentPosition) {
           case 2:
-            setPosition(15);
             setTimeout(() => {
+              setPosition(15);
+              applyReward(15);
               setMoving(false);
               setButtonDisabled(false);
             }, 300);
             break;
           case 8:
-            setPosition(5);
             setTimeout(() => {
+              setPosition(5);
+              applyReward(5);
               setMoving(false);
               setButtonDisabled(false);
             }, 300);
             break;
           case 13:
-            setPosition(0);
             setTimeout(() => {
+              setPosition(0);
+              applyReward(0);
               setMoving(false);
               setButtonDisabled(false);
             }, 300);
             break;
           case 18:
-            setSelectingTile(true); // 타일 선택 상태로 변경
-            setMoving(false); // 이동 상태 해제
+            setSelectingTile(true);
+            setMoving(false);
             break;
           default:
-            setMoving(false); // 이동 상태 해제
-            setButtonDisabled(false); // 버튼 활성화
+            setMoving(false);
+            setButtonDisabled(false);
             break;
         }
       }
@@ -136,19 +147,30 @@ const DiceEventPage: React.FC = () => {
     moveStep();
   };
 
+  const applyReward = (tileNumber: number) => {
+    const tile = document.getElementById(tileNumber.toString());
+    if (tile) {
+      const starReward = parseInt(tile.getAttribute('data-star') || '0', 10);
+      const diceReward = parseInt(tile.getAttribute('data-dice') || '0', 10);
+      setStarPoints((prev) => prev + starReward);
+      setDiceCount((prev) => prev + diceReward);
+    }
+  };
+
   const handleTileClick = (tileNumber: number) => {
     if (!selectingTile || tileNumber === 18) return;
     setPosition(tileNumber);
-    setSelectingTile(false); // 타일 선택 상태 해제
-    setMoving(false); // 이동 상태 해제
-    setButtonDisabled(false); // 버튼 활성화
+    setSelectingTile(false);
+    setMoving(false);
+    setButtonDisabled(false);
+    applyReward(tileNumber);
   };
 
   const handleRollComplete = (value: number) => {
-    setRolledValue(value); // 주사위 값 설정
-    setShowDiceValue(true); // 주사위 값 표시
+    setRolledValue(value);
+    setShowDiceValue(true);
     setTimeout(() => {
-      setShowDiceValue(false); // 1초 후 주사위 값 숨기기
+      setShowDiceValue(false);
     }, 1000);
     originalHandleRollComplete(value);
     movePiece(value);
@@ -225,6 +247,8 @@ const DiceEventPage: React.FC = () => {
           id="10"
           className={getTileStyle(10)}
           onClick={() => handleTileClick(10)}
+          data-star="0"
+          data-dice="0"
         >
           11
         </div>
@@ -232,6 +256,8 @@ const DiceEventPage: React.FC = () => {
           id="9"
           className={getTileStyle(9)}
           onClick={() => handleTileClick(9)}
+          data-star="100"
+          data-dice="0"
         >
           <StarTile count={100} />
         </div>
@@ -239,6 +265,8 @@ const DiceEventPage: React.FC = () => {
           id="8"
           className={getTileStyle(8)}
           onClick={() => handleTileClick(8)}
+          data-star="0"
+          data-dice="0"
         >
           <AirplaneTile text="Go Game" />
         </div>
@@ -246,6 +274,8 @@ const DiceEventPage: React.FC = () => {
           id="7"
           className={getTileStyle(7)}
           onClick={() => handleTileClick(7)}
+          data-star="0"
+          data-dice="1"
         >
           <DiceTile count={1} />
         </div>
@@ -253,6 +283,8 @@ const DiceEventPage: React.FC = () => {
           id="6"
           className={getTileStyle(6)}
           onClick={() => handleTileClick(6)}
+          data-star="30"
+          data-dice="0"
         >
           <StarTile count={30} />
         </div>
@@ -260,6 +292,8 @@ const DiceEventPage: React.FC = () => {
           id="5"
           className={getTileStyle(5)}
           onClick={() => handleTileClick(5)}
+          data-star="0"
+          data-dice="0"
         >
           6
         </div>
@@ -267,6 +301,8 @@ const DiceEventPage: React.FC = () => {
           id="11"
           className={getTileStyle(11)}
           onClick={() => handleTileClick(11)}
+          data-star="30"
+          data-dice="0"
         >
           <StarTile count={30} />
         </div>
@@ -320,6 +356,8 @@ const DiceEventPage: React.FC = () => {
           id="4"
           className={getTileStyle(4)}
           onClick={() => handleTileClick(4)}
+          data-star="30"
+          data-dice="0"
         >
           <StarTile count={30} />
         </div>
@@ -327,6 +365,8 @@ const DiceEventPage: React.FC = () => {
           id="12"
           className={getTileStyle(12)}
           onClick={() => handleTileClick(12)}
+          data-star="0"
+          data-dice="1"
         >
           <DiceTile count={1} />
         </div>
@@ -334,6 +374,8 @@ const DiceEventPage: React.FC = () => {
           id="3"
           className={getTileStyle(3)}
           onClick={() => handleTileClick(3)}
+          data-star="0"
+          data-dice="1"
         >
           <DiceTile count={1} />
         </div>
@@ -341,6 +383,8 @@ const DiceEventPage: React.FC = () => {
           id="13"
           className={getTileStyle(13)}
           onClick={() => handleTileClick(13)}
+          data-star="0"
+          data-dice="0"
         >
           <AirplaneTile text="Go Home" />
         </div>
@@ -348,6 +392,8 @@ const DiceEventPage: React.FC = () => {
           id="2"
           className={getTileStyle(2)}
           onClick={() => handleTileClick(2)}
+          data-star="0"
+          data-dice="0"
         >
           <AirplaneTile text="Go Spin" />
         </div>
@@ -355,6 +401,8 @@ const DiceEventPage: React.FC = () => {
           id="14"
           className={getTileStyle(14)}
           onClick={() => handleTileClick(14)}
+          data-star="50"
+          data-dice="0"
         >
           <StarTile count={50} />
         </div>
@@ -362,6 +410,8 @@ const DiceEventPage: React.FC = () => {
           id="1"
           className={getTileStyle(1)}
           onClick={() => handleTileClick(1)}
+          data-star="30"
+          data-dice="0"
         >
           <StarTile count={30} />
         </div>
@@ -369,6 +419,8 @@ const DiceEventPage: React.FC = () => {
           id="15"
           className={getTileStyle(15)}
           onClick={() => handleTileClick(15)}
+          data-star="0"
+          data-dice="0"
         >
           16
         </div>
@@ -376,6 +428,8 @@ const DiceEventPage: React.FC = () => {
           id="16"
           className={getTileStyle(16)}
           onClick={() => handleTileClick(16)}
+          data-star="50"
+          data-dice="0"
         >
           <StarTile count={50} />
         </div>
@@ -383,6 +437,8 @@ const DiceEventPage: React.FC = () => {
           id="17"
           className={getTileStyle(17)}
           onClick={() => handleTileClick(17)}
+          data-star="0"
+          data-dice="2"
         >
           <DiceTile count={2} />
         </div>
@@ -393,6 +449,8 @@ const DiceEventPage: React.FC = () => {
           id="19"
           className={getTileStyle(19)}
           onClick={() => handleTileClick(19)}
+          data-star="50"
+          data-dice="0"
         >
           <StarTile count={50} />
         </div>
@@ -400,6 +458,8 @@ const DiceEventPage: React.FC = () => {
           id="0"
           className={getTileStyle(0)}
           onClick={() => handleTileClick(0)}
+          data-star="200"
+          data-dice="0"
         >
           Home
         </div>
@@ -421,6 +481,10 @@ const DiceEventPage: React.FC = () => {
       <div className="text-white mt-4 z-30">
         Current Position: {position} <br />
         Dice Value: {diceValue}
+      </div>
+      <div className="text-white mt-2 z-30">
+        Star Points: {starPoints} <br />
+        Dice Count: {diceCount}
       </div>
       <Board
         position={position}
