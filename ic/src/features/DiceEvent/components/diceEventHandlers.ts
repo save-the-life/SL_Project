@@ -35,11 +35,11 @@ export const movePiece = (
   position: number,
   setPosition: Dispatch<SetStateAction<number>>,
   setMoving: Dispatch<SetStateAction<boolean>>,
-  setButtonDisabled: Dispatch<SetStateAction<boolean>>,
   setSelectingTile: Dispatch<SetStateAction<boolean>>,
   setStarPoints: Dispatch<SetStateAction<number>>,
   setDiceCount: Dispatch<SetStateAction<number>>,
   showReward: (type: string, value: number) => void,
+  onMoveComplete: () => void,
 ) => {
   setMoving(true);
 
@@ -48,10 +48,11 @@ export const movePiece = (
     currentPosition = (currentPosition + 1) % 20;
     setPosition(currentPosition);
 
-    // 홈을 지날 때 보상 적용
     if (currentPosition === 0) {
       setStarPoints((prev) => prev + 200);
       showReward('star', 200);
+      setDiceCount((prev) => prev + 1);
+      setTimeout(() => showReward('lottery', 1), 200);
     }
 
     if (steps > 1) {
@@ -66,17 +67,19 @@ export const movePiece = (
             setPosition(15);
             applyReward(15, setStarPoints, setDiceCount, showReward);
             setMoving(false);
-            setButtonDisabled(false);
+            onMoveComplete();
           }, 300);
           break;
         case 8:
           setTimeout(() => {
             setPosition(5);
-            setStarPoints((prev) => prev + 200); // 홈 보상 추가
-            showReward('star', 200); // 홈 보상 표시
+            setStarPoints((prev) => prev + 200);
+            setDiceCount((prev) => prev + 1);
+            showReward('star', 200);
+            setTimeout(() => showReward('lottery', 1), 200);
             applyReward(5, setStarPoints, setDiceCount, showReward);
             setMoving(false);
-            setButtonDisabled(false);
+            onMoveComplete();
           }, 300);
           break;
         case 13:
@@ -84,7 +87,7 @@ export const movePiece = (
             setPosition(0);
             applyReward(0, setStarPoints, setDiceCount, showReward);
             setMoving(false);
-            setButtonDisabled(false);
+            onMoveComplete();
           }, 300);
           break;
         case 18:
@@ -93,7 +96,7 @@ export const movePiece = (
           break;
         default:
           setMoving(false);
-          setButtonDisabled(false);
+          onMoveComplete();
           break;
       }
     }
@@ -121,12 +124,7 @@ export const applyReward = (
       showReward('dice', diceReward);
     }
 
-    if (
-      tileNumber === 2 ||
-      tileNumber === 8 ||
-      tileNumber === 13 ||
-      (tileNumber !== 19 && tileNumber === 18)
-    ) {
+    if ([2, 8, 13, 18].includes(tileNumber)) {
       showReward('airplane', 0);
     }
   }
@@ -146,8 +144,5 @@ export const handleTileClick = (
   setSelectingTile(false);
   setMoving(false);
   setButtonDisabled(false);
-  if (tileNumber !== 19) {
-    applyRewardCallback(0); // 홈 보상
-  }
   applyRewardCallback(tileNumber);
 };

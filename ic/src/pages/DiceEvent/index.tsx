@@ -32,6 +32,7 @@ const DiceEventPage: React.FC = () => {
   const [selectingTile, setSelectingTile] = useState<boolean>(false);
   const [diceCount, setDiceCount] = useState<number>(10);
   const [starPoints, setStarPoints] = useState<number>(0);
+  const [lotteryCount, setLotteryCount] = useState<number>(0);
   const [showDiceValue, setShowDiceValue] = useState<boolean>(false);
   const [rolledValue, setRolledValue] = useState<number>(0);
   const [reward, setReward] = useState<{
@@ -48,16 +49,10 @@ const DiceEventPage: React.FC = () => {
     handleRollComplete: originalHandleRollComplete,
     buttonDisabled,
     setButtonDisabled,
-  } = useDice(position, setPosition);
+  } = useDice();
   const { gaugeValue, isHolding, setIsHolding } = useGauge();
-  const {
-    userLv,
-    setUserLv,
-    mainColorClassName,
-    charactorImageSrc,
-    characterType,
-    setCharacterType,
-  } = useUserLevel(initialCharacterType);
+  const { userLv, mainColorClassName, charactorImageSrc } =
+    useUserLevel(initialCharacterType);
 
   const [initialX, setInitialX] = useState<number>(140);
   const [initialY, setInitialY] = useState<number>(474);
@@ -108,16 +103,17 @@ const DiceEventPage: React.FC = () => {
       setShowDiceValue(false);
     }, 1000);
     originalHandleRollComplete(value);
+    setButtonDisabled(true); // 주사위 버튼 비활성화
     movePiece(
       value,
       position,
       setPosition,
       setMoving,
-      setButtonDisabled,
       setSelectingTile,
       setStarPoints,
       setDiceCount,
       showReward,
+      () => setButtonDisabled(false), // 이동 완료 후 버튼 활성화
     );
   };
 
@@ -173,7 +169,7 @@ const DiceEventPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center  bg-[#0D1226] relative">
+    <div className="flex flex-col items-center bg-[#0D1226] relative">
       <div className="w-full flex justify-center mb-4 mt-8 gap-4">
         <UserLevel
           userLv={userLv}
@@ -412,6 +408,16 @@ const DiceEventPage: React.FC = () => {
                   )}
                   {reward.type === 'airplane' && (
                     <img src={Images.Airplane} alt="airplane" className="h-6" />
+                  )}
+                  {reward.type === 'lottery' && (
+                    <div className="flex flex-col items-center">
+                      <img
+                        src={Images.LotteryTicket}
+                        alt="lottery"
+                        className="h-6"
+                      />
+                      <span className="mt-1">+{reward.value}</span>
+                    </div>
                   )}
                 </motion.div>
               )}
@@ -763,6 +769,7 @@ const DiceEventPage: React.FC = () => {
           }
           data-star="200"
           data-dice="0"
+          data-lottery="1"
         >
           Home
         </div>
@@ -785,9 +792,9 @@ const DiceEventPage: React.FC = () => {
 
       <RankingWidget />
 
-      <div className=" mt-8 flex flex-col items-center justify-center">
+      <div className=" mt-8 flex flex-col items-center justify-center ">
         <h1 className="font-jalnan text-white text-3xl">Mission</h1>
-        <div className=" flex flex-row items-center justify-evenly md:justify-around bg-box mt-4 w-[332px] md:w-[595.95px] h-36 md:h-44 text-white">
+        <div className=" flex flex-row items-center justify-between md:justify-around bg-box mt-4 w-[332px] md:w-[595.95px] h-36 md:h-44 text-white px-8">
           <div className="space-y-3">
             <h2 className=" font-semibold text-xl">Get More Dice</h2>
             <p className="text-sm">
