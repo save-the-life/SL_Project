@@ -146,3 +146,23 @@
   box-sizing: border-box; /* 박스 모델 설정 */
   border-radius: 28px;
 }
+
+.bg-box {
+  background: linear-gradient(180deg, rgba(25, 32, 60, 0.7) 0%, #304689 100%);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 24px;
+}
+
+.attendance-check-box-checked {
+  background: linear-gradient(159.81deg, #28e16c 7.91%, #268f4d 90.91%);
+}
+
+.attendance-check-box-missed {
+  background: linear-gradient(159.81deg, #ea2828 7.91%, #892020 90.91%);
+}
+
+.attendance {
+  background: linear-gradient(180deg, rgba(25, 32, 60, 0.7) 0%, #304689 100%);
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 24px;
+}
