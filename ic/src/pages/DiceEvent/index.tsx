@@ -23,6 +23,7 @@ import {
   applyReward,
 } from '@/features/DiceEvent/components/diceEventHandlers';
 import Attendance from '@/widgets/Attendance';
+import RankingWidget from '@/widgets/MyRanking/MyRankingWidget';
 
 const DiceEventPage: React.FC = () => {
   const initialCharacterType: 'dog' | 'cat' = 'dog';
@@ -118,6 +119,10 @@ const DiceEventPage: React.FC = () => {
       setDiceCount,
       showReward,
     );
+  };
+
+  const formatNumber = (num: number) => {
+    return num.toLocaleString();
   };
 
   const getTileStyle = (tileNumber: number) => {
@@ -778,19 +783,27 @@ const DiceEventPage: React.FC = () => {
 
       <Attendance />
 
-      <div className=" mt-8 flex flex-col items-center justify-center">
-        <h1 className="font-jalnan text-white text-3xl">Ranking</h1>
-        <div className="bg-box mt-4 w-[332px] px-8 md:w-[595.95px] h-24 md:h-32"></div>
-      </div>
+      <RankingWidget />
 
-      <div className="flex flex-col text-white mt-8 z-30 ">
-        <div className="flex flex-row items-center gap-2">
-          <img src={Images.Star} alt="star" className=" h-4" /> : {starPoints}
-        </div>
-        <div className="flex flex-row items-center gap-2">
-          <img src={Images.Dice} alt="dice" className=" h-4" />: {diceCount}
+      <div className=" mt-8 flex flex-col items-center justify-center">
+        <h1 className="font-jalnan text-white text-3xl">Mission</h1>
+        <div className=" flex flex-row items-center justify-evenly md:justify-around bg-box mt-4 w-[332px] md:w-[595.95px] h-36 md:h-44 text-white">
+          <div className="space-y-3">
+            <h2 className=" font-semibold text-xl">Get More Dice</h2>
+            <p className="text-sm">
+              Earn extra rolls
+              <br />
+              to boost your chances!
+            </p>
+          </div>
+          <img
+            src={Images.MissionDice}
+            className="  w-28 h-28 object-cover "
+            alt="mission-dice"
+          />
         </div>
       </div>
+      <br />
       <Board
         position={position}
         charactorImageSrc={charactorImageSrc}

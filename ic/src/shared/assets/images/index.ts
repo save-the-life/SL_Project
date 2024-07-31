@@ -37,6 +37,8 @@ import DogLv17to18 from './DogCharacterlv17to18.png';
 import DogLv19to20 from './DogCharacterlv19to20.png';
 import SLSymbol from './sl_symbol.png';
 import MissionDice from './mission-dice.png';
+import RankingSLToken from './ranking-sl-token.png';
+import LotteryTicket from './lottery-ticket.png';
 
 const Images = {
   HorizontalLogo,
@@ -78,6 +80,8 @@ const Images = {
   DogLv19to20,
   SLSymbol,
   MissionDice,
+  RankingSLToken,
+  LotteryTicket,
 };
 
 export default Images;

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import Images from '@/shared/assets/images';
 
 const useUserLevel = (initialCharacterType: 'dog' | 'cat') => {
-  const [userLv, setUserLv] = useState<number>(20);
+  const [userLv, setUserLv] = useState<number>(1);
   const [mainColorClassName, setMainColorClassName] = useState<string>('');
   const [charactorImageSrc, setCharactorImageSrc] = useState<string>('');
   const [characterType, setCharacterType] = useState<'dog' | 'cat'>(
