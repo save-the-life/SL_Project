@@ -865,6 +865,8 @@ const DiceEventPage: React.FC = () => {
       <RankingWidget />
       <MissionWidget />
       <br /> <br /> <br />
+      <br />
+      <br />
       <Board
         position={position}
         charactorImageSrc={charactorImageSrc}

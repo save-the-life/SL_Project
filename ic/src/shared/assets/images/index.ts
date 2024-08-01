@@ -39,6 +39,13 @@ import SLSymbol from './sl_symbol.png';
 import MissionDice from './mission-dice.png';
 import RankingSLToken from './ranking-sl-token.png';
 import LotteryTicket from './lottery-ticket.png';
+import InviteFriend from './invite-friend.png';
+import Dice3D from './3d_dice.png';
+import Email from './email.png';
+import Twitter from './twitter.png';
+import LargeTwitter from './twitter_large.png';
+import Discord from './discord.png';
+import Telegram from './telegram.png';
 
 const Images = {
   HorizontalLogo,
@@ -82,6 +89,13 @@ const Images = {
   MissionDice,
   RankingSLToken,
   LotteryTicket,
+  InviteFriend,
+  Dice3D,
+  Email,
+  Twitter,
+  LargeTwitter,
+  Discord,
+  Telegram,
 };
 
 export default Images;
