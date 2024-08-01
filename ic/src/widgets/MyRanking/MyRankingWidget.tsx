@@ -52,6 +52,9 @@ const RankingWidget: React.FC = () => {
           </div>
         </div>
       </div>
+      <p className=" flex items-start justify-start w-full font-medium text-xs mt-2">
+        * Rankings are based on Star Points
+      </p>
     </div>
   );
 };
