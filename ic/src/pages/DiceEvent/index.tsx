@@ -15,7 +15,6 @@ import '@/features/DiceEvent/DiceEvent.css';
 import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 import { WeeklyPrize } from '@/entities/WeeklyPrize';
-import { Link } from 'react-router-dom';
 import {
   handleMouseDown,
   handleMouseUp,
@@ -114,13 +113,10 @@ const DiceEventPage: React.FC = () => {
       setSelectingTile,
       setStarPoints,
       setDiceCount,
+      setLotteryCount, // 새로운 인수 추가
       showReward,
       () => setButtonDisabled(false), // 이동 완료 후 버튼 활성화
     );
-  };
-
-  const formatNumber = (num: number) => {
-    return num.toLocaleString();
   };
 
   const getTileStyle = (tileNumber: number) => {
@@ -203,6 +199,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -228,6 +228,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="100"
@@ -253,6 +257,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -278,6 +286,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -303,6 +315,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="30"
@@ -328,6 +344,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -353,6 +373,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="30"
@@ -489,6 +513,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="30"
@@ -514,6 +542,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -539,6 +571,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -564,6 +600,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -589,6 +629,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -614,6 +658,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="50"
@@ -639,6 +687,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="30"
@@ -664,6 +716,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -689,6 +745,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="50"
@@ -714,6 +774,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="0"
@@ -742,6 +806,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="50"
@@ -767,6 +835,10 @@ const DiceEventPage: React.FC = () => {
                   setDiceCount,
                   showReward,
                 ),
+              setStarPoints, // 추가
+              setDiceCount, // 추가
+              setLotteryCount, // 추가
+              showReward, // 추가
             )
           }
           data-star="200"
@@ -779,7 +851,7 @@ const DiceEventPage: React.FC = () => {
       {selectingTile && (
         <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center z-20">
           <div className="absolute top-0 left-0 w-full h-full bg-black opacity-75"></div>
-          <div className="text-white text-lg z-30 flex flex-col items-center justify-center mb-14">
+          <div className="text-white text-lg z-30 flex flex-col items-center justify-center mb-96 md:mb-[442px]">
             <img
               src={Images.Airplane}
               alt="airplane"

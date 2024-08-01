@@ -38,8 +38,9 @@ export const movePiece = (
   setSelectingTile: Dispatch<SetStateAction<boolean>>,
   setStarPoints: Dispatch<SetStateAction<number>>,
   setDiceCount: Dispatch<SetStateAction<number>>,
+  setLotteryCount: Dispatch<SetStateAction<number>>, // 추가
   showReward: (type: string, value: number) => void,
-  onMoveComplete: () => void,
+  onMoveComplete: () => void, // 추가
 ) => {
   setMoving(true);
 
@@ -52,6 +53,7 @@ export const movePiece = (
       setStarPoints((prev) => prev + 200);
       showReward('star', 200);
       setDiceCount((prev) => prev + 1);
+      setLotteryCount((prev) => prev + 1); // 추첨권 증가
       setTimeout(() => showReward('lottery', 1), 200);
     }
 
@@ -75,6 +77,7 @@ export const movePiece = (
             setPosition(5);
             setStarPoints((prev) => prev + 200);
             setDiceCount((prev) => prev + 1);
+            setLotteryCount((prev) => prev + 1); // 추첨권 증가
             showReward('star', 200);
             setTimeout(() => showReward('lottery', 1), 200);
             applyReward(5, setStarPoints, setDiceCount, showReward);
@@ -129,7 +132,6 @@ export const applyReward = (
     }
   }
 };
-
 export const handleTileClick = (
   tileNumber: number,
   selectingTile: boolean,
@@ -138,11 +140,24 @@ export const handleTileClick = (
   setMoving: Dispatch<SetStateAction<boolean>>,
   setButtonDisabled: Dispatch<SetStateAction<boolean>>,
   applyRewardCallback: (tileNumber: number) => void,
+  setStarPoints: Dispatch<SetStateAction<number>>,
+  setDiceCount: Dispatch<SetStateAction<number>>,
+  setLotteryCount: Dispatch<SetStateAction<number>>,
+  showReward: (type: string, value: number) => void,
 ) => {
   if (!selectingTile || tileNumber === 18) return;
   setPosition(tileNumber);
   setSelectingTile(false);
   setMoving(false);
   setButtonDisabled(false);
+
+  if (tileNumber !== 19) {
+    setStarPoints((prev) => prev + 200);
+    setDiceCount((prev) => prev + 1);
+    setLotteryCount((prev) => prev + 1); // 추첨권 증가
+    showReward('star', 200);
+    setTimeout(() => showReward('lottery', 1), 500);
+  }
+
   applyRewardCallback(tileNumber);
 };
