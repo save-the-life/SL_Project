@@ -46,6 +46,15 @@ import Twitter from './twitter.png';
 import LargeTwitter from './twitter_large.png';
 import Discord from './discord.png';
 import Telegram from './telegram.png';
+import OneInchLogo from './1inch-logo.png';
+import BinanceLogo from './binance-logo.png';
+import BybitLogo from './bybit-logo.png';
+import HtxLogo from './htx-logo.png';
+import IcpLogo from './icp-logo.png';
+import KucoinLogo from './kucoin-logo.png';
+import MexcLogo from './mexc-logo.png';
+import OkxLogo from './okx-logo.png';
+import TrustLogo from './trust-logo.png';
 
 const Images = {
   HorizontalLogo,
@@ -96,6 +105,15 @@ const Images = {
   LargeTwitter,
   Discord,
   Telegram,
+  OneInchLogo,
+  BinanceLogo,
+  BybitLogo,
+  HtxLogo,
+  IcpLogo,
+  KucoinLogo,
+  MexcLogo,
+  OkxLogo,
+  TrustLogo,
 };
 
 export default Images;

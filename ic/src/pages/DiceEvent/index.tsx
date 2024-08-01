@@ -31,7 +31,7 @@ const DiceEventPage: React.FC = () => {
   const [position, setPosition] = useState<number>(0);
   const [moving, setMoving] = useState<boolean>(false);
   const [selectingTile, setSelectingTile] = useState<boolean>(false);
-  const [diceCount, setDiceCount] = useState<number>(10);
+  const [diceCount, setDiceCount] = useState<number>(100);
   const [starPoints, setStarPoints] = useState<number>(0);
   const [lotteryCount, setLotteryCount] = useState<number>(0);
   const [showDiceValue, setShowDiceValue] = useState<boolean>(false);

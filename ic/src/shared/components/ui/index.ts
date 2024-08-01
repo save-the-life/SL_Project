@@ -85,3 +85,17 @@ export { Skeleton } from './skeleton';
 export { Avatar, AvatarImage, AvatarFallback } from './avatar';
 
 export { TopTitle } from './topTitle';
+
+export {
+  AlertDialog,
+  AlertDialogPortal,
+  AlertDialogOverlay,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogAction,
+  AlertDialogCancel,
+} from './alert-dialog';

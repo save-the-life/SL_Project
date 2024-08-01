@@ -1,5 +1,4 @@
 import React from 'react';
-import Images from '@/shared/assets/images';
 
 const UserLevel: React.FC<{
   userLv: number;
