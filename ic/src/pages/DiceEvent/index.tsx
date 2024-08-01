@@ -787,11 +787,8 @@ const DiceEventPage: React.FC = () => {
           </div>
         </div>
       )}
-
       <Attendance />
-
       <RankingWidget />
-
       <div className=" mt-8 flex flex-col items-center justify-center ">
         <h1 className="font-jalnan text-white text-3xl">Mission</h1>
         <div className=" flex flex-row items-center justify-between md:justify-around bg-box mt-4 w-[332px] md:w-[595.95px] h-36 md:h-44 text-white px-8">
@@ -810,7 +807,7 @@ const DiceEventPage: React.FC = () => {
           />
         </div>
       </div>
-      <br />
+      <br /> <br /> <br /> <br /> <br />
       <Board
         position={position}
         charactorImageSrc={charactorImageSrc}

@@ -16,8 +16,11 @@ import TransferCompleted from '../pages/TransferCompleted';
 import ReferralManagement from '../pages/ReferralManagement';
 import InstallPrompt from './components/InstallPrompt';
 import StepCounter from '@/pages/StepCounter';
-import TonTest from '@/pages/TonTest';
 import DiceEvent from '@/pages/DiceEvent';
+import WalletPage from '@/pages/WalletPage';
+import MissionPage from '@/pages/MissionPage';
+import RankPage from '@/pages/RankPage';
+import DiceEventLayout from './layout/DiceEventLayout';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -53,12 +56,44 @@ const App: React.FC = () => {
               </MainLayout>
             }
           />
-          <Route
+          {/* <Route
             path="/wallet"
             element={
               <MainLayout showBottomNav={true}>
                 <Wallet />
               </MainLayout>
+            }
+          /> */}
+          <Route
+            path="/wallet"
+            element={
+              <DiceEventLayout>
+                <WalletPage />
+              </DiceEventLayout>
+            }
+          />
+          <Route
+            path="/dice-event"
+            element={
+              <DiceEventLayout>
+                <DiceEvent />
+              </DiceEventLayout>
+            }
+          />
+          <Route
+            path="/mission"
+            element={
+              <DiceEventLayout>
+                <MissionPage />
+              </DiceEventLayout>
+            }
+          />
+          <Route
+            path="/rank"
+            element={
+              <DiceEventLayout>
+                <RankPage />
+              </DiceEventLayout>
             }
           />
           <Route
@@ -138,22 +173,6 @@ const App: React.FC = () => {
             element={
               <MainLayout showBottomNav={false}>
                 <StepCounter />
-              </MainLayout>
-            }
-          />
-          <Route
-            path="/ton-test"
-            element={
-              <MainLayout showBottomNav={false}>
-                <TonTest />
-              </MainLayout>
-            }
-          />
-          <Route
-            path="/dice-event"
-            element={
-              <MainLayout showBottomNav={false}>
-                <DiceEvent />
               </MainLayout>
             }
           />
