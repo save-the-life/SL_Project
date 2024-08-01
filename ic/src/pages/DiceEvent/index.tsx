@@ -15,6 +15,7 @@ import '@/features/DiceEvent/DiceEvent.css';
 import Dice from '@/widgets/Dice';
 import Images from '@/shared/assets/images';
 import { WeeklyPrize } from '@/entities/WeeklyPrize';
+import { Link } from 'react-router-dom';
 import {
   handleMouseDown,
   handleMouseUp,
@@ -24,6 +25,7 @@ import {
 } from '@/features/DiceEvent/components/diceEventHandlers';
 import Attendance from '@/widgets/Attendance';
 import RankingWidget from '@/widgets/MyRanking/MyRankingWidget';
+import MissionWidget from '@/widgets/MissionWidget/MissionWidget';
 
 const DiceEventPage: React.FC = () => {
   const initialCharacterType: 'dog' | 'cat' = 'dog';
@@ -789,25 +791,8 @@ const DiceEventPage: React.FC = () => {
       )}
       <Attendance />
       <RankingWidget />
-      <div className=" mt-8 flex flex-col items-center justify-center ">
-        <h1 className="font-jalnan text-white text-3xl">Mission</h1>
-        <div className=" flex flex-row items-center justify-between md:justify-around bg-box mt-4 w-[332px] md:w-[595.95px] h-36 md:h-44 text-white px-8">
-          <div className="space-y-3">
-            <h2 className=" font-semibold text-xl">Get More Dice</h2>
-            <p className="text-sm">
-              Earn extra rolls
-              <br />
-              to boost your chances!
-            </p>
-          </div>
-          <img
-            src={Images.MissionDice}
-            className="  w-28 h-28 object-cover "
-            alt="mission-dice"
-          />
-        </div>
-      </div>
-      <br /> <br /> <br /> <br /> <br />
+      <MissionWidget />
+      <br /> <br /> <br />
       <Board
         position={position}
         charactorImageSrc={charactorImageSrc}

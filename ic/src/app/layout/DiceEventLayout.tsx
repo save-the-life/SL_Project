@@ -11,7 +11,7 @@ const DiceEventLayout: React.FC<DiveEventLayoutProps> = ({
   className,
 }) => {
   return (
-    <div className={`flex flex-col h-screen   ${className || ''}`}>
+    <div className={`flex flex-col bg-[#0D1226] h-screen   ${className || ''}`}>
       <div className={`flex-1 overflow-y-auto`}>{children}</div>
       <BottomNavigation />
     </div>

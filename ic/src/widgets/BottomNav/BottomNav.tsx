@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { AiOutlineHome, AiOutlineTrophy } from 'react-icons/ai';
 import { TbTargetArrow } from 'react-icons/tb';
 import { BiWallet } from 'react-icons/bi';
+import { useNavigationStore } from '@/shared/store/navigationStore';
 
 const BottomNavigation: React.FC = () => {
-  const location = useLocation();
-  const [selected, setSelected] = useState(location.pathname);
+  const { selected, setSelected } = useNavigationStore();
 
   const handleNavigation = (path: string) => {
     setSelected(path);

@@ -1,18 +1,22 @@
 import React from 'react';
 import Images from '@/shared/assets/images';
 import { formatNumber } from '@/shared/utils/formatNumber';
+import { useNavigate } from 'react-router-dom';
+import { useNavigationStore } from '@/shared/store/navigationStore';
 
 const RankingWidget: React.FC = () => {
-  //   const history = useHistory();
+  const navigate = useNavigate();
+  const setSelected = useNavigationStore((state) => state.setSelected);
 
-  //   const handleRankingClick = () => {
-  //     history.push('/ranking');
-  //   };
+  const handleRankingClick = () => {
+    setSelected('/rank');
+    navigate('/rank');
+  };
 
   return (
     <div
       className="mt-8 flex flex-col items-center justify-center text-white cursor-pointer"
-      //   onClick={handleRankingClick}
+      onClick={handleRankingClick}
     >
       <h1 className="font-jalnan text-3xl">Ranking</h1>
       <div className="bg-box mt-4 w-[332px] px-8 md:w-[595.95px] h-24 md:h-32 flex">
