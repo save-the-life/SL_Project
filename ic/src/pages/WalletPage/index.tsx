@@ -11,14 +11,47 @@ import { HiX } from 'react-icons/hi';
 import './WalletPage.css';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 
+// SelectedWallet 인터페이스 정의
+interface SelectedWallet {
+  wallet: string;
+  img: string;
+}
+
+// 버튼 컴포넌트에서 사용할 props 인터페이스 정의
+interface WalletCardProps {
+  text: string;
+  imgSrc: string;
+}
+
 const WalletPage: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [walletInputOpen, setWalletInputOpen] = useState(false);
   const [tipOpen, setTipOpen] = useState(false);
   const [address, setAddress] = useState('');
+  const [selectedWallet, setSelectedWallet] = useState<SelectedWallet>({
+    wallet: '', // 초기값을 null로 설정
+    img: '',
+  });
 
-  const handleOpen = () => {
+  const handleOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
     setOpen(true);
+
+    const buttonElement = event.currentTarget;
+
+    // 버튼 내부의 텍스트와 이미지를 찾습니다.
+    const textElement = buttonElement.querySelector('p');
+    const imgElement = buttonElement.querySelector('img');
+
+    if (textElement && imgElement) {
+      const buttonText = textElement.textContent ?? ''; // 대체 값 설정
+      const buttonImg = imgElement.getAttribute('src') ?? ''; // 이미지 경로 대체 값 설정
+
+      // selectedWallet 상태를 업데이트합니다.
+      setSelectedWallet({ wallet: buttonText, img: buttonImg });
+    } else {
+      console.log('Text or image element not found');
+    }
   };
 
   const handleClose = () => {
@@ -42,17 +75,31 @@ const WalletPage: React.FC = () => {
     setTipOpen(false);
   };
 
+  const WalletCard: React.FC<WalletCardProps> = ({ text, imgSrc }) => {
+    return (
+      <button
+        className="flex flex-row items-center gap-2 border-2 border-[#142964] h-16 rounded-3xl pl-5 mx-6"
+        onClick={handleOpen}
+      >
+        <img src={imgSrc} className="w-6 h-6" alt={`${text} logo`} />
+        <p className="text-lg">{text}</p>
+      </button>
+    );
+  };
+
   return (
-    <div className="flex flex-col text-white">
+    <div className="flex flex-col text-white mb-32">
       <TopTitle title="Wallet" />
       <div className="flex flex-col gap-3">
-        <div
-          className=" flex flex-row items-center gap-2 border-2 border-[#142964] h-16 rounded-3xl pl-5 mx-6"
-          onClick={handleOpen}
-        >
-          <img src={Images.IcpLogo} className=" w-6 h-6" />
-          <p className=" text-lg">ICP</p>
-        </div>
+        <WalletCard text="ICP" imgSrc={Images.IcpLogo} />
+        <WalletCard text="BINANCE" imgSrc={Images.BinanceLogo} />
+        <WalletCard text="OKX" imgSrc={Images.OkxLogo} />
+        <WalletCard text="BYBIT" imgSrc={Images.BybitLogo} />
+        <WalletCard text="HTX" imgSrc={Images.HtxLogo} />
+        <WalletCard text="KUCOIN" imgSrc={Images.KucoinLogo} />
+        <WalletCard text="MEXC" imgSrc={Images.MexcLogo} />
+        <WalletCard text="TRUST WALLET" imgSrc={Images.TrustLogo} />
+        <WalletCard text="1INCH" imgSrc={Images.OneInchLogo} />
       </div>
       <AlertDialog open={open}>
         <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">
@@ -60,7 +107,7 @@ const WalletPage: React.FC = () => {
             <AlertDialogTitle className=" text-center font-bold text-xl">
               <div className="flex flex-row items-center justify-between">
                 <div> &nbsp;</div>
-                <p>ICP Wallet</p>
+                <p>{selectedWallet.wallet} Wallet</p>
                 <HiX className={'w-6 h-6 '} onClick={handleClose} />
               </div>
             </AlertDialogTitle>
@@ -68,7 +115,7 @@ const WalletPage: React.FC = () => {
           <div className=" flex flex-col items-center justify-center w-full h-full gap-10">
             <div className="mt-20  w-40 h-40 bg-gradient-to-b from-[#2660f4] to-[#3937a3] rounded-[40px]  flex items-center justify-center">
               <div className="w-[158px] h-[158px] logo-bg rounded-[40px] flex items-center justify-center">
-                <img src={Images.IcpLogo} className=" w-16 h-16" />
+                <img src={selectedWallet.img} className=" w-16 h-16" />
               </div>
             </div>
             <div className="text-center space-y-2">
@@ -102,14 +149,16 @@ const WalletPage: React.FC = () => {
             <AlertDialogTitle className=" text-center font-bold text-xl">
               <div className="flex flex-row items-center justify-between">
                 <div> &nbsp;</div>
-                <p>ICP Wallet</p>
+                <p>{selectedWallet.wallet} Wallet</p>
                 <HiX className={'w-6 h-6 '} onClick={handleWalletInputClose} />
               </div>
             </AlertDialogTitle>
           </AlertDialogHeader>
           <div className=" flex flex-col items-center justify-center w-full h-full gap-10 pt-20">
             <div className="text-center space-y-2">
-              <p className=" text-xl font-semibold">Balance ICP</p>
+              <p className=" text-xl font-semibold">
+                Balance {selectedWallet.wallet}
+              </p>
               <p className=" text-[#a3a3a3]">
                 To receive tokens,
                 <br />
@@ -133,9 +182,9 @@ const WalletPage: React.FC = () => {
               </button>
               <button
                 className={` w-full h-14 rounded-full bg-[#0147e5] ${
-                  address == '' ? 'opacity-40' : ' '
+                  address === '' ? 'opacity-40' : ''
                 }`}
-                disabled={address !== ''}
+                disabled={address === ''}
               >
                 Next
               </button>
