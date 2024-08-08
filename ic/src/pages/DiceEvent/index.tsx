@@ -23,7 +23,7 @@ import {
   applyReward,
 } from '@/features/DiceEvent/components/diceEventHandlers';
 import Attendance from '@/widgets/Attendance';
-import RankingWidget from '@/widgets/MyRanking/MyRankingWidget';
+import MyRankingWidget from '@/widgets/MyRanking/MyRankingWidget';
 import MissionWidget from '@/widgets/MissionWidget/MissionWidget';
 
 const DiceEventPage: React.FC = () => {
@@ -167,7 +167,7 @@ const DiceEventPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center bg-[#0D1226] relative">
+    <div className="flex flex-col items-center md:h-screen    bg-[#0D1226] relative">
       <div className="w-full flex justify-center mb-4 mt-8 gap-4">
         <UserLevel
           userLv={userLv}
@@ -862,7 +862,7 @@ const DiceEventPage: React.FC = () => {
         </div>
       )}
       <Attendance />
-      <RankingWidget />
+      <MyRankingWidget />
       <MissionWidget />
       <br /> <br /> <br />
       <br />
@@ -874,6 +874,7 @@ const DiceEventPage: React.FC = () => {
         initialY={initialY}
         delta={delta}
       />
+      <div className=" hidden md:block md:mb-40"> &nbsp;</div>
     </div>
   );
 };

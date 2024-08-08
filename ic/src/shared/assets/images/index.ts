@@ -55,6 +55,7 @@ import KucoinLogo from './kucoin-logo.png';
 import MexcLogo from './mexc-logo.png';
 import OkxLogo from './okx-logo.png';
 import TrustLogo from './trust-logo.png';
+import PrizeImage from './prizeImage.png';
 
 const Images = {
   HorizontalLogo,
@@ -114,6 +115,7 @@ const Images = {
   MexcLogo,
   OkxLogo,
   TrustLogo,
+  PrizeImage,
 };
 
 export default Images;

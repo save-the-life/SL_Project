@@ -21,6 +21,7 @@ import WalletPage from '@/pages/WalletPage';
 import MissionPage from '@/pages/MissionPage';
 import RankPage from '@/pages/RankPage';
 import DiceEventLayout from './layout/DiceEventLayout';
+import MiniGame from '@/pages/MiniGame';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -48,6 +49,7 @@ const App: React.FC = () => {
               </MainLayout>
             }
           />
+
           <Route
             path="/images"
             element={
@@ -93,6 +95,14 @@ const App: React.FC = () => {
             element={
               <DiceEventLayout>
                 <RankPage />
+              </DiceEventLayout>
+            }
+          />
+          <Route
+            path="/mini-game"
+            element={
+              <DiceEventLayout>
+                <MiniGame />
               </DiceEventLayout>
             }
           />

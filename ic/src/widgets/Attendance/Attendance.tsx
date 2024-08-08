@@ -58,7 +58,7 @@ const Attendance: React.FC = () => {
   return (
     <div
       id="attendance"
-      className="grid grid-cols-7 gap-2 bg-box mt-4 w-[332px] px-8 md:w-[595.95px] min-h-24 md:h-32 text-white text-xs"
+      className="grid grid-cols-7 gap-2 bg-box mt-4 w-[332px] px-8 md:w-[595.95px] min-h-24 md:h-32 text-white text-xs mb-8"
     >
       {days.map((day, index) => (
         <AttendanceDay key={index} day={day} status={getStatus(day)} />

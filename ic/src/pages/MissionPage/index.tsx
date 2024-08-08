@@ -1,6 +1,7 @@
 import { TopTitle } from '@/shared/components/ui';
 import './MissionPage.css';
 import Images from '@/shared/assets/images';
+import { Link } from 'react-router-dom';
 
 interface OneTimeMissionCardProps {
   title: string;
@@ -121,11 +122,13 @@ const MissionPage: React.FC = () => {
         </p>
       </div>
       <h1 className=" font-semibold text-lg ml-[2px] mb-4">Daily Mission</h1>
-      <DailyMissionCard
-        title="Dice Roll Game"
-        alt="3d-dice-image"
-        image={Images.Dice3D}
-      />
+      <Link to="/mini-game">
+        <DailyMissionCard
+          title="Dice Roll Game"
+          alt="3d-dice-image"
+          image={Images.Dice3D}
+        />
+      </Link>{' '}
       <DailyMissionCard
         title="Invite Friends"
         alt="invite-image"

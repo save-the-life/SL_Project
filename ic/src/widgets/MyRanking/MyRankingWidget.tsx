@@ -4,7 +4,7 @@ import { formatNumber } from '@/shared/utils/formatNumber';
 import { useNavigate } from 'react-router-dom';
 import { useNavigationStore } from '@/shared/store/navigationStore';
 
-const RankingWidget: React.FC = () => {
+const MyRankingWidget: React.FC = () => {
   const navigate = useNavigate();
   const setSelected = useNavigationStore((state) => state.setSelected);
 
@@ -15,11 +15,11 @@ const RankingWidget: React.FC = () => {
 
   return (
     <div
-      className="mt-8 flex flex-col items-center justify-center text-white cursor-pointer"
+      className=" flex flex-col items-center justify-center text-white cursor-pointer lg:mx-[480px]"
       onClick={handleRankingClick}
     >
       <h1 className="font-jalnan text-3xl">Ranking</h1>
-      <div className="bg-box mt-4 w-[332px] px-8 md:w-[595.95px] h-24 md:h-32 flex">
+      <div className="bg-box mt-4  px-8 md:w-[595.95px] w-[332px] h-24 md:h-32 flex">
         <div className="w-[121px] h-full flex flex-col items-center justify-center gap-2">
           <p className="text-base font-semibold">My Rank</p>
           <p className="text-2xl text-[#fde047] font-jalnan">
@@ -52,11 +52,11 @@ const RankingWidget: React.FC = () => {
           </div>
         </div>
       </div>
-      <p className=" flex items-start justify-start w-full font-medium text-xs mt-2">
+      <p className=" flex items-start justify-start w-full font-medium text-xs md:text-sm mt-2 px-2 md:px-24  ">
         * Rankings are based on Star Points
       </p>
     </div>
   );
 };
 
-export default RankingWidget;
+export default MyRankingWidget;
