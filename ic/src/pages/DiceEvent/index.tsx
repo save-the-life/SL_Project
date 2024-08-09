@@ -25,6 +25,7 @@ import {
 import Attendance from '@/widgets/Attendance';
 import MyRankingWidget from '@/widgets/MyRanking/MyRankingWidget';
 import MissionWidget from '@/widgets/MissionWidget/MissionWidget';
+import { BsDice5Fill } from 'react-icons/bs';
 
 const DiceEventPage: React.FC = () => {
   const initialCharacterType: 'dog' | 'cat' = 'dog';
@@ -493,7 +494,9 @@ const DiceEventPage: React.FC = () => {
               Roll Dice
             </button>
           </div>
-          <div> &nbsp;</div>
+          <div className="flex flex-row text-white items-center justify-center gap-1 mt-6">
+            <BsDice5Fill className=" w-3 h-3" /> <p> : 1h 20m</p>{' '}
+          </div>
         </div>
         <div
           id="4"

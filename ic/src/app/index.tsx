@@ -22,6 +22,8 @@ import MissionPage from '@/pages/MissionPage';
 import RankPage from '@/pages/RankPage';
 import DiceEventLayout from './layout/DiceEventLayout';
 import MiniGame from '@/pages/MiniGame';
+import InviteFriends from '@/pages/InviteFriends';
+import Test from '@/pages/Test';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -103,6 +105,22 @@ const App: React.FC = () => {
             element={
               <DiceEventLayout>
                 <MiniGame />
+              </DiceEventLayout>
+            }
+          />
+          <Route
+            path="/invite-friends"
+            element={
+              <DiceEventLayout>
+                <InviteFriends />
+              </DiceEventLayout>
+            }
+          />
+          <Route
+            path="/test"
+            element={
+              <DiceEventLayout>
+                <Test />
               </DiceEventLayout>
             }
           />

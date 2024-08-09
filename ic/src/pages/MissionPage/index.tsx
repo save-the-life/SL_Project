@@ -22,7 +22,7 @@ const OneTimeMissionCard: React.FC<OneTimeMissionCardProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-col rounded-3xl  h-36 items-center justify-center gap-3 ${
+      className={`flex flex-col rounded-3xl  h-36 items-center justify-center gap-3  ${
         className && className
       }`}
     >
@@ -64,7 +64,7 @@ const DailyMissionCard: React.FC<DailyMissionProps> = ({
 
 const MissionPage: React.FC = () => {
   return (
-    <div className="flex flex-col text-white mx-6">
+    <div className="flex flex-col text-white mx-6 md:mx-28">
       <TopTitle title="Mission" />
       <h1 className=" font-semibold text-lg ml-[2px] mb-4">
         One - Time Mission{' '}
@@ -129,11 +129,13 @@ const MissionPage: React.FC = () => {
           image={Images.Dice3D}
         />
       </Link>{' '}
-      <DailyMissionCard
-        title="Invite Friends"
-        alt="invite-image"
-        image={Images.InviteFriend}
-      />
+      <Link to="/invite-friends">
+        <DailyMissionCard
+          title="Invite Friends"
+          alt="invite-image"
+          image={Images.InviteFriend}
+        />
+      </Link>
       <br /> <br /> <br /> <br />
       <br />
     </div>

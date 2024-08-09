@@ -56,6 +56,8 @@ import MexcLogo from './mexc-logo.png';
 import OkxLogo from './okx-logo.png';
 import TrustLogo from './trust-logo.png';
 import PrizeImage from './prizeImage.png';
+import TokenReward from './coin-reward.png';
+import Dices from './dices.png';
 
 const Images = {
   HorizontalLogo,
@@ -116,6 +118,8 @@ const Images = {
   OkxLogo,
   TrustLogo,
   PrizeImage,
+  TokenReward,
+  Dices,
 };
 
 export default Images;

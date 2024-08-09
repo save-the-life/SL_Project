@@ -17,7 +17,7 @@ const WeeklyPrize: React.FC<WeeklyPrizeProps> = ({
       <div className="absolute h-7 w-20 rounded-full border border-black bg-white flex items-center justify-center text-xs -top-4 z-20 font-medium box-border left-14 md:left-36 inset-2">
         {week}
       </div>
-      <img src={Images.SLSymbol} alt="token logo" className=" h-14 mt-2" />
+      <img src={Images.PrizeImage} alt="token logo" className=" h-14 mt-2" />
       <div className="flex flex-col items-center">
         <p className=" font-semibold text-base">{prizeName}</p>
         <p className=" text-xs font-normal">{prizeValue}</p>

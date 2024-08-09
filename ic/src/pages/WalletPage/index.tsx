@@ -78,7 +78,7 @@ const WalletPage: React.FC = () => {
   const WalletCard: React.FC<WalletCardProps> = ({ text, imgSrc }) => {
     return (
       <button
-        className="flex flex-row items-center gap-2 border-2 border-[#142964] h-16 rounded-3xl pl-5 mx-6"
+        className="flex flex-row items-center gap-2 border-2 border-[#142964] h-16 rounded-3xl pl-5 mx-6 md:mx-28"
         onClick={handleOpen}
       >
         <img src={imgSrc} className="w-6 h-6" alt={`${text} logo`} />
@@ -98,8 +98,6 @@ const WalletPage: React.FC = () => {
         <WalletCard text="HTX" imgSrc={Images.HtxLogo} />
         <WalletCard text="KUCOIN" imgSrc={Images.KucoinLogo} />
         <WalletCard text="MEXC" imgSrc={Images.MexcLogo} />
-        <WalletCard text="TRUST WALLET" imgSrc={Images.TrustLogo} />
-        <WalletCard text="1INCH" imgSrc={Images.OneInchLogo} />
       </div>
       <AlertDialog open={open}>
         <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">

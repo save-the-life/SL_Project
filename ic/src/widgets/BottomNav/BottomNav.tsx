@@ -16,7 +16,7 @@ const BottomNavigation: React.FC = () => {
   return (
     <div
       id="bottomNav"
-      className="fixed bottom-8 self-center rounded-full flex flex-row items-center justify-evenly bottomNav-bg h-16 w-80 font-medium text-[10px] bg-white shadow-lg z-50"
+      className="fixed bottom-8 self-center rounded-full flex flex-row items-center justify-evenly bottomNav-bg h-16 w-80 font-medium text-[10px] bg-white shadow-lg z-10"
     >
       <Link to="/dice-event" onClick={() => handleNavigation('/dice-event')}>
         <motion.div

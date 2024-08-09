@@ -1,3 +1,4 @@
+// MiniGame.tsx
 import React, { useState, useRef } from 'react';
 import { TopTitle } from '@/shared/components/ui';
 import './MiniGame.css';
