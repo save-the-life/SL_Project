@@ -99,3 +99,5 @@ export {
   AlertDialogAction,
   AlertDialogCancel,
 } from './alert-dialog';
+
+export { Slider } from './slider';

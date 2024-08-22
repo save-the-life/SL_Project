@@ -23,7 +23,8 @@ import RankPage from '@/pages/RankPage';
 import DiceEventLayout from './layout/DiceEventLayout';
 import MiniGame from '@/pages/MiniGame';
 import InviteFriends from '@/pages/InviteFriends';
-import Test from '@/pages/Test';
+import SlotMachine from '@/pages/SlotMachine';
+import TelegramActivityCheck from '@/pages/TelegramActivityCheck';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -68,6 +69,10 @@ const App: React.FC = () => {
               </MainLayout>
             }
           /> */}
+          <Route
+            path="/telegramActivityCheck"
+            element={<TelegramActivityCheck />}
+          />
           <Route
             path="/wallet"
             element={
@@ -120,7 +125,7 @@ const App: React.FC = () => {
             path="/test"
             element={
               <DiceEventLayout>
-                <Test />
+                <SlotMachine />
               </DiceEventLayout>
             }
           />
