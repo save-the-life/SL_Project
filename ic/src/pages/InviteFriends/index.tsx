@@ -35,27 +35,24 @@ const InviteFriends: React.FC = () => {
         <p className="text-sm text-green-500 mt-2">{copySuccess}</p>
       )}
       <div className="invite-reward-box w-[342px] md:w-[500px] h-72 rounded-3xl flex flex-col items-center justify-center mt-9 gap-4">
-        <div className="flex flex-row items-center gap-12">
+        <div className="flex flex-row items-center gap-4">
           <div className="flex flex-col items-center gap-2 justify-center">
             <img src={Images.Dices} alt="dice" className="h-11" />
             <p className="font-medium text-sm">5 Dice</p>
           </div>
+          <p className="text-[40px]">+</p>
           <div className="flex flex-col items-center gap-2 justify-center">
             <img src={Images.Star} alt="star" className="h-11" />
             <p className="font-medium text-sm">3000 P</p>
           </div>
-          <div className="flex flex-col items-center gap-2 justify-center">
-            <img src={Images.TokenReward} alt="token-reward" className="h-11" />
-            <p className="font-medium text-sm">1500 SL</p>
-          </div>
         </div>
-        <p className="text-sm text-center">
+        <p className="text-sm ">
           You can receive an{' '}
           <span className="text-2xl font-semibold">additional 10%</span> <br />
-          of your invited friend's reward balance in coins
+          of your invited friend's reward.
         </p>
         <button className="h-14 w-[302px] rounded-full bg-[#21212f]">
-          Invite Friends and Earn SL
+          Invite Friends and Get Reward
         </button>
       </div>
       <div className="flex flex-col mt-8 w-full gap-3">
