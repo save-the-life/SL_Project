@@ -7,7 +7,7 @@ import {
   AlertDialogTitle,
 } from '@/shared/components/ui';
 import React, { useState } from 'react';
-import { HiX } from 'react-icons/hi';
+import { HiOutlineCheck, HiX } from 'react-icons/hi';
 import './WalletPage.css';
 import { AiFillQuestionCircle } from 'react-icons/ai';
 
@@ -23,10 +23,40 @@ interface WalletCardProps {
   imgSrc: string;
 }
 
+interface TruncateMiddleProps {
+  text: string;
+  maxLength: number;
+  className?: string;
+}
+
+const TruncateMiddle: React.FC<TruncateMiddleProps> = ({
+  text,
+  maxLength,
+  className,
+}) => {
+  const truncateMiddle = (str: string, maxLen: number): string => {
+    if (str.length <= maxLen) return str;
+
+    const charsToShow = maxLen - 3; // 3 characters for "..."
+    const frontChars = Math.ceil(charsToShow / 2);
+    const backChars = Math.floor(charsToShow / 2);
+
+    return (
+      str.substr(0, frontChars) + '...' + str.substr(str.length - backChars)
+    );
+  };
+
+  const truncatedText = truncateMiddle(text, maxLength);
+
+  return <div className={`font-semibold ${className}`}>{truncatedText}</div>;
+};
+
 const WalletPage: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [walletInputOpen, setWalletInputOpen] = useState(false);
   const [tipOpen, setTipOpen] = useState(false);
+  const [walletConnectSuccessOpen, setWalletConnectSuccessOpen] =
+    useState(false);
   const [address, setAddress] = useState('');
   const [selectedWallet, setSelectedWallet] = useState<SelectedWallet>({
     wallet: '', // 초기값을 null로 설정
@@ -75,6 +105,15 @@ const WalletPage: React.FC = () => {
     setTipOpen(false);
   };
 
+  const handleWalletConnectSuccessOpen = () => {
+    handleWalletInputClose();
+    setWalletConnectSuccessOpen(true);
+  };
+
+  const handleWalletConnectSuccessClose = () => {
+    setWalletConnectSuccessOpen(false);
+  };
+
   const WalletCard: React.FC<WalletCardProps> = ({ text, imgSrc }) => {
     return (
       <button
@@ -90,7 +129,8 @@ const WalletPage: React.FC = () => {
   return (
     <div className="flex flex-col text-white mb-32">
       <TopTitle title="Wallet" />
-      <div className="flex flex-col gap-3">
+      {/* *월렛이 선택되어있지 않은 경우 */}
+      {/* <div className="flex flex-col gap-3">
         <WalletCard text="ICP" imgSrc={Images.IcpLogo} />
         <WalletCard text="BINANCE" imgSrc={Images.BinanceLogo} />
         <WalletCard text="OKX" imgSrc={Images.OkxLogo} />
@@ -183,6 +223,7 @@ const WalletPage: React.FC = () => {
                   address === '' ? 'opacity-40' : ''
                 }`}
                 disabled={address === ''}
+                onClick={handleWalletConnectSuccessOpen}
               >
                 Next
               </button>
@@ -233,6 +274,85 @@ const WalletPage: React.FC = () => {
           </div>
         </AlertDialogContent>
       </AlertDialog>
+
+      <AlertDialog open={walletConnectSuccessOpen}>
+        <AlertDialogContent className=" rounded-3xl bg-[#21212F] text-white border-none">
+          <AlertDialogHeader>
+            <AlertDialogTitle className=" text-center font-bold text-xl">
+              <div className="flex flex-row items-center justify-between">
+                <div> &nbsp;</div>
+                <p>ICP Wallet</p>
+                <HiX
+                  className={'w-6 h-6 '}
+                  onClick={handleWalletConnectSuccessClose}
+                />
+              </div>
+            </AlertDialogTitle>
+          </AlertDialogHeader>
+          <div className=" flex flex-col items-center justify-center w-full h-full gap-3 pt-8">
+            <p className=" text-xl font-semibold">Wallet Connected!</p>
+            <p className="text-[#a3a3a3] text-center">
+              My wallet(
+              <span className="text-white">
+                <TruncateMiddle
+                  text={address}
+                  maxLength={20}
+                  className="inline font-medium"
+                />
+              </span>
+              ) has been successfully connected.
+            </p>
+            <button
+              className="bg-[#0147e5] rounded-3xl  h-14 w-full font-medium mt-[200px]"
+              onClick={handleWalletConnectSuccessClose}
+            >
+              Done
+            </button>
+          </div>
+        </AlertDialogContent>
+      </AlertDialog> */}
+
+      {/* *기본 월렛이 설정이 되어 있는 경우 */}
+      <div className=" mx-6">
+        <h2 className=" text-lg font-semibold">Wallet Selection</h2>
+        <p className="text-[#a3a3a3] text-sm">
+          Please select a defualt wallet or add a new wallet.
+        </p>
+        <div className=" mt-12">
+          <div className="h-[345px] space-y-2 overflow-y-scroll">
+            <div className="flex flex-row rounded-2xl px-5 justify-between items-center h-16 border-2 bg-[#1f1e27] border-[#737373] box-border">
+              <div className="flex flex-row items-center gap-3  ">
+                <img src={Images.IcpLogo} className="w-6 h-6" alt="ICP logo" />
+                <div className="flex flex-col text-sm">
+                  {' '}
+                  <p className="text-[#a3a3a3]">ICP</p>
+                  <TruncateMiddle
+                    text={'0xaec93f4a5casdasdasdasdasd8885'}
+                    maxLength={20}
+                  />
+                </div>
+              </div>
+              <button className="flex flex-row gap-1 rounded-full bg-[#0147e5] h-7 w-16 items-center justify-center text-xs font-medium">
+                Main <HiOutlineCheck className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+          <div className="flex flex-col gap-3 font-medium">
+            {' '}
+            <button className="flex flex-row rounded-3xl  h-14 border-2 border-[#142964] box-border  w-full items-center justify-center ">
+              Connect a new wallet
+            </button>
+            <div className="flex flex-row gap-3">
+              <button className="bg-[#0147E5] rounded-3xl h-14 w-2/3">
+                Set as default wallet
+              </button>
+              <button className="border-2 border-[#dd2726] text-[#dd2726] rounded-3xl h-14 w-1/3 box-border">
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
