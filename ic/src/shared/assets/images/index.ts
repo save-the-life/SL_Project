@@ -58,6 +58,12 @@ import TrustLogo from './trust-logo.png';
 import PrizeImage from './prizeImage.png';
 import TokenReward from './coin-reward.png';
 import Dices from './dices.png';
+import BGRPSGame from './bg-rpsgame.png';
+import BGSpinGame from './bg-spingame.png';
+import Spin from './spin.png';
+import SpinPin from './spin-pin.png';
+import SpinExample from './spin-example.png';
+import LosingTicket from './losing-ticket.png';
 
 const Images = {
   HorizontalLogo,
@@ -120,6 +126,12 @@ const Images = {
   PrizeImage,
   TokenReward,
   Dices,
+  BGRPSGame,
+  BGSpinGame,
+  Spin,
+  SpinPin,
+  SpinExample,
+  LosingTicket,
 };
 
 export default Images;

@@ -26,6 +26,8 @@ import Attendance from '@/widgets/Attendance';
 import MyRankingWidget from '@/widgets/MyRanking/MyRankingWidget';
 import MissionWidget from '@/widgets/MissionWidget/MissionWidget';
 import { BsDice5Fill } from 'react-icons/bs';
+import RPSGame from '../RPSGame';
+import SpinGame from '../SpinGame';
 
 const DiceEventPage: React.FC = () => {
   const initialCharacterType: 'dog' | 'cat' = 'dog';
@@ -168,8 +170,9 @@ const DiceEventPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center md:h-screen    bg-[#0D1226] relative">
-      <div className="w-full flex justify-center mb-4 mt-8 gap-4">
+    <div className="flex flex-col items-center md:h-screen bg-[#0D1226] relative">
+      <SpinGame />
+      {/* <div className="w-full flex justify-center mb-4 mt-8 gap-4">
         <UserLevel
           userLv={userLv}
           charactorImageSrc={charactorImageSrc}
@@ -877,7 +880,7 @@ const DiceEventPage: React.FC = () => {
         initialY={initialY}
         delta={delta}
       />
-      <div className=" hidden md:block md:mb-40"> &nbsp;</div>
+      <div className=" hidden md:block md:mb-40"> &nbsp;</div> */}
     </div>
   );
 };

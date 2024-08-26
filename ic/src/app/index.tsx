@@ -26,6 +26,8 @@ import InviteFriends from '@/pages/InviteFriends';
 import SlotMachine from '@/pages/SlotMachine';
 import TelegramActivityCheck from '@/pages/TelegramActivityCheck';
 import SelectCharacter from '@/pages/SelectCharacter';
+import RPSGame from '@/pages/RPSGame';
+import SpinGame from '@/pages/SpinGame';
 
 const App: React.FC = () => {
   React.useEffect(() => {
@@ -62,6 +64,7 @@ const App: React.FC = () => {
               </MainLayout>
             }
           />
+
           {/* <Route
             path="/wallet"
             element={
@@ -91,6 +94,7 @@ const App: React.FC = () => {
               </DiceEventLayout>
             }
           />
+
           <Route
             path="/mission"
             element={
