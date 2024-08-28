@@ -101,3 +101,10 @@ export {
 } from './alert-dialog';
 
 export { Slider } from './slider';
+
+export {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipProvider,
+} from './tooltip';

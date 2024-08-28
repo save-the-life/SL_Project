@@ -64,6 +64,17 @@ import Spin from './spin.png';
 import SpinPin from './spin-pin.png';
 import SpinExample from './spin-example.png';
 import LosingTicket from './losing-ticket.png';
+import RPSGameExample from './RPSGame-example.png';
+import RPSGame from './RPSGame.png';
+import Rock from './rock.png';
+import Scissors from './scissors.png';
+import Paper from './paper.png';
+import SlotRock from './slot-rock.png';
+import SlotScissors from './slot-scissors.png';
+import SlotPaper from './slot-paper.png';
+import RockButton from './rock-button.png';
+import ScissorsButton from './scissors-button.png';
+import PaperButton from './paper-button.png';
 
 const Images = {
   HorizontalLogo,
@@ -132,6 +143,17 @@ const Images = {
   SpinPin,
   SpinExample,
   LosingTicket,
+  RPSGameExample,
+  RPSGame,
+  Rock,
+  Scissors,
+  Paper,
+  SlotRock,
+  SlotScissors,
+  SlotPaper,
+  RockButton,
+  ScissorsButton,
+  PaperButton,
 };
 
 export default Images;
