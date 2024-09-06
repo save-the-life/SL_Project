@@ -75,6 +75,9 @@ import SlotPaper from './slot-paper.png';
 import RockButton from './rock-button.png';
 import ScissorsButton from './scissors-button.png';
 import PaperButton from './paper-button.png';
+import RPSResultBG from './bg-RPS-result.png';
+import Victory from './victory.png';
+import Defeat from './defeat.png';
 
 const Images = {
   HorizontalLogo,
@@ -154,6 +157,9 @@ const Images = {
   RockButton,
   ScissorsButton,
   PaperButton,
+  RPSResultBG,
+  Victory,
+  Defeat,
 };
 
 export default Images;
