@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Images from '@/shared/assets/images';
 import { motion } from 'framer-motion';
 import { formatNumber } from '@/shared/utils/formatNumber';
 import RPSResultDialog from './ui/RPSResultDialog';
 import RPSGameStart from './ui/RPSGameStart';
 import { useRPSGameStore } from './store';
-
-const rpsImages = [Images.Rock, Images.Scissors, Images.Paper];
 
 const RPSGame: React.FC = () => {
   const {
@@ -19,6 +17,7 @@ const RPSGame: React.FC = () => {
     currentRound,
     gameResult,
     userPoints,
+    consecutiveWins,
     setBetAmount,
     startGame,
     spin,
@@ -35,18 +34,10 @@ const RPSGame: React.FC = () => {
     spin();
 
     // Simulate the spinning effect
-    const spinDuration = 2000; // 2 seconds
-    const intervalDuration = 100; // Update every 100ms
-    let elapsedTime = 0;
-
-    const spinInterval = setInterval(() => {
-      elapsedTime += intervalDuration;
-      if (elapsedTime >= spinDuration) {
-        clearInterval(spinInterval);
-        stopSpin(choice);
-        checkResult();
-      }
-    }, intervalDuration);
+    setTimeout(() => {
+      stopSpin('rock');
+      checkResult();
+    }, 2000);
   };
 
   const handleGameStart = (amount: number) => {
@@ -92,47 +83,63 @@ const RPSGame: React.FC = () => {
               alt="RPSGame"
               className="w-[353px] h-[481px]"
             />
-            <div
-              id="First-RPS"
-              className="absolute bottom-[211px] left-8 gap-2 flex flex-row items-center justify-center pl-1 w-[87px] overflow-y-hidden h-[80px] transform"
-            >
-              <motion.div
-                className="flex flex-col items-center justify-center h-full"
-                initial={{ y: 0 }}
-                animate={{ y: isSpinning ? ['-100%', '0%'] : '0%' }}
-                transition={{
-                  duration: isSpinning ? 0.1 : 0.5,
-                  ease: 'linear',
-                  repeat: isSpinning ? Infinity : 0,
+            {[
+              { id: 'First-RPS', left: '32px' },
+              { id: 'Second-RPS', left: '120px' },
+              { id: 'Third-RPS', left: '210px' },
+            ].map((slot, index) => (
+              <div
+                key={slot.id}
+                style={{
+                  left: slot.left,
+                  position: 'absolute',
+                  bottom: '211px',
                 }}
+                className="gap-2 flex flex-row items-center justify-center pl-1 w-[87px] overflow-y-hidden h-[80px] transform"
               >
-                {rpsImages.map((slot, index) => (
-                  <div
-                    key={index}
-                    className="slot-item text-5xl flex items-center justify-center"
-                    style={{ height: '100%', width: '100%' }}
-                  >
-                    <img
-                      src={slot}
-                      alt={`slot-${index}`}
-                      className="h-[70px] min-w-[50px] self-center"
-                    />
-                  </div>
-                ))}
-              </motion.div>
-            </div>
-            <div
-              id="second-RPS"
-              className="absolute bottom-[211px] left-[120px] gap-2 flex flex-row items-center justify-center pl-1 w-[87px] overflow-y-hidden h-[80px] transform"
-            >
-              {/* Similar motion.div as above */}
-            </div>
-            <div
-              id="third-RPS"
-              className="absolute bottom-[211px] left-[210px] gap-2 flex flex-row items-center justify-center pl-1 w-[87px] overflow-y-hidden h-[80px] transform"
-            >
-              {/* Similar motion.div as above */}
-            </div>
+                <motion.div
+                  className="flex flex-col items-center justify-center h-full"
+                  initial={{ y: 0 }}
+                  animate={{
+                    y:
+                      isSpinning && index === currentRound - 1
+                        ? ['-100%', '0%']
+                        : '0%',
+                  }}
+                  transition={{
+                    duration:
+                      isSpinning && index === currentRound - 1 ? 0.1 : 0.5,
+                    ease: 'linear',
+                    repeat:
+                      isSpinning && index === currentRound - 1 ? Infinity : 0,
+                  }}
+                >
+                  {slotResults[index] ? (
+                    <div
+                      className="slot-item text-5xl flex items-center justify-center"
+                      style={{ height: '100%', width: '100%' }}
+                    >
+                      <img
+                        src={Images.Rock}
+                        alt={`slot-${index}`}
+                        className="h-[70px] min-w-[50px] self-center"
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      className="slot-item text-5xl flex items-center justify-center"
+                      style={{ height: '100%', width: '100%' }}
+                    >
+                      <img
+                        src={Images.Scissors}
+                        alt={`slot-${index}`}
+                        className="h-[70px] min-w-[50px] self-center"
+                      />
+                    </div>
+                  )}
+                </motion.div>
+              </div>
+            ))}
             <div className="absolute bottom-20 left-5 gap-2 flex flex-row items-center justify-around w-[230px] px-8 transform">
               <img
                 src={Images.RockButton}
@@ -163,6 +170,7 @@ const RPSGame: React.FC = () => {
         winnings={betAmount * winMultiplier}
         onContinue={handleContinue}
         onQuit={handleQuit}
+        consecutiveWins={currentRound - 1}
       />
     </div>
   );

@@ -52,56 +52,31 @@ export const useRPSGameStore = create<RPSGameState>((set, get) => ({
   stopSpin: (result: string) =>
     set((state) => ({
       isSpinning: false,
-      slotResults: [...state.slotResults, result],
+      slotResults: [...state.slotResults, 'rock'], // Always set to 'rock'
     })),
 
   checkResult: () => {
-    const { slotResults, currentRound, totalRounds, betAmount, userPoints } =
-      get();
-    const playerChoice = slotResults[currentRound - 1];
-    const computerChoice = ['rock', 'paper', 'scissors'][
-      Math.floor(Math.random() * 3)
-    ];
+    const { currentRound, totalRounds, betAmount, userPoints } = get();
 
-    let roundResult;
-    if (playerChoice === computerChoice) roundResult = 'draw';
-    else if (
-      (playerChoice === 'rock' && computerChoice === 'scissors') ||
-      (playerChoice === 'paper' && computerChoice === 'rock') ||
-      (playerChoice === 'scissors' && computerChoice === 'paper')
-    ) {
-      roundResult = 'win';
-    } else {
-      roundResult = 'lose';
+    // Always win because player's choice is always 'rock' and computer's choice is always 'scissors'
+    set((state) => ({
+      winMultiplier: state.winMultiplier * 2,
+      userPoints: userPoints + betAmount * state.winMultiplier,
+      gameResult: 'win',
+      isDialogOpen: true,
+      currentRound:
+        currentRound < totalRounds ? currentRound + 1 : currentRound,
+    }));
+
+    if (currentRound === totalRounds) {
+      set({ isGameStarted: false });
     }
-
-    if (roundResult === 'win') {
-      if (currentRound === totalRounds) {
-        set((state) => ({
-          gameResult: 'win',
-          winMultiplier: state.winMultiplier * 2,
-          userPoints: userPoints + betAmount * state.winMultiplier * 2,
-        }));
-      } else {
-        set((state) => ({ currentRound: state.currentRound + 1 }));
-      }
-    } else if (roundResult === 'lose') {
-      set({
-        gameResult: 'lose',
-        userPoints: userPoints - betAmount,
-      });
-    }
-
-    set({ isDialogOpen: true });
   },
 
   continueGame: () =>
     set((state) => ({
-      currentRound: 1,
-      slotResults: [],
-      winMultiplier: state.winMultiplier * 2,
-      gameResult: null,
       isDialogOpen: false,
+      gameResult: null,
     })),
 
   endGame: () =>

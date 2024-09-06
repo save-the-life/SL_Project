@@ -2,13 +2,24 @@ import React from 'react';
 import { AlertDialog, AlertDialogContent } from '@/shared/components/ui';
 import Images from '@/shared/assets/images';
 
-interface ResultProps {
+interface ResultWinProps {
   winnings: number;
   onContinue: () => void;
   onQuit: () => void;
+  consecutiveWins: number;
 }
 
-const ResultWin: React.FC<ResultProps> = ({ winnings, onContinue, onQuit }) => {
+interface ResultLoseProps {
+  winnings: number;
+  onQuit: () => void;
+}
+
+const ResultWin: React.FC<ResultWinProps> = ({
+  winnings,
+  onContinue,
+  onQuit,
+  consecutiveWins,
+}) => {
   return (
     <div>
       <img
@@ -23,37 +34,47 @@ const ResultWin: React.FC<ResultProps> = ({ winnings, onContinue, onQuit }) => {
           </p>
           <img src={Images.Star} className="w-9 h-9" />
         </div>
-        <div className="font-jalnan text-[30px]">
-          <div className="flex flex-col justify-center items-center">
-            Continue with <br />
-            <div className="flex flex-row items-center justify-center">
-              <div className="flex flex-row items-center justify-center font-semibold font-pretendard text-base w-12 h-8 bg-[#21212F] rounded-full">
-                <p>x2</p>
+        {consecutiveWins >= 3 ? (
+          <div className="font-jalnan text-[30px] text-center">
+            Congratulations!
+            <br />
+            You've won 3 times in a row!
+          </div>
+        ) : (
+          <div className="font-jalnan text-[30px]">
+            <div className="flex flex-col justify-center items-center">
+              Continue with <br />
+              <div className="flex flex-row items-center justify-center">
+                <div className="flex flex-row items-center justify-center font-semibold font-pretendard text-base w-12 h-8 bg-[#21212F] rounded-full">
+                  <p>x2</p>
+                </div>
+                ?
               </div>
-              ?
             </div>
           </div>
-        </div>
+        )}
         <div className="flex flex-row gap-2">
           <button
             className="rounded-full h-14 w-32 bg-gray-200 text-[#171717] font-medium"
             onClick={onQuit}
           >
-            Stop
+            {consecutiveWins >= 3 ? 'Finish' : 'Stop'}
           </button>
-          <button
-            className="rounded-full h-14 w-32 bg-[#21212f] text-white font-medium"
-            onClick={onContinue}
-          >
-            Continue
-          </button>
+          {consecutiveWins < 3 && (
+            <button
+              className="rounded-full h-14 w-32 bg-[#21212f] text-white font-medium"
+              onClick={onContinue}
+            >
+              Continue
+            </button>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
-const ResultLose: React.FC<ResultProps> = ({ winnings, onQuit }) => {
+const ResultLose: React.FC<ResultLoseProps> = ({ winnings, onQuit }) => {
   return (
     <div>
       <img
@@ -94,6 +115,7 @@ interface RPSResultDialogProps {
   winnings: number;
   onContinue: () => void;
   onQuit: () => void;
+  consecutiveWins: number;
 }
 
 const RPSResultDialog: React.FC<RPSResultDialogProps> = ({
@@ -103,6 +125,7 @@ const RPSResultDialog: React.FC<RPSResultDialogProps> = ({
   winnings,
   onContinue,
   onQuit,
+  consecutiveWins,
 }) => {
   return (
     <AlertDialog open={isOpen}>
@@ -119,13 +142,10 @@ const RPSResultDialog: React.FC<RPSResultDialogProps> = ({
             winnings={winnings}
             onContinue={onContinue}
             onQuit={onQuit}
+            consecutiveWins={consecutiveWins}
           />
         ) : (
-          <ResultLose
-            winnings={winnings}
-            onContinue={onContinue}
-            onQuit={onQuit}
-          />
+          <ResultLose winnings={winnings} onQuit={onQuit} />
         )}
       </AlertDialogContent>
     </AlertDialog>
