@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Images from '@/shared/assets/images';
 import { motion } from 'framer-motion';
 import { formatNumber } from '@/shared/utils/formatNumber';
 import RPSResultDialog from './ui/RPSResultDialog';
 import RPSGameStart from './ui/RPSGameStart';
 import { useRPSGameStore } from './store';
+
+const rpsImages = {
+  rock: Images.Rock,
+  paper: Images.Paper,
+  scissors: Images.Scissors,
+};
 
 const RPSGame: React.FC = () => {
   const {
@@ -33,7 +39,6 @@ const RPSGame: React.FC = () => {
 
     spin();
 
-    // Simulate the spinning effect
     setTimeout(() => {
       stopSpin('rock');
       checkResult();
@@ -46,12 +51,24 @@ const RPSGame: React.FC = () => {
   };
 
   const handleContinue = () => {
-    continueGame();
+    if (consecutiveWins > 3) {
+      endGame();
+    } else {
+      continueGame();
+    }
   };
 
   const handleQuit = () => {
     endGame();
   };
+
+  useEffect(() => {
+    if (consecutiveWins > 3) {
+      setTimeout(() => {
+        endGame();
+      }, 0);
+    }
+  }, [consecutiveWins, endGame]);
 
   return (
     <div
@@ -120,7 +137,11 @@ const RPSGame: React.FC = () => {
                       style={{ height: '100%', width: '100%' }}
                     >
                       <img
-                        src={Images.Rock}
+                        src={
+                          rpsImages[
+                            slotResults[index] as keyof typeof rpsImages
+                          ]
+                        }
                         alt={`slot-${index}`}
                         className="h-[70px] min-w-[50px] self-center"
                       />
@@ -170,7 +191,7 @@ const RPSGame: React.FC = () => {
         winnings={betAmount * winMultiplier}
         onContinue={handleContinue}
         onQuit={handleQuit}
-        consecutiveWins={currentRound - 1}
+        consecutiveWins={consecutiveWins}
       />
     </div>
   );

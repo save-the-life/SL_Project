@@ -20,6 +20,8 @@ const ResultWin: React.FC<ResultWinProps> = ({
   onQuit,
   consecutiveWins,
 }) => {
+  const isFinalWin = consecutiveWins === 3;
+
   return (
     <div>
       <img
@@ -34,11 +36,11 @@ const ResultWin: React.FC<ResultWinProps> = ({
           </p>
           <img src={Images.Star} className="w-9 h-9" />
         </div>
-        {consecutiveWins >= 3 ? (
-          <div className="font-jalnan text-[30px] text-center">
+        {isFinalWin ? (
+          <div className="font-jalnan text-[24px] text-center">
             Congratulations!
             <br />
-            You've won 3 times in a row!
+            You've won 8x your bet!
           </div>
         ) : (
           <div className="font-jalnan text-[30px]">
@@ -46,7 +48,7 @@ const ResultWin: React.FC<ResultWinProps> = ({
               Continue with <br />
               <div className="flex flex-row items-center justify-center">
                 <div className="flex flex-row items-center justify-center font-semibold font-pretendard text-base w-12 h-8 bg-[#21212F] rounded-full">
-                  <p>x2</p>
+                  <p>x{Math.pow(2, consecutiveWins + 1)}</p>
                 </div>
                 ?
               </div>
@@ -54,19 +56,28 @@ const ResultWin: React.FC<ResultWinProps> = ({
           </div>
         )}
         <div className="flex flex-row gap-2">
-          <button
-            className="rounded-full h-14 w-32 bg-gray-200 text-[#171717] font-medium"
-            onClick={onQuit}
-          >
-            {consecutiveWins >= 3 ? 'Finish' : 'Stop'}
-          </button>
-          {consecutiveWins < 3 && (
+          {isFinalWin ? (
             <button
-              className="rounded-full h-14 w-32 bg-[#21212f] text-white font-medium"
-              onClick={onContinue}
+              className="rounded-full h-14 w-[270px] bg-[#21212f] text-white font-medium"
+              onClick={onQuit}
             >
-              Continue
+              Finish
             </button>
+          ) : (
+            <>
+              <button
+                className="rounded-full h-14 w-32 bg-gray-200 text-[#171717] font-medium"
+                onClick={onQuit}
+              >
+                Stop
+              </button>
+              <button
+                className="rounded-full h-14 w-32 bg-[#21212f] text-white font-medium"
+                onClick={onContinue}
+              >
+                Continue
+              </button>
+            </>
           )}
         </div>
       </div>

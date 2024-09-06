@@ -11,6 +11,7 @@ interface RPSGameState {
   isDialogOpen: boolean;
   gameResult: 'win' | 'lose' | null;
   userPoints: number;
+  consecutiveWins: number;
 
   setBetAmount: (amount: number) => void;
   setUserPoints: (points: number) => void;
@@ -35,6 +36,7 @@ export const useRPSGameStore = create<RPSGameState>((set, get) => ({
   isDialogOpen: false,
   gameResult: null,
   userPoints: 10000,
+  consecutiveWins: 0, // 초기값을 0으로 설정
 
   setBetAmount: (amount: number) => set({ betAmount: amount }),
   setUserPoints: (points: number) => set({ userPoints: points }),
@@ -45,6 +47,7 @@ export const useRPSGameStore = create<RPSGameState>((set, get) => ({
       currentRound: 1,
       slotResults: [],
       winMultiplier: 1,
+      consecutiveWins: 0, // 게임 시작 시 0으로 초기화
     }),
 
   spin: () => set({ isSpinning: true }),
@@ -56,7 +59,13 @@ export const useRPSGameStore = create<RPSGameState>((set, get) => ({
     })),
 
   checkResult: () => {
-    const { currentRound, totalRounds, betAmount, userPoints } = get();
+    const {
+      currentRound,
+      totalRounds,
+      betAmount,
+      userPoints,
+      consecutiveWins,
+    } = get();
 
     // Always win because player's choice is always 'rock' and computer's choice is always 'scissors'
     set((state) => ({
@@ -66,11 +75,8 @@ export const useRPSGameStore = create<RPSGameState>((set, get) => ({
       isDialogOpen: true,
       currentRound:
         currentRound < totalRounds ? currentRound + 1 : currentRound,
+      consecutiveWins: consecutiveWins + 1,
     }));
-
-    if (currentRound === totalRounds) {
-      set({ isGameStarted: false });
-    }
   },
 
   continueGame: () =>
@@ -88,6 +94,7 @@ export const useRPSGameStore = create<RPSGameState>((set, get) => ({
       winMultiplier: 1,
       gameResult: null,
       isDialogOpen: false,
+      consecutiveWins: 0, // 게임 종료 시 0으로 초기화
     }),
 
   openDialog: () => set({ isDialogOpen: true }),

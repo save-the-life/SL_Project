@@ -18,7 +18,10 @@ const RPSGameStart: React.FC<RPSGameStartProps> = ({ onStart, userPoints }) => {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    if (/^\d*$/.test(value) && parseInt(value) <= userPoints) {
+    if (
+      value === '' ||
+      (/^\d+$/.test(value) && parseInt(value) <= userPoints)
+    ) {
       setBetAmount(value);
     }
   };
@@ -105,7 +108,7 @@ const RPSGameStart: React.FC<RPSGameStartProps> = ({ onStart, userPoints }) => {
         </div>
         <input
           placeholder="How many stars would you like to bet?"
-          type="number"
+          type="text"
           value={betAmount}
           onChange={handleInputChange}
           className="border-2 border-[#21212f] rounded-2xl h-12 text-sm font-medium px-4 mt-4 w-[342px]"
