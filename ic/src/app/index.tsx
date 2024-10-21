@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
 import HomePage from '../pages/HomePage';
 import Images from '../pages/Images';
-import Wallet from '../pages/Wallet';
+// import Wallet from '../pages/Wallet';
 import Profile from '../pages/Profile';
 import SelectHospital from '../pages/SelectHospital';
 import ImageList from '../pages/ImageList';
