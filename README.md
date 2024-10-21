@@ -1,1 +1,1 @@
-Repertoire for the SL Project Hackathon.
+Repertoire for the SL Project.
