@@ -16,19 +16,6 @@ import TransferCompleted from '../pages/TransferCompleted';
 import ReferralManagement from '../pages/ReferralManagement';
 import InstallPrompt from './components/InstallPrompt';
 import StepCounter from '@/pages/StepCounter';
-import DiceEvent from '@/pages/DiceEvent';
-import WalletPage from '@/pages/WalletPage';
-import MissionPage from '@/pages/MissionPage';
-import RankPage from '@/pages/RankPage';
-import DiceEventLayout from './layout/DiceEventLayout';
-import MiniGame from '@/pages/MiniGame';
-import InviteFriends from '@/pages/InviteFriends';
-import SlotMachine from '@/pages/SlotMachine';
-import TelegramActivityCheck from '@/pages/TelegramActivityCheck';
-import SelectCharacter from '@/pages/SelectCharacter';
-import RPSGame from '@/pages/RPSGame';
-import SpinGame from '@/pages/SpinGame';
-
 const App: React.FC = () => {
   React.useEffect(() => {
     const preventContextMenu = (e: { preventDefault: () => void }) => {
@@ -45,7 +32,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div>
-        {/* <InstallPrompt /> */}
+        <InstallPrompt />
         <Routes>
           <Route
             path="/"
@@ -73,68 +60,7 @@ const App: React.FC = () => {
               </MainLayout>
             }
           /> */}
-          <Route
-            path="/telegramActivityCheck"
-            element={<TelegramActivityCheck />}
-          />
-          <Route path="/selectCharacter" element={<SelectCharacter />} />
-          <Route
-            path="/wallet"
-            element={
-              <DiceEventLayout>
-                <WalletPage />
-              </DiceEventLayout>
-            }
-          />
-          <Route
-            path="/dice-event"
-            element={
-              <DiceEventLayout>
-                <DiceEvent />
-              </DiceEventLayout>
-            }
-          />
 
-          <Route
-            path="/mission"
-            element={
-              <DiceEventLayout>
-                <MissionPage />
-              </DiceEventLayout>
-            }
-          />
-          <Route
-            path="/rank"
-            element={
-              <DiceEventLayout>
-                <RankPage />
-              </DiceEventLayout>
-            }
-          />
-          <Route
-            path="/mini-game"
-            element={
-              <DiceEventLayout>
-                <MiniGame />
-              </DiceEventLayout>
-            }
-          />
-          <Route
-            path="/invite-friends"
-            element={
-              <DiceEventLayout>
-                <InviteFriends />
-              </DiceEventLayout>
-            }
-          />
-          <Route
-            path="/test"
-            element={
-              <DiceEventLayout>
-                <SlotMachine />
-              </DiceEventLayout>
-            }
-          />
           <Route
             path="/profile"
             element={
