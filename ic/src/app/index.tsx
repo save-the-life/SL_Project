@@ -32,7 +32,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <div>
-        <InstallPrompt />
+        {/* <InstallPrompt /> */}
         <Routes>
           <Route
             path="/"
