@@ -1,29 +1,31 @@
-import React from "react";
-import { IoChevronForwardOutline } from "react-icons/io5";
-import { Card } from "@/shared/components/ui";
-import Typography from "@/shared/components/typography";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { IoChevronForwardOutline } from 'react-icons/io5';
+import { Card } from '@/shared/components/ui';
+import Typography from '@/shared/components/typography';
+import { useNavigate } from 'react-router-dom';
+import Images from '@/shared/assets/images';
+import { Skeleton } from '@/components/ui/skeleton';
 
 const diagnoses = [
   {
     id: 1,
-    type: "Chest X-ray",
-    date: "May 15, 2024",
-    hospital: "A Hospital",
-    diagnosisCompany: "Company A",
-    predictedDiagnosis: "Pneumonia",
+    type: 'Chest X-ray',
+    date: 'May 15, 2024',
+    hospital: 'A Hospital',
+    diagnosisCompany: 'Company A',
+    predictedDiagnosis: 'Pneumonia',
     imageUrl:
-      "https://images.unsplash.com/photo-1616012480717-fd9867059ca0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D",
+      'https://images.unsplash.com/photo-1616012480717-fd9867059ca0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDJ8fHxlbnwwfHx8fHw%3D',
   },
   {
     id: 2,
-    type: "Teeth X-ray",
-    date: "April 15, 2024",
-    hospital: "B Hospital",
-    diagnosisCompany: "Company B",
-    predictedDiagnosis: "Cavity",
+    type: 'Teeth X-ray',
+    date: 'April 15, 2024',
+    hospital: 'B Hospital',
+    diagnosisCompany: 'Company B',
+    predictedDiagnosis: 'Cavity',
     imageUrl:
-      "https://images.unsplash.com/photo-1522849696084-818b29dfe210?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      'https://images.unsplash.com/photo-1522849696084-818b29dfe210?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
   },
 ];
 
@@ -31,7 +33,7 @@ const RecentDiagnosis: React.FC = () => {
   const navigate = useNavigate();
 
   const handleViewAllClick = () => {
-    navigate("/images", { state: { fromHome: true } });
+    navigate('/images', { state: { fromHome: true } });
   };
 
   const handleCardClick = (id: number) => {
@@ -49,7 +51,7 @@ const RecentDiagnosis: React.FC = () => {
           View All <IoChevronForwardOutline className="ml-1" />
         </Typography.Muted>
       </div>
-
+      {/* 
       <div className="mt-2 space-y-2">
         {diagnoses.map((diagnosis, index) => (
           <Card
@@ -94,6 +96,16 @@ const RecentDiagnosis: React.FC = () => {
             <IoChevronForwardOutline className="w-6 h-6 md:w-8 md:h-8" />
           </Card>
         ))}
+      </div> */}
+      <div className="flex flex-col items-center justify-center  bg-white rounded-2xl p-8 gap-4">
+        <div>
+          {/* <Skeleton className="w-28 h-28" /> */}
+          <img src={Images.NoData} className="w-28 h-28" loading="lazy" />
+        </div>
+        <Typography.Muted className="text-center">
+          No hospitals are connected
+          <br /> for data integration
+        </Typography.Muted>
       </div>
     </div>
   );

@@ -23,6 +23,7 @@ import OkxLogo from './okx-logo.png';
 import TrustLogo from './trust-logo.png';
 import PrizeImage from './prizeImage.png';
 import TokenReward from './coin-reward.png';
+import NoData from './noData.png';
 
 const Images = {
   HorizontalLogo,
@@ -50,6 +51,7 @@ const Images = {
   TrustLogo,
   PrizeImage,
   TokenReward,
+  NoData,
 };
 
 export default Images;

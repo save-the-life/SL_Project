@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   Button,
@@ -13,35 +13,35 @@ import {
   DrawerTitle,
   DrawerDescription,
   DrawerFooter,
-} from "@/shared/components/ui";
-import Typography from "@/shared/components/typography";
-import { BiBell, BiTransferAlt } from "react-icons/bi";
-import ICP from "@/shared/assets/icp.ico";
+} from '@/shared/components/ui';
+import Typography from '@/shared/components/typography';
+import { BiBell, BiTransferAlt } from 'react-icons/bi';
+import ICP from '@/shared/assets/icp.ico';
 import {
   IoChevronDownOutline,
   IoArrowUpOutline,
   IoArrowDownOutline,
   IoCopyOutline,
-} from "react-icons/io5";
-import QRCode from "react-qr-code";
-import { IoChevronForwardOutline } from "react-icons/io5";
+} from 'react-icons/io5';
+import QRCode from 'react-qr-code';
+import { IoChevronForwardOutline } from 'react-icons/io5';
 
 const transactions = [
   {
-    type: "Sent",
-    amount: "0.5 SL",
-    date: "June 11, 2024",
-    status: "Failed",
-    address: "0x1234abcd5678efgh9012",
-    direction: "out",
+    type: 'Sent',
+    amount: '0.5 SL',
+    date: 'June 11, 2024',
+    status: 'Failed',
+    address: '0x1234abcd5678efgh9012',
+    direction: 'out',
   },
   {
-    type: "Received",
-    amount: "0.5 SL",
-    date: "June 11, 2024",
-    status: "Succeeded",
-    address: "0x1234abcd5678efgh9012",
-    direction: "in",
+    type: 'Received',
+    amount: '0.5 SL',
+    date: 'June 11, 2024',
+    status: 'Succeeded',
+    address: '0x1234abcd5678efgh9012',
+    direction: 'in',
   },
 ];
 
@@ -55,11 +55,11 @@ const Wallet: React.FC = () => {
   };
 
   const handleSendClick = () => {
-    navigate("/send-token");
+    navigate('/send-token');
   };
 
   const handleCopyClick = () => {
-    navigator.clipboard.writeText("0x1234abcd5678efgh9012").then(() => {
+    navigator.clipboard.writeText('0x1234abcd5678efgh9012').then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -170,7 +170,7 @@ const Wallet: React.FC = () => {
             <Typography.H4>Transaction</Typography.H4>
             <Typography.Muted
               className="cursor-pointer"
-              onClick={() => navigate("/transactions")}
+              onClick={() => navigate('/transactions')}
             >
               <div className="flex flex-row gap-1 items-center font-medium">
                 View All <IoChevronForwardOutline />
@@ -190,16 +190,16 @@ const Wallet: React.FC = () => {
                       <div className="flex flex-row items-center">
                         <div
                           className={`rounded-full bg-opacity-10 w-10 h-10 flex justify-center items-center min-w-10 min-h-10 ${
-                            transaction.direction === "in"
-                              ? "bg-blue-700"
-                              : "bg-red-600"
+                            transaction.direction === 'in'
+                              ? 'bg-blue-700'
+                              : 'bg-red-600'
                           }`}
                         >
                           <IoArrowDownOutline
                             className={`w-6 h-6 ${
-                              transaction.type === "Sent"
-                                ? "rotate-180 text-red-600"
-                                : "text-blue-700"
+                              transaction.type === 'Sent'
+                                ? 'rotate-180 text-red-600'
+                                : 'text-blue-700'
                             }`}
                           />
                         </div>
@@ -210,12 +210,12 @@ const Wallet: React.FC = () => {
                             </Typography.Large>
                             <Typography.Large
                               className={
-                                transaction.direction === "in"
-                                  ? "text-blue-700"
-                                  : "text-red-600"
+                                transaction.direction === 'in'
+                                  ? 'text-blue-700'
+                                  : 'text-red-600'
                               }
                             >
-                              {transaction.direction === "in" ? "+" : "-"}{" "}
+                              {transaction.direction === 'in' ? '+' : '-'}{' '}
                               {transaction.amount}
                             </Typography.Large>
                           </div>

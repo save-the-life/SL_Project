@@ -4,12 +4,13 @@ import NotificationCarousel from '@/widgets/NotificationCarousel';
 import TokenBalance from '@/widgets/TokenBalance';
 import ReceiveMedicalImagesButton from '@/widgets/ReceiveMedicalImagesButton';
 import RecentDiagnosis from '@/widgets/RecentDiagnosis';
+import IntergratingHospital from '@/pages/IntergratingHospital';
 
 const HomePage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleGetMedicalImaging = () => {
-    navigate('/select-hospital');
+    navigate('/intergrating-hospital');
   };
 
   return (

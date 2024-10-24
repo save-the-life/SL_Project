@@ -1,7 +1,5 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchBar from '@/widgets/SearchBar';
-import HospitalList from '@/widgets/HospitalList';
 import PageHeader from '@/widgets/PageHeader';
 import Images from '@/shared/assets/images';
 
@@ -18,7 +16,7 @@ const hospitals = [
   },
 ];
 
-const SelectHospital: React.FC = () => {
+const IntergratingHospital: React.FC = () => {
   const navigate = useNavigate();
 
   const handleHospitalClick = () => {
@@ -27,11 +25,9 @@ const SelectHospital: React.FC = () => {
 
   return (
     <div className="p-4 space-y-6">
-      <PageHeader title="Choose a hospital" />
-      <SearchBar placeholder="Search for a hospital..." />
-      <HospitalList hospitals={hospitals} onClick={handleHospitalClick} />
+      <PageHeader title="QR Code Scan" />
     </div>
   );
 };
 
-export default SelectHospital;
+export default IntergratingHospital;
