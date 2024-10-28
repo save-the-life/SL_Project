@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '@/widgets/PageHeader';
 import Images from '@/shared/assets/images';
+import { Scanner } from '@yudiel/react-qr-scanner';
 
 const hospitals = [
   {
@@ -26,6 +27,10 @@ const IntergratingHospital: React.FC = () => {
   return (
     <div className="p-4 space-y-6">
       <PageHeader title="QR Code Scan" />
+      <Scanner
+        onScan={(result) => console.log(result)}
+        onError={(e) => console.log(e)}
+      />
     </div>
   );
 };

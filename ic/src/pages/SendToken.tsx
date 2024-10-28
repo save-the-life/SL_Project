@@ -1,15 +1,14 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { Button, Input } from "@/shared/components/ui";
-import Typography from "@/shared/components/typography";
-import { IoChevronForwardOutline } from "react-icons/io5";
-import PageHeader from "@/widgets/PageHeader";
-import { AiOutlineScan } from "react-icons/ai";
-import QrScanner from "react-qr-scanner";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Button, Input } from '@/shared/components/ui';
+import Typography from '@/shared/components/typography';
+import { IoChevronForwardOutline } from 'react-icons/io5';
+import PageHeader from '@/widgets/PageHeader';
+import { AiOutlineScan } from 'react-icons/ai';
 
 const SendToken: React.FC = () => {
   const [showScanner, setShowScanner] = useState(false);
-  const [address, setAddress] = useState<string>("");
+  const [address, setAddress] = useState<string>('');
   const navigate = useNavigate();
 
   const handleScan = (data: any) => {
@@ -24,7 +23,7 @@ const SendToken: React.FC = () => {
   };
 
   const constraints = {
-    video: { facingMode: "environment" }, // Rear-facing camera
+    video: { facingMode: 'environment' }, // Rear-facing camera
   };
 
   return (
@@ -51,13 +50,6 @@ const SendToken: React.FC = () => {
       </div>
       {showScanner && (
         <div className="mt-4 flex flex-col">
-          <QrScanner
-            delay={300}
-            onError={handleError}
-            onScan={handleScan}
-            style={{ width: "100%", borderRadius: "30px" }}
-            constraints={constraints}
-          />
           <Button
             className="mt-2 w-24 self-end"
             onClick={() => setShowScanner(false)}
@@ -69,7 +61,7 @@ const SendToken: React.FC = () => {
 
       <Button
         className="w-full flex flex-row justify-between rounded-full h-14"
-        onClick={() => navigate("/enter-amount", { state: { address } })}
+        onClick={() => navigate('/enter-amount', { state: { address } })}
         disabled={!address}
       >
         <div> </div>
