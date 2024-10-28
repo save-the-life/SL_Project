@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import PageHeader from '@/widgets/PageHeader';
 import Images from '@/shared/assets/images';
 import { Scanner } from '@yudiel/react-qr-scanner';
+import Loading from '@/shared/components/ui/loading';
 
 const hospitals = [
   {
@@ -25,12 +26,13 @@ const IntergratingHospital: React.FC = () => {
   };
 
   return (
-    <div className="p-4 space-y-6">
+    <div className="p-4 h-full">
       <PageHeader title="QR Code Scan" />
-      <Scanner
+      {/* <Scanner
         onScan={(result) => console.log(result)}
         onError={(e) => console.log(e)}
-      />
+      /> */}
+      <Loading text={'Syncing Data'} />
     </div>
   );
 };
